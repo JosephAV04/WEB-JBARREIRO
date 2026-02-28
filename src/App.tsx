@@ -38,6 +38,29 @@ const productsData = [
   { id: 'xib-400mg-50', name: 'XIB 400MG X 50 CAPSULAS', description: 'Celecoxib 400mg. Dosis reforzada para el tratamiento de procesos inflamatorios agudos y severos.', price: '$3,500.00' },
 ];
 
+//CLOUDINARY
+const IMAGE_MAP: Record<string, string> = {
+  'barre-itis-5': 'barre-itis-5',
+  'barre-pm-100': 'BARRE PM X100',
+  'blindada-1': 'BLINDADA',
+  'clp-30': 'CLP',
+  'dic-b-10': 'DIC-B X10',
+  'flexi-move-100': 'FLEXI-MOVE',
+  'hematocri-suspension': 'HEMATOCRI SUSPENSION',
+  'hematocri-100': 'HEMATOCRI',
+  'ibone-oferta': 'IBONE',
+  'levobacter-500-20': 'LEVOBACTER 500MG',
+  'levobacter-750-20': 'LEVOBACTER 750MG',
+  'lumdocer-30': 'LUMDOCER',
+  'taladro-50': 'TALADRO',
+  'taldro-5mg-30': 'TALDRO 5mg',
+  'melocox2-100': 'MELOCOX2 X100',
+  'xib-p-10': 'XIB P',
+  'xib-p-50': 'XIB P',
+  'xib-200mg-50': 'XIB 200mg',
+  'xib-400mg-50': 'XIB 400mg x50'  
+};
+
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -106,6 +129,7 @@ function BottomNavLink({ to, icon, label }: { to: string; icon: React.ReactNode;
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   const isActive = (path: string) => {
@@ -116,87 +140,101 @@ function Navbar() {
 
   const closeMenu = () => setIsMobileMenuOpen(false);
 
+  // Efecto para reducir sutilmente el header al hacer scroll
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="bg-primary shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 md:h-20">
-          <Link to="/" className="flex items-center h-full cursor-pointer" onClick={closeMenu}>
-            <div className="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm">
+    <header className={`bg-primary sticky top-0 z-50 transition-all duration-500 border-b border-primary-dark/20 ${scrolled ? 'shadow-xl' : ''}`}>
+      {/* Contenedor sin márgenes laterales (fluido) */}
+      <div className="w-full pl-0 pr-4 sm:pr-6 lg:pr-12">
+        <div className={`flex justify-between items-stretch transition-all duration-500 ${scrolled ? 'h-16 md:h-20' : 'h-20 md:h-28'}`}>
+          
+          {/* SECCIÓN DEL LOGOTIPO */}
+          <Link to="/" className="relative flex items-center h-full cursor-pointer group" onClick={closeMenu}>
+            {/* Fondo blanco absoluto expandido para eliminar la línea verde de subpíxeles */}
+            <motion.div 
+              className="absolute -top-[2px] -bottom-[2px] -left-[20px] right-0 bg-white shadow-[10px_0_30px_rgba(0,0,0,0.15)] transition-all duration-500 group-hover:-right-[16px]"
+              style={{
+                clipPath: "polygon(0 0, 100% 0, calc(100% - 25px) 100%, 0% 100%)" // Corte diagonal derecho
+              }}
+            />
+            {/* Contenedor de la imagen por encima del fondo blanco */}
+            <div className="relative z-10 px-6 sm:px-10 md:px-14 h-full flex items-center justify-center">
               <img 
-                src="https://res.cloudinary.com/dplv27v27/image/upload/v1740159359/jbarreiro_logo.png" 
+                src={logoEmpresa} 
                 alt="J. Barreiro Logo" 
-                className="h-8 md:h-10 w-auto object-contain"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                  (e.target as HTMLImageElement).parentElement!.innerHTML += '<span class="font-bold text-primary italic text-xl">J. Barreiro</span>';
-                }}
+                className="h-[60%] sm:h-[70%] w-auto object-contain transition-transform duration-500 group-hover:scale-105"
               />
             </div>
           </Link>
           
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex space-x-1 h-full">
+          {/* Navegación de Escritorio */}
+          <nav className="hidden md:flex space-x-2 h-full items-center">
             <Link 
               to="/" 
-              className={`px-8 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-4 ${isActive('/') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/90 hover:border-white hover:bg-white/5 hover:text-white'}`}
+              className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}
             >
               Inicio
             </Link>
             <Link 
               to="/productos" 
-              className={`px-8 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-4 ${isActive('/productos') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/90 hover:border-white hover:bg-white/5 hover:text-white'}`}
+              className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/productos') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}
             >
               Productos
             </Link>
             <Link 
               to="/contacto" 
-              className={`px-8 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-4 ${isActive('/contacto') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/90 hover:border-white hover:bg-white/5 hover:text-white'}`}
+              className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/contacto') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}
             >
               Contacto
             </Link>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          {/* Botón de Menú Móvil */}
+          <div className="md:hidden flex items-center h-full">
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-white hover:bg-white/10 p-2 rounded-full transition-colors focus:outline-none"
+              className="text-white hover:bg-white/10 p-3 rounded-2xl transition-colors focus:outline-none"
               aria-label="Menu"
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Menú Móvil */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="md:hidden bg-primary border-t border-white/10 overflow-hidden shadow-xl"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-[#188031] border-t border-white/10 overflow-hidden shadow-2xl"
           >
-            <div className="px-4 pt-2 pb-6 space-y-1 flex flex-col">
+            <div className="px-4 py-6 space-y-2 flex flex-col">
               <Link 
                 to="/" 
                 onClick={closeMenu} 
-                className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${isActive('/') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}`}
+                className={`block px-6 py-4 rounded-2xl text-lg font-bold transition-colors ${isActive('/') ? 'bg-white text-primary' : 'text-white hover:bg-white/10'}`}
               >
                 Inicio
               </Link>
               <Link 
                 to="/productos" 
                 onClick={closeMenu} 
-                className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${isActive('/productos') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}`}
+                className={`block px-6 py-4 rounded-2xl text-lg font-bold transition-colors ${isActive('/productos') ? 'bg-white text-primary' : 'text-white hover:bg-white/10'}`}
               >
                 Productos
               </Link>
               <Link 
                 to="/contacto" 
                 onClick={closeMenu} 
-                className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${isActive('/contacto') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}`}
+                className={`block px-6 py-4 rounded-2xl text-lg font-bold transition-colors ${isActive('/contacto') ? 'bg-white text-primary' : 'text-white hover:bg-white/10'}`}
               >
                 Contacto
               </Link>
@@ -211,9 +249,9 @@ function Navbar() {
 function Footer() {
   return (
     <footer className="bg-[#0B1C10] text-white relative overflow-hidden pt-24 pb-12 mt-auto">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>
+      {/* Elementos decorativos del fondo */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent z-0"></div>
+      <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none z-0"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
@@ -261,7 +299,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
           <div className="flex space-x-4">
             <a href="https://www.instagram.com/jbarreiroco/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all">
               <Instagram size={18} />
@@ -275,18 +313,20 @@ function Footer() {
           </div>
           
           <p className="text-gray-500 text-sm font-light">
-            &copy; {new Date().getFullYear()} J. Barreiro & CO. S.R.L. Todos los derechos reservados.
+            © {new Date().getFullYear()} J. Barreiro & CO. S.R.L. Todos los derechos reservados.
           </p>
           
           <div className="hidden md:block">
             <span className="text-primary/50 text-xs uppercase tracking-[0.3em] font-bold">Salud • Confianza • Calidad</span>
           </div>
         </div>
-        
-        {/* Massive watermark text */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none select-none flex justify-center opacity-[0.02]">
-          <span className="text-[12vw] font-black whitespace-nowrap leading-none text-white">J. BARREIRO</span>
-        </div>
+      </div>
+      
+      {/* Massive watermark text (Separado y corregido para evitar cortes) */}
+      <div className="absolute bottom-0 left-0 w-full pointer-events-none select-none flex justify-center opacity-[0.03] z-0 pb-2">
+        <span className="text-[12vw] font-black whitespace-nowrap text-white">
+          J. BARREIRO
+        </span>
       </div>
     </footer>
   );
@@ -297,7 +337,7 @@ function HomeView() {
   const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
   
   const featuredProducts = useMemo(() => {
-    const selectedIds = ['melocox2-10', 'levobacter-750-20', 'ibone-oferta', 'taladro-50', 'clp-30'];
+    const selectedIds = ['melocox2-100', 'levobacter-750-20', 'ibone-oferta', 'taladro-50', 'clp-30'];
     return selectedIds.map(id => productsData.find(p => p.id === id)).filter(Boolean) as typeof productsData;
   }, []);
 
@@ -319,22 +359,22 @@ function HomeView() {
       <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gray-50">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-           <motion.div 
-             animate={{ 
-               rotate: 360,
-               scale: [1, 1.1, 1],
-             }}
-             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-             className="absolute -top-[20%] -right-[10%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-primary/10 to-transparent blur-3xl"
-           />
-           <motion.div 
-             animate={{ 
-               rotate: -360,
-               scale: [1, 1.2, 1],
-             }}
-             transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-             className="absolute -bottom-[20%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-emerald-400/10 to-transparent blur-3xl"
-           />
+          <motion.div 
+            animate={{ 
+              rotate: 360,
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute -top-[20%] -right-[10%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-primary/10 to-transparent blur-3xl"
+          />
+          <motion.div 
+            animate={{ 
+              rotate: -360,
+              scale: [1, 1.2, 1],
+            }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            className="absolute -bottom-[20%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-emerald-400/10 to-transparent blur-3xl"
+          />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
@@ -345,9 +385,7 @@ function HomeView() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <span className="inline-block px-4 py-1.5 rounded-full bg-white text-primary font-bold text-sm uppercase tracking-widest mb-6 shadow-sm border border-gray-100">
-                Innovación Farmacéutica
-              </span>
+
               <h1 className="text-6xl md:text-8xl font-extrabold text-gray-900 leading-[0.95] mb-8 tracking-tighter">
                 Salud y <span className="text-primary italic">Confianza</span> en cada dosis.
               </h1>
@@ -439,10 +477,21 @@ function HomeView() {
                 <div className="lg:col-span-3 bg-gray-50 rounded-[3rem] overflow-hidden shadow-2xl border border-gray-100 flex flex-col md:flex-row group">
                   <div className="md:w-1/2 bg-white flex items-center justify-center p-12 relative overflow-hidden">
                     <div className="absolute inset-0 bg-primary/5 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
-                    <div className="w-full aspect-square bg-gray-50 rounded-[2rem] shadow-inner flex items-center justify-center relative z-10 group-hover:scale-105 transition-transform duration-500">
-                      <Pill size={100} className="text-primary/30" />
+                      <div className="w-full aspect-square bg-white rounded-[2rem] shadow-inner flex items-center justify-center relative z-10 group-hover:scale-105 transition-transform duration-500 overflow-hidden p-4">
+                        {/* Imagen de Cloudinary */}
+                        <img 
+                          src={getCloudinaryUrl(featuredProducts[activeFeaturedIndex].id)} 
+                          alt={featuredProducts[activeFeaturedIndex].name}
+                          className="max-w-full max-h-full object-contain relative z-10"
+                          loading="eager" // Cargamos de inmediato por ser la sección principal
+                          onError={(e) => {
+                            e.currentTarget.style.opacity = '0';
+                          }}
+                        />
+                        {/* Icono de respaldo */}
+                        <Pill size={100} className="text-gray-100 absolute z-0 opacity-40" />
+                      </div>
                     </div>
-                  </div>
                   <div className="md:w-1/2 p-12 flex flex-col justify-center bg-gray-50">
                     <span className="text-primary font-bold text-sm uppercase tracking-widest mb-4">Destacado</span>
                     <h3 className="text-4xl font-extrabold text-gray-900 mb-6 leading-tight">{featuredProducts[activeFeaturedIndex].name}</h3>
@@ -589,7 +638,6 @@ function ChainLogo({ name }: { name: string }) {
           <img 
             src={logoUrl} 
             alt={name} 
-            /* Se eliminó grayscale y opacity-60. Mantenemos mix-blend-multiply por si algún logo tiene fondo blanco. */
             className="max-h-full max-w-full object-contain transition-transform duration-500 mix-blend-multiply"
           />
         ) : (
@@ -620,6 +668,15 @@ function FeatureCard({ icon, title, desc }: { icon: React.ReactNode; title: stri
     </div>
   );
 }
+
+
+
+const getCloudinaryUrl = (productId: string) => {
+  const cloudName = 'didhygevw'; // Tu cuenta
+  const fileName = IMAGE_MAP[productId] || productId;
+  
+  return `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto,c_pad,w_600,h_600/catalogo_productos/${encodeURIComponent(fileName)}`;
+};
 
 function ProductsView() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -655,18 +712,61 @@ function ProductsView() {
           >
             Nuestros <span className="text-primary italic">Productos</span>
           </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="max-w-2xl mx-auto text-xl text-gray-500"
-          >
-            Soluciones farmacéuticas de alta eficacia, diseñadas para el bienestar de tus pacientes.
-          </motion.p>
+
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
+        {/* Panel Dinámico de Confianza B2B */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="max-w-4xl mx-auto mb-12 bg-white rounded-[2rem] p-2 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-transparent pointer-events-none" />
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100 relative z-10">
+              {/* Indicador 1: Logística */}
+              <div className="flex items-center gap-4 p-4 hover:bg-gray-50/50 transition-colors rounded-xl md:rounded-none md:rounded-l-xl cursor-default">
+                <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
+                  <Truck size={24} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Logística</p>
+                  <p className="text-sm font-bold text-gray-900">Entrega en 24/48h</p>
+                </div>
+              </div>
+
+              {/* Indicador 2: Garantía */}
+              <div className="flex items-center gap-4 p-4 hover:bg-gray-50/50 transition-colors cursor-default">
+                <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 shrink-0">
+                  <ShieldCheck size={24} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Garantía</p>
+                  <p className="text-sm font-bold text-gray-900">Lotes Certificados</p>
+                </div>
+              </div>
+
+              {/* Indicador 3: Disponibilidad */}
+              <div className="flex items-center gap-4 p-4 hover:bg-gray-50/50 transition-colors rounded-xl md:rounded-none md:rounded-r-xl cursor-default">
+                <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shrink-0 relative">
+                  {/* Punto verde animado (Ping) */}
+                  <span className="absolute -top-1 -right-1 flex h-4 w-4">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-white"></span>
+                  </span>
+                  <CheckCircle2 size={24} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Disponibilidad</p>
+                  <p className="text-sm font-bold text-gray-900">Stock Actualizado</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        
         {/* Advanced Search Bar */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -723,12 +823,25 @@ function ProductsView() {
                       <div className="bg-white rounded-[2.5rem] p-3 shadow-sm border border-gray-100 hover:shadow-[0_20px_40px_-15px_rgba(32,167,64,0.15)] hover:border-primary/20 transition-all duration-500 flex flex-col h-full group">
                         
                         {/* Image Area */}
-                        <div className="w-full h-56 bg-gradient-to-br from-gray-50 to-gray-100 rounded-[2rem] flex items-center justify-center relative overflow-hidden mb-4">
-                          <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                          <Pill className="text-gray-300 w-20 h-20 group-hover:scale-110 group-hover:text-primary/40 transition-all duration-700" />
+                        <div className="w-full h-56 bg-white rounded-[2rem] flex items-center justify-center relative overflow-hidden mb-4 p-4 shadow-inner">
+                          <img 
+                            src={getCloudinaryUrl(product.id)} 
+                            alt={product.name}
+                            loading="lazy" 
+                            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 relative z-10"
+                            onError={(e) => {
+                              // Fallback: Si no hay imagen, ocultamos la etiqueta para que se vea el Pill de fondo
+                              e.currentTarget.style.opacity = '0';
+                            }}
+                          />
+                          
+                          {/* El Pill ahora solo se ve si la imagen falla al cargar */}
+                          <Pill className="text-gray-100 w-20 h-20 absolute z-0 opacity-50" />
+                          
+                          <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"></div>
                           
                           {/* Hover Overlay */}
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/20 backdrop-blur-[2px]">
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/20 backdrop-blur-[2px] z-30">
                             <div className="bg-white text-primary font-bold px-6 py-3 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center">
                               Ver detalles <ArrowRight size={18} className="ml-2" />
                             </div>
@@ -790,6 +903,7 @@ function ProductDetailView() {
   const product = productsData.find(p => p.id === id);
 
   if (!product) {
+    // ... (Mantén tu código de "Producto no encontrado" igual)
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Producto no encontrado</h2>
@@ -805,7 +919,6 @@ function ProductDetailView() {
     );
   }
 
-  // Extract active ingredient (assuming it's the first part of the description)
   const activeIngredient = product.description.split('.')[0];
   const restOfDescription = product.description.split('.').slice(1).join('.');
 
@@ -827,16 +940,25 @@ function ProductDetailView() {
 
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2">
-          {/* Espacio para la imagen grande del producto */}
-          <div className="bg-gray-50 h-96 md:h-auto flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-100 p-12">
-            <div className="w-full h-full border-4 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-400 bg-white">
-              <Pill size={64} className="mb-4 text-gray-300" />
-              <span className="text-sm font-medium">Imagen del Producto</span>
-              <span className="text-xs mt-1">({product.name})</span>
-            </div>
+          
+          {/* SECCIÓN DE LA IMAGEN ACTUALIZADA */}
+          <div className="bg-white h-96 md:h-auto flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-100 p-12 relative overflow-hidden">
+            {/* Imagen real desde Cloudinary */}
+            <img 
+              src={getCloudinaryUrl(product.id)} 
+              alt={product.name}
+              className="max-h-full max-w-full object-contain relative z-10 transition-transform duration-500 hover:scale-105"
+              onError={(e) => {
+                // Si la imagen falla, ocultamos el elemento para mostrar el ícono de respaldo
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+            {/* Ícono de respaldo (Pill) que se ve solo si la imagen no carga */}
+            <Pill size={120} className="text-gray-50 absolute z-0 opacity-40" />
           </div>
 
           <div className="p-10 lg:p-16 flex flex-col justify-center">
+            {/* ... (El resto de tu código de descripción, precio y botón se mantiene igual) */}
             <div className="mb-4 flex flex-wrap gap-2">
               <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary uppercase tracking-wider">
                 Comprimidos
@@ -945,17 +1067,19 @@ function ContactView() {
               color="bg-[#25D366]"
             />
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>            
             <ContactCard 
               icon={
-                <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="text-white">
-                  <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L12 9.573l8.073-6.08c1.618-1.214 3.927-.059 3.927 1.964z" />
+                /* Icono de sobre clásico tipo Gmail */
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
                 </svg>
               }
               title="Email Corporativo"
               value="jbarreiro.co@gmail.com"
               href="mailto:jbarreiro.co@gmail.com"
-              color="bg-[#EA4335]"
+              color="bg-[#EA4335]" 
             />
           </motion.div>
         </div>
