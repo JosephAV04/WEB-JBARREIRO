@@ -587,7 +587,7 @@ function HomeView() {
               <FeatureCard 
                 icon={<Truck size={40} />}
                 title="Logística Especializada"
-                desc="Distribución a nivel nacional con control de temperatura y trazabilidad completa de cada lote."
+                desc="Distribución a nivel nacional."
               />
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
@@ -1130,7 +1130,7 @@ function ContactView() {
             {/* Mapa */}
             <div className="lg:col-span-3 h-[500px] lg:h-auto min-h-[500px] relative">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.346858276709!2d-69.9885966!3d18.4718609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8ea5610000000001%3A0x6a0b9b8b8b8b8b8b!2sJ.%20Barreiro%20%26%20CO.%20S.R.L!5e0!3m2!1ses!2sdo!4v1700000000000!5m2!1ses!2sdo" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.455049393656!2d-69.7896493!3d18.508327599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf87f41177423f%3A0xa20e45aa0ee936b0!2sJ.%20Barreiro%20%26%20CO.%20S.R.L!5e0!3m2!1ses-419!2sdo!4v1772326455098!5m2!1ses-419!2sdo"                 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 
