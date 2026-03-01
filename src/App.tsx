@@ -7,7 +7,6 @@ import logoCarol from './assets/LogoCarol.png';
 import logoGBC from './assets/LogoGBC.png';
 import logoHidalgos from './assets/LogoHidalgos.png';
 import logoValue from './assets/LogoValue.png';
-import miniLogo from './assets/MiniLogo.jpg';
 
 const productsData = [
   { id: 'barre-itis-5', name: 'BARRE-ITIS X 5 capletas', description: 'Azitromicina 500 mg. Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$769.00' },
@@ -283,7 +282,7 @@ function Footer() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 uppercase tracking-wider font-bold mb-1">Línea Principal</p>
-                  <p className="text-gray-300 font-medium">809 890 8810</p>
+                  <p className="text-gray-300 font-medium">809 980 8810</p>
                 </div>
               </li>
               <li className="flex items-start">
@@ -355,71 +354,144 @@ function HomeView() {
       exit={{ opacity: 0 }}
       className="w-full bg-white"
     >
-      {/* Dynamic Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gray-50">
-        {/* Animated Background Elements */}
+      {/* Dynamic Hero Section Re-imaginada y Ajustada */}
+      <section className="relative min-h-[calc(100vh-7rem)] flex items-center overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+        {/* Animated Background Elements & Mesh Gradient */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <motion.div 
-            animate={{ 
-              rotate: 360,
-              scale: [1, 1.1, 1],
-            }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-[20%] -right-[10%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-primary/10 to-transparent blur-3xl"
+            animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="absolute -top-[30%] -right-[10%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-br from-[#188031]/10 via-[#25D366]/5 to-transparent blur-[120px]"
           />
           <motion.div 
-            animate={{ 
-              rotate: -360,
-              scale: [1, 1.2, 1],
-            }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-            className="absolute -bottom-[20%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-emerald-400/10 to-transparent blur-3xl"
+            animate={{ rotate: -360, scale: [1, 1.2, 1] }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            className="absolute -bottom-[20%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-emerald-400/10 to-transparent blur-[100px]"
           />
+          {/* Subtle Grid Pattern Overlay */}
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMCwgMCwgMCwgMC4wNSkiLz48L3N2Zz4=')] opacity-40"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-10 pb-16 lg:pt-4 lg:pb-20 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-center">
+            
+            {/* Contenido Textual Izquierdo */}
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm uppercase tracking-widest mb-6 border border-primary/20 shadow-sm"
+              >
+                <span className="flex h-2.5 w-2.5 rounded-full bg-primary mr-3 animate-pulse"></span>
+                Distribuidora Farmacéutica Líder
+              </motion.div>
 
-              <h1 className="text-6xl md:text-8xl font-extrabold text-gray-900 leading-[0.95] mb-8 tracking-tighter">
-                Salud y <span className="text-primary italic">Confianza</span> en cada dosis.
+              <h1 className="text-5xl md:text-6xl xl:text-[5.5rem] font-extrabold text-gray-900 leading-[1.05] mb-6 tracking-tighter">
+                Elevemos la <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Salud</span> en cada dosis.
               </h1>
-              <p className="text-xl text-gray-600 leading-relaxed mb-10 max-w-lg font-medium">
-                Abastecemos a las principales cadenas de farmacias con medicamentos de la más alta calidad.
+              <p className="text-lg md:text-xl xl:text-2xl text-gray-600 leading-relaxed mb-8 max-w-lg font-medium">
+                Abastecemos a las principales cadenas de farmacias con medicamentos de la más alta calidad y eficacia comprobada.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button 
                   onClick={() => navigate('/productos')}
-                  className="px-10 py-5 bg-primary text-white font-bold rounded-full hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 flex items-center justify-center group text-lg"
+                  className="px-8 py-4 bg-primary text-white font-bold rounded-full hover:bg-primary-dark transition-all shadow-[0_0_40px_-10px_rgba(24,128,49,0.5)] hover:shadow-[0_0_60px_-15px_rgba(24,128,49,0.7)] flex items-center justify-center group text-lg transform hover:-translate-y-1"
                 >
                   Explorar Catálogo
-                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={24} />
+                  <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" size={24} />
+                </button>
+                <button 
+                  onClick={() => navigate('/contacto')}
+                  className="px-8 py-4 bg-white text-gray-900 border-2 border-gray-100 font-bold rounded-full hover:border-primary/30 hover:bg-gray-50 transition-all flex items-center justify-center group text-lg"
+                >
+                  Contactar Ventas
                 </button>
               </div>
             </motion.div>
 
+            {/* Composición Visual Interactiva Derecha */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="relative hidden lg:block"
+              className="relative hidden lg:block h-[450px] xl:h-[550px]"
             >
-              <div className="relative z-10 bg-white rounded-[3rem] p-8 shadow-2xl border border-gray-100 transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                <div className="aspect-[4/5] rounded-[2rem] bg-gray-50 flex items-center justify-center overflow-hidden relative group">
-                  <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=2069&auto=format&fit=crop" alt="Laboratorio" className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent mix-blend-multiply"></div>
-                  <div className="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-white/50 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <p className="text-primary font-bold text-sm uppercase mb-1 tracking-widest">Compromiso J. Barreiro</p>
-                    <p className="text-gray-900 font-extrabold text-2xl leading-tight">Calidad Farmacéutica Superior</p>
+              {/* Tarjeta Flotante Principal (Glassmorphism) */}
+              <motion.div
+                animate={{ y: [-10, 10, -10] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[75%] aspect-[4/5] bg-white/40 backdrop-blur-xl rounded-[3rem] p-4 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-white"
+              >
+                <div className="w-full h-full rounded-[2.5rem] bg-gray-50 flex items-center justify-center overflow-hidden relative group">
+                  <img 
+                    src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=2069&auto=format&fit=crop" 
+                    alt="Laboratorio Farmacéutico" 
+                    className="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-multiply group-hover:scale-110 transition-transform duration-1000" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B1C10]/90 via-primary/30 to-transparent"></div>
+                  
+                  <div className="absolute bottom-0 left-0 right-0 p-6 xl:p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="bg-white/10 backdrop-blur-md p-5 xl:p-6 rounded-2xl border border-white/20">
+                      <p className="text-emerald-300 font-bold text-xs xl:text-sm uppercase mb-2 tracking-widest flex items-center">
+                        <ShieldCheck size={16} className="mr-2" /> Compromiso J. Barreiro
+                      </p>
+                      <p className="text-white font-extrabold text-2xl xl:text-3xl leading-tight">Calidad Farmacéutica Superior</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
+
+              {/* Elemento Flotante 1 - Top Right (Garantía) */}
+              <motion.div
+                animate={{ y: [0, -15, 0], rotate: [0, 3, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute top-8 -right-2 z-30 bg-white p-4 xl:p-5 rounded-3xl shadow-2xl border border-gray-100 flex items-center gap-4"
+              >
+                <div className="w-12 h-12 xl:w-14 xl:h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500">
+                  <ShieldCheck size={24} className="xl:w-7 xl:h-7" />
+                </div>
+                <div>
+                  <p className="text-[10px] xl:text-xs font-bold text-gray-400 uppercase tracking-wider">Garantía</p>
+                  <p className="text-base xl:text-lg font-bold text-gray-900">100% Certificado</p>
+                </div>
+              </motion.div>
+
+              {/* Elemento Flotante 2 - Center Left (Logística) - CORREGIDO */}
+              <motion.div
+                animate={{ y: [0, 15, 0], rotate: [0, -3, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="absolute top-[30%] -left-8 xl:-left-12 z-30 bg-white p-4 xl:p-5 rounded-3xl shadow-2xl border border-gray-100 flex items-center gap-4"
+              >
+                <div className="w-12 h-12 xl:w-14 xl:h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-500">
+                  <Truck size={24} className="xl:w-7 xl:h-7" />
+                </div>
+                <div>
+                  <p className="text-[10px] xl:text-xs font-bold text-gray-400 uppercase tracking-wider">Logística</p>
+                  <p className="text-base xl:text-lg font-bold text-gray-900">Entregas 24/48h</p>
+                </div>
+              </motion.div>
+
+              {/* Decoraciones Estáticas Flotantes */}
+              <motion.div
+                 animate={{ y: [-20, 20, -20], rotate: [0, 45, 0] }}
+                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                 className="absolute top-[10%] -left-4 z-10 text-primary/20 blur-[2px]"
+              >
+                <Pill size={60} className="xl:w-20 xl:h-20" />
+              </motion.div>
+
+              <motion.div
+                 animate={{ y: [20, -20, 20], rotate: [45, 0, 45] }}
+                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                 className="absolute bottom-1/4 -right-8 z-10 text-emerald-400/20 blur-[1px]"
+              >
+                <Pill size={80} className="xl:w-[100px] xl:h-[100px]" />
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -704,102 +776,180 @@ function ProductsView() {
       exit={{ opacity: 0 }}
       className="w-full bg-gray-50 min-h-screen pb-24"
     >
-      {/* Premium Header */}
-      <div className="bg-white border-b border-gray-200 pt-20 pb-32 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.h2 
+      {/* Premium Header Flotante para Productos */}
+      <div className="relative pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden bg-gradient-to-b from-white to-gray-50 border-b border-gray-100">
+        
+        {/* Elementos flotantes de fondo MEJORADOS */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          {/* Píldora Izquierda */}
+          <motion.div 
+            animate={{ y: [-20, 20, -20], x: [-10, 10, -10], rotate: [0, 45, 0] }} 
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} 
+            className="absolute top-[10%] left-[5%] text-primary/5 blur-[2px]"
+          >
+            <Pill size={140} />
+          </motion.div>
+          
+          {/* Píldora Derecha */}
+          <motion.div 
+            animate={{ y: [20, -20, 20], x: [10, -10, 10], rotate: [45, 0, 45] }} 
+            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 1 }} 
+            className="absolute bottom-[10%] right-[5%] text-emerald-400/5 blur-[2px]"
+          >
+            <Pill size={180} />
+          </motion.div>
+
+          {/* Nuevos Elementos Abstractos */}
+          <motion.div 
+            animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }} 
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }} 
+            className="absolute top-[30%] right-[20%] text-primary/5 blur-[1px]"
+          >
+            {/* Estrella médica/Cruz */}
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"/>
+            </svg>
+          </motion.div>
+
+          <motion.div 
+            animate={{ scale: [1, 1.1, 1] }} 
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }} 
+            className="absolute bottom-[40%] left-[20%] w-16 h-16 rounded-full border-4 border-emerald-400/10 blur-[1px]"
+          />
+
+          {/* Brillo central */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          {/* Título Principal CORREGIDO */}
+          <div className="text-center max-w-4xl mx-auto mb-16 relative">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-5xl md:text-6xl lg:text-[5rem] font-extrabold text-gray-900 tracking-tight"
+            >
+              Nuestros{' '}
+              {/* Solución al corte de la S: padding derecho sutil pero suficiente */}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400 italic pr-3">
+                Productos
+              </span>
+            </motion.h2>
+          </div>
+
+          {/* Tarjetas Flotantes Independientes */}
+          <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16">
+            
+            {/* Cápsula 1: Logística */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="bg-white/80 backdrop-blur-xl px-6 py-4 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white flex items-center gap-4 w-full md:w-auto cursor-default"
+            >
+              <div className="w-12 h-12 bg-[#E8F5E9] rounded-2xl flex items-center justify-center text-[#2E7D32]">
+                <Truck size={24} />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Logística</p>
+                <p className="text-sm font-bold text-gray-900">Entrega en 24/48h</p>
+              </div>
+            </motion.div>
+
+            {/* Cápsula 2: Garantía */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="bg-white/80 backdrop-blur-xl px-6 py-4 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white flex items-center gap-4 w-full md:w-auto md:-translate-y-4 cursor-default z-10"
+            >
+              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500">
+                <ShieldCheck size={24} />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Garantía</p>
+                <p className="text-sm font-bold text-gray-900">Lotes Certificados</p>
+              </div>
+            </motion.div>
+
+            {/* Cápsula 3: Disponibilidad */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="bg-white/80 backdrop-blur-xl px-6 py-4 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white flex items-center gap-4 w-full md:w-auto cursor-default"
+            >
+              <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-500 relative">
+                <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-white"></span>
+                </span>
+                <CheckCircle2 size={24} />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Disponibilidad</p>
+                <p className="text-sm font-bold text-gray-900">Stock Actualizado</p>
+              </div>
+            </motion.div>
+
+          </div>
+
+          {/* Buscador Avanzado Estilo Píldora Mejorado */}
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight"
+            transition={{ delay: 0.5 }}
+            className="max-w-4xl mx-auto w-full px-2 sm:px-0"
           >
-            Nuestros <span className="text-primary italic">Productos</span>
-          </motion.h2>
-
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
-        {/* Panel Dinámico de Confianza B2B */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="max-w-4xl mx-auto mb-12 bg-white rounded-[2rem] p-2 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-transparent pointer-events-none" />
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100 relative z-10">
-              {/* Indicador 1: Logística */}
-              <div className="flex items-center gap-4 p-4 hover:bg-gray-50/50 transition-colors rounded-xl md:rounded-none md:rounded-l-xl cursor-default">
-                <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
-                  <Truck size={24} />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Logística</p>
-                  <p className="text-sm font-bold text-gray-900">Entrega en 24/48h</p>
-                </div>
+            <div className="relative group flex items-center bg-white p-1.5 sm:p-2 rounded-full shadow-[0_8px_20px_-6px_rgba(0,0,0,0.08)] border-2 border-transparent focus-within:border-primary/40 focus-within:ring-4 focus-within:ring-primary/10 focus-within:shadow-[0_20px_50px_-12px_rgba(32,167,64,0.2)] transition-all duration-300">
+              
+              {/* Icono de Búsqueda */}
+              <div className="pl-4 sm:pl-6 pr-2 sm:pr-4 flex items-center justify-center">
+                <Search className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-gray-400 group-focus-within:text-primary transition-colors" />
               </div>
+              
+              {/* Campo de Entrada */}
+              <input
+                type="text"
+                className="block w-full py-3 sm:py-4 bg-transparent border-0 focus:ring-0 text-base sm:text-lg md:text-xl text-gray-900 font-medium placeholder-gray-400 focus:outline-none"
+                placeholder="Buscar medicamento, principio..."
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setDisplayCount(16);
+                }}
+              />
 
-              {/* Indicador 2: Garantía */}
-              <div className="flex items-center gap-4 p-4 hover:bg-gray-50/50 transition-colors cursor-default">
-                <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 shrink-0">
-                  <ShieldCheck size={24} />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Garantía</p>
-                  <p className="text-sm font-bold text-gray-900">Lotes Certificados</p>
-                </div>
-              </div>
+              {/* Botón de Limpiar Búsqueda (Aparece dinámicamente) */}
+              <AnimatePresence>
+                {searchTerm.length > 0 && (
+                  <motion.button
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    onClick={() => setSearchTerm('')}
+                    className="p-2 mr-2 sm:mr-4 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors focus:outline-none"
+                    aria-label="Limpiar búsqueda"
+                  >
+                    <X size={20} className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </motion.button>
+                )}
+              </AnimatePresence>
 
-              {/* Indicador 3: Disponibilidad */}
-              <div className="flex items-center gap-4 p-4 hover:bg-gray-50/50 transition-colors rounded-xl md:rounded-none md:rounded-r-xl cursor-default">
-                <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shrink-0 relative">
-                  {/* Punto verde animado (Ping) */}
-                  <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-white"></span>
-                  </span>
-                  <CheckCircle2 size={24} />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Disponibilidad</p>
-                  <p className="text-sm font-bold text-gray-900">Stock Actualizado</p>
-                </div>
+              {/* Botón Buscar */}
+              <div className="hidden sm:block pr-1">
+                <button 
+                  className="bg-primary text-white px-8 py-3.5 rounded-full font-bold text-lg hover:bg-primary-dark transition-all shadow-md hover:shadow-primary/30 transform hover:-translate-y-0.5 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                >
+                  Buscar
+                </button>
               </div>
             </div>
           </motion.div>
-        
-        {/* Advanced Search Bar */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="max-w-4xl mx-auto mb-20"
-        >
-          <div className="relative group flex items-center bg-white p-2 rounded-[2.5rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] border border-gray-100 hover:shadow-[0_20px_50px_-12px_rgba(32,167,64,0.15)] hover:border-primary/30 transition-all duration-500">
-            <div className="pl-6 pr-4 flex items-center justify-center">
-              <Search className="h-7 w-7 text-primary/50 group-focus-within:text-primary transition-colors" />
-            </div>
-            <input
-              type="text"
-              className="block w-full py-5 border-0 bg-transparent placeholder-gray-400 focus:outline-none focus:ring-0 text-xl text-gray-900 font-medium"
-              placeholder="Buscar medicamento, principio activo..."
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-                setDisplayCount(16);
-              }}
-            />
-            <div className="pr-2 hidden sm:block">
-              <button className="bg-primary text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-dark transition-colors shadow-md shadow-primary/20 whitespace-nowrap">
-                Buscar
-              </button>
-            </div>
-          </div>
-        </motion.div>
+        </div>
+      </div>
 
+      {/* Listado de Productos */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-16">
         {filteredProducts.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-[3rem] shadow-sm border border-gray-100">
             <Pill className="mx-auto h-16 w-16 text-gray-300 mb-4" />
@@ -834,12 +984,10 @@ function ProductsView() {
                             loading="lazy" 
                             className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 relative z-10"
                             onError={(e) => {
-                              // Fallback: Si no hay imagen, ocultamos la etiqueta para que se vea el Pill de fondo
                               e.currentTarget.style.opacity = '0';
                             }}
                           />
                           
-                          {/* El Pill ahora solo se ve si la imagen falla al cargar */}
                           <Pill className="text-gray-100 w-20 h-20 absolute z-0 opacity-50" />
                           
                           <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"></div>
@@ -1014,80 +1162,120 @@ function ContactView() {
       exit={{ opacity: 0 }}
       className="w-full bg-gray-50 min-h-screen pb-24"
     >
-      {/* Premium Header */}
-      <div className="bg-[#0B1C10] text-white pt-24 pb-32 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary via-transparent to-transparent"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>
+      {/* Premium Header Mejorado con Identidad */}
+      <div className="bg-[#0B1C10] text-white pt-28 pb-40 relative overflow-hidden">
+        {/* Patrones de fondo y degradados */}
+        <div className="absolute inset-0 z-0 opacity-30">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary/60 via-transparent to-transparent"></div>
+          {/* Patrón de puntos sutil para textura */}
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wNCkiLz48L3N2Zz4=')]"></div>
+        </div>
+        
+        {/* Formas farmacéuticas flotantes (Identidad visual) */}
+        <motion.div
+          animate={{ y: [-15, 15, -15], rotate: [0, 15, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-20 right-[10%] text-primary/20 blur-[1px] hidden md:block"
+        >
+          <Pill size={100} />
+        </motion.div>
+        <motion.div
+          animate={{ y: [15, -15, 15], rotate: [0, -15, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-10 left-[10%] text-emerald-500/10 blur-[2px] hidden md:block"
+        >
+          <ShieldCheck size={120} />
+        </motion.div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.span 
+          
+          {/* Detalle pequeño: Status de conexión */}
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-primary font-bold text-sm uppercase tracking-widest mb-6 border border-white/10 backdrop-blur-sm"
+            className="inline-flex items-center px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 shadow-lg"
           >
-            Atención Personalizada
-          </motion.span>
+            <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 mr-3 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            </span>
+            <span className="text-emerald-400 font-bold text-xs uppercase tracking-[0.15em]">Equipo de ventas en línea</span>
+          </motion.div>
+
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight"
+            className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight leading-tight"
           >
-            Hablemos de <span className="text-primary italic">Negocios</span>
+            Hablemos de <br className="md:hidden" />
+            <span className="relative inline-block mt-2 md:mt-0">
+              <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-300 italic pr-2">
+                Negocios
+              </span>
+              {/* Detalle pequeño: Subrayado curvo debajo de la palabra */}
+              <svg className="absolute w-full h-3 -bottom-1 left-0 text-primary/40 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="4" fill="transparent" strokeLinecap="round" />
+              </svg>
+            </span>
           </motion.h2>
+          
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="max-w-2xl mx-auto text-xl text-gray-400 font-light"
+            className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 font-light leading-relaxed"
           >
-            Estamos listos para abastecer tu farmacia con la mejor calidad del mercado. Nuestro equipo de ventas está a tu disposición.
+            Tu farmacia merece <strong className="text-white font-medium">calidad y abastecimiento continuo</strong>. Nuestro equipo corporativo está listo para diseñar el plan ideal para ti.
           </motion.p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z-20">
+        
         {/* Interactive Contact Hub */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-20">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             <ContactCard 
-              icon={<Phone className="text-white" size={32} />}
+              icon={<Phone className="text-white" size={26} />}
               title="Línea Principal"
-              value="809 890 8810"
-              href="tel:8098908810"
+              value="809 980 8810"
+              desc="Lunes a Viernes, 8:00 AM - 5:00 PM"
+              href="tel:8099808810"
               color="bg-primary"
             />
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
             <ContactCard 
               icon={
-                <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" className="text-white">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" className="text-white">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                 </svg>
               }
               title="Ventas Directas"
               value="809 909 2606"
+              desc="Respuesta rápida en < 1 hora"
               href="https://wa.me/18099092606"
               color="bg-[#25D366]"
             />
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>            
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>            
             <ContactCard 
               icon={
-                /* Icono de sobre clásico tipo Gmail */
-                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
               }
               title="Email Corporativo"
               value="jbarreiro.co@gmail.com"
+              desc="Cotizaciones y logística"
               href="mailto:jbarreiro.co@gmail.com"
               color="bg-[#EA4335]" 
             />
           </motion.div>
         </div>
 
+        {/* COMPONENTE DEL MAPA - SIN MODIFICAR */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -1148,19 +1336,25 @@ function ContactView() {
   );
 }
 
-function ContactCard({ icon, title, value, href, color }: { icon: React.ReactNode; title: string; value: string; href: string; color: string }) {
+function ContactCard({ icon, title, value, desc, href, color }: { icon: React.ReactNode; title: string; value: string; desc: string; href: string; color: string }) {
   return (
     <a 
       href={href} 
       target="_blank" 
       rel="noopener noreferrer"
-      className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group flex flex-col items-center text-center"
+      className="bg-white p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-[0_20px_40px_-15px_rgba(24,128,49,0.15)] hover:border-primary/30 transition-all duration-500 group flex flex-col h-full relative overflow-hidden"
     >
-      <div className={`w-16 h-16 ${color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
+      {/* Detalle Pequeño: Icono de flecha en la esquina */}
+      <div className="absolute top-6 right-6 text-gray-300 group-hover:text-primary transition-colors duration-300 transform group-hover:-translate-y-1 group-hover:translate-x-1">
+        <ArrowRight size={20} className="-rotate-45" />
+      </div>
+
+      <div className={`w-14 h-14 ${color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 shadow-md`}>
         {icon}
       </div>
-      <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">{title}</h4>
-      <p className="text-lg font-bold text-gray-900 break-all">{value}</p>
+      <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">{title}</h4>
+      <p className="text-xl lg:text-2xl font-extrabold text-gray-900 mb-2 break-all group-hover:text-primary transition-colors">{value}</p>
+      <p className="text-sm text-gray-500 mt-auto pt-5 border-t border-gray-50">{desc}</p>
     </a>
   );
 }
