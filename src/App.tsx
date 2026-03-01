@@ -48,6 +48,7 @@ const IMAGE_MAP: Record<string, string> = {
   'hematocri-suspension': 'HEMATOCRI SUSPENSION',
   'hematocri-100': 'HEMATOCRI',
   'ibone-oferta': 'IBONE',
+  'jb-prazol-50': 'JB PRAZOL X50',
   'levobacter-500-20': 'LEVOBACTER 500MG',
   'levobacter-750-20': 'LEVOBACTER 750MG',
   'lumdocer-30': 'LUMDOCER',
