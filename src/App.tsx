@@ -257,7 +257,7 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
           <div className="md:col-span-5">
             <p className="text-gray-400 text-lg leading-relaxed max-w-md font-light">
-              Distribuidora farmacéutica líder en medicamentos comprimidos. Elevando el estándar de salud en la República Dominicana.
+              Distribuidora farmacéutica experta en medicamentos comprimidos. Elevando el estándar de salud en la República Dominicana.
             </p>
           </div>
           
@@ -389,7 +389,7 @@ function HomeView() {
                 className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm uppercase tracking-widest mb-6 border border-primary/20 shadow-sm"
               >
                 <span className="flex h-2.5 w-2.5 rounded-full bg-primary mr-3 animate-pulse"></span>
-                Distribuidora Farmacéutica Líder
+                Distribuidora Farmacéutica
               </motion.div>
 
               <h1 className="text-5xl md:text-6xl xl:text-[5.5rem] font-extrabold text-gray-900 leading-[1.05] mb-6 tracking-tighter">
@@ -660,7 +660,7 @@ function HomeView() {
               <FeatureCard 
                 icon={<Truck size={40} />}
                 title="Logística Especializada"
-                desc="Distribución a nivel nacional."
+                desc="Distribución a nivel nacional con un sistema de entregas ágil y confiable para asegurar la disponibilidad de productos."
               />
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
@@ -1226,7 +1226,7 @@ function ContactView() {
             transition={{ delay: 0.2 }}
             className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 font-light leading-relaxed"
           >
-            Tu farmacia merece <strong className="text-white font-medium">calidad y abastecimiento continuo</strong>. Nuestro equipo corporativo está listo para diseñar el plan ideal para ti.
+            Tu farmacia merece <strong className="text-white font-medium">calidad y abastecimiento continuo</strong>. Nuestro equipo está listo para diseñar el plan de abastecimiento ideal para ti.
           </motion.p>
         </div>
       </div>
