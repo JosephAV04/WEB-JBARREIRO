@@ -464,67 +464,71 @@ function HomeView() {
             </button>
           </motion.div>
 
-          <div className="relative h-[550px]">
-            <AnimatePresence>
+          {/* Contenedor del Carrusel Ajustado para Móvil */}
+          <div className="relative min-h-[600px] md:min-h-[550px]">
+            <AnimatePresence mode="wait">
               <motion.div
                 key={activeFeaturedIndex}
-                initial={{ opacity: 0, x: 200 }}
+                initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -200 }}
-                transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
                 className="absolute inset-0 grid grid-cols-1 lg:grid-cols-5 gap-8"
               >
-                <div className="lg:col-span-3 bg-gray-50 rounded-[3rem] overflow-hidden shadow-2xl border border-gray-100 flex flex-col md:flex-row group">
-                  <div className="md:w-1/2 bg-white flex items-center justify-center p-12 relative overflow-hidden">
+                {/* Tarjeta Principal del Producto */}
+                <div className="lg:col-span-3 bg-gray-50 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-gray-100 flex flex-col md:flex-row group h-full">
+                  
+                  {/* Área de Imagen: Cuadrada en móvil, mitad del ancho en desktop */}
+                  <div className="w-full md:w-1/2 bg-white flex items-center justify-center p-8 md:p-12 relative overflow-hidden aspect-square md:aspect-auto">
                     <div className="absolute inset-0 bg-primary/5 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
-                      <div className="w-full aspect-square bg-white rounded-[2rem] shadow-inner flex items-center justify-center relative z-10 group-hover:scale-105 transition-transform duration-500 overflow-hidden p-4">
-                        {/* Imagen de Cloudinary */}
+                      <div className="w-full h-full bg-white rounded-[1.5rem] md:rounded-[2rem] shadow-inner flex items-center justify-center relative z-10 group-hover:scale-105 transition-transform duration-500 overflow-hidden p-4">
                         <img 
                           src={getCloudinaryUrl(featuredProducts[activeFeaturedIndex].id)} 
                           alt={featuredProducts[activeFeaturedIndex].name}
                           className="max-w-full max-h-full object-contain relative z-10"
-                          loading="eager" // Cargamos de inmediato por ser la sección principal
+                          loading="eager"
                           onError={(e) => {
                             e.currentTarget.style.opacity = '0';
                           }}
                         />
-                        {/* Icono de respaldo */}
-                        <Pill size={100} className="text-gray-100 absolute z-0 opacity-40" />
+                        <Pill size={80} className="text-gray-100 absolute z-0 opacity-40 md:w-[100px] md:h-[100px]" />
                       </div>
                     </div>
-                  <div className="md:w-1/2 p-12 flex flex-col justify-center bg-gray-50">
-                    <span className="text-primary font-bold text-sm uppercase tracking-widest mb-4">Destacado</span>
-                    <h3 className="text-4xl font-extrabold text-gray-900 mb-6 leading-tight">{featuredProducts[activeFeaturedIndex].name}</h3>
-                    <p className="text-gray-500 text-xl mb-10 line-clamp-4 font-light">{featuredProducts[activeFeaturedIndex].description}</p>
-                    <div className="mt-auto flex items-center justify-between">
-                      <span className="text-4xl font-black text-primary">{featuredProducts[activeFeaturedIndex].price}</span>
+                  
+                  {/* Área de Texto: Ajuste de padding y tipografía para móvil */}
+                  <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-gray-50">
+                    <span className="text-primary font-bold text-xs md:text-sm uppercase tracking-widest mb-3 md:mb-4 block">Destacado</span>
+                    <h3 className="text-2xl md:text-4xl font-extrabold text-gray-900 mb-4 md:mb-6 leading-tight line-clamp-2 md:line-clamp-none">{featuredProducts[activeFeaturedIndex].name}</h3>
+                    <p className="text-gray-500 text-base md:text-xl mb-6 md:mb-10 line-clamp-3 md:line-clamp-4 font-light">{featuredProducts[activeFeaturedIndex].description}</p>
+                    <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-200 md:border-none md:pt-0">
+                      <span className="text-2xl md:text-4xl font-black text-primary">{featuredProducts[activeFeaturedIndex].price}</span>
                       <Link 
                         to={`/productos/${featuredProducts[activeFeaturedIndex].id}`}
-                        className="p-5 bg-white text-primary rounded-2xl hover:bg-primary hover:text-white transition-all shadow-md"
+                        className="p-3 md:p-5 bg-white text-primary rounded-xl md:rounded-2xl hover:bg-primary hover:text-white transition-all shadow-md"
                       >
-                        <ArrowRight size={28} />
+                        <ArrowRight size={24} className="md:w-7 md:h-7" />
                       </Link>
                     </div>
                   </div>
                 </div>
                 
-                {/* Next preview on desktop */}
+                {/* Previsualización del Siguiente Producto (Oculto en móvil) */}
                 <div className="hidden lg:flex lg:col-span-2 bg-gray-50 rounded-[3rem] border border-gray-200 p-12 flex-col justify-center opacity-80 hover:opacity-100 transition-opacity cursor-pointer" onClick={() => setActiveFeaturedIndex((activeFeaturedIndex + 1) % featuredProducts.length)}>
                   <p className="text-gray-400 font-bold text-sm uppercase mb-6 tracking-widest">Siguiente Producto</p>
-                  <h4 className="text-3xl font-bold text-gray-400 mb-4">{featuredProducts[(activeFeaturedIndex + 1) % featuredProducts.length].name}</h4>
+                  <h4 className="text-3xl font-bold text-gray-400 mb-4 line-clamp-3">{featuredProducts[(activeFeaturedIndex + 1) % featuredProducts.length].name}</h4>
                   <div className="w-16 h-1 bg-gray-200 rounded-full mt-4"></div>
                 </div>
               </motion.div>
             </AnimatePresence>
             
-            {/* Carousel Indicators */}
-            <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex space-x-4">
+            {/* Indicadores del Carrusel (Ajustados para no solaparse) */}
+            <div className="absolute -bottom-12 md:-bottom-16 left-1/2 -translate-x-1/2 flex space-x-3 md:space-x-4">
               {featuredProducts.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveFeaturedIndex(idx)}
-                  className={`h-3 rounded-full transition-all duration-500 ${idx === activeFeaturedIndex ? 'w-16 bg-primary' : 'w-4 bg-gray-200 hover:bg-gray-300'}`}
-                  aria-label={`Go to slide ${idx + 1}`}
+                  className={`h-2.5 md:h-3 rounded-full transition-all duration-500 ${idx === activeFeaturedIndex ? 'w-10 md:w-16 bg-primary' : 'w-2.5 md:w-4 bg-gray-200 hover:bg-gray-300'}`}
+                  aria-label={`Ir a la diapositiva ${idx + 1}`}
                 />
               ))}
             </div>
