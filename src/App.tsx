@@ -214,7 +214,7 @@ function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#188031] border-t border-white/10 overflow-hidden shadow-2xl"
+            className="md:hidden bg-primary border-t border-white/10 overflow-hidden shadow-2xl"
           >
             <div className="px-4 py-6 space-y-2 flex flex-col">
               <Link 
@@ -573,8 +573,8 @@ function HomeView() {
                     <span className="text-primary font-bold text-xs md:text-sm uppercase tracking-widest mb-3 md:mb-4 block">Destacado</span>
                     <h3 className="text-2xl md:text-4xl font-extrabold text-gray-900 mb-4 md:mb-6 leading-tight line-clamp-2 md:line-clamp-none">{featuredProducts[activeFeaturedIndex].name}</h3>
                     <p className="text-gray-500 text-base md:text-xl mb-6 md:mb-10 line-clamp-3 md:line-clamp-4 font-light">{featuredProducts[activeFeaturedIndex].description}</p>
-                    <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-200 md:border-none md:pt-0">
-                      <span className="text-2xl md:text-4xl font-black text-primary">{featuredProducts[activeFeaturedIndex].price}</span>
+                    <div className="mt-auto flex items-center justify-end pt-4 border-t border-gray-200 md:border-none md:pt-0">
+                              {/* Precio oculto temporalmente */}
                       <Link 
                         to={`/productos/${featuredProducts[activeFeaturedIndex].id}`}
                         className="p-3 md:p-5 bg-white text-primary rounded-xl md:rounded-2xl hover:bg-primary hover:text-white transition-all shadow-md"
@@ -1013,12 +1013,9 @@ function ProductsView() {
                             {product.description.split('.').slice(1).join('.').trim() || "Medicamento de alta calidad."}
                           </p>
                           
-                          <div className="pt-4 border-t border-gray-100 mt-auto flex items-end justify-between">
-                            <div>
-                              <span className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Precio Ref.</span>
-                              <span className="text-2xl font-black text-primary">{product.price}</span>
-                            </div>
-                            <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors text-gray-400">
+                          <div className="pt-4 border-t border-gray-100 mt-auto flex items-center justify-end">
+                              {/* Precio oculto temporalmente */}
+                              <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors text-gray-400">
                               <ArrowRight size={20} />
                             </div>
                           </div>
@@ -1132,10 +1129,11 @@ function ProductDetailView() {
               {restOfDescription || "Medicamento de alta calidad distribuido por J. Barreiro."}
             </p>
             
-            <div className="mb-8">
+            {/* <div className="mb-8">
               <p className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-1">Precio de Referencia</p>
               <p className="text-4xl font-bold text-primary">{product.price}</p>
-            </div>
+            </div> 
+            */}
 
             <div className="mt-auto pt-8 border-t border-gray-100">
               <button 
