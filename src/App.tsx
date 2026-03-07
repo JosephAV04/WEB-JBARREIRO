@@ -9,44 +9,48 @@ import logoHidalgos from './assets/LogoHidalgos.png';
 import logoValue from './assets/LogoValue.png';
 
 const productsData = [
-  { id: 'barre-itis-5', name: 'BARRE-ITIS X 5 capletas', description: 'Azitromicina 500 mg. Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$769.00' },
-  { id: 'barre-itis-20', name: 'BARRE-ITIS X 20 capletas', description: 'Azitromicina 500 mg. Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$3,076.00' },
-  { id: 'barre-pm-100', name: 'BARRE PM X 100 comprimidos', description: 'Amitriptilina 25 mg. Antidepresivo tricíclico utilizado también para el tratamiento del dolor crónico y prevención de migrañas.', price: '$2,000.00' },
-  { id: 'blindada-1', name: 'BLINDADA X 1 comprimido', description: 'Levonorgestrel 1.5 mg. Anticonceptivo de emergencia de dosis única, eficaz para prevenir el embarazo tras una relación sin protección.', price: '$99.00' },
-  { id: 'clp-30', name: 'CLP X 30 TABLETAS OFERTA 2X1', description: 'Clopidogrel 75mg. Antiagregante plaquetario indicado para la prevención de eventos aterotrombóticos.', price: '$1,990.00' },
-  { id: 'dic-b-10', name: 'DIC-B X 10 capletas', description: 'Diclofenac con vitaminas del complejo B. Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$500.00' },
-  { id: 'dic-b-100', name: 'DIC-B X 100 capletas', description: 'Diclofenac con vitaminas del complejo B. Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$4,000.00' },
-  { id: 'dic-b-relax-20', name: 'DIC-B RELAX X 20 CAPLETAS', description: 'Diclofenac con vitaminas del complejo B. Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
-  { id: 'flexi-move-100', name: 'FLEXI-MOVE X 100 Tabletas', description: 'Meloxicam 15 mg. Antiinflamatorio no esteroideo (AINE) indicado para el tratamiento de la artritis y osteoartritis.', price: '$2,000.00' },
-  { id: 'hematocri-30', name: 'HEMATOCRI X 30 comprimidos', description: '132mg Hierro con 1mg Acido Fólico. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
-  { id: 'hematocri-100', name: 'HEMATOCRI X 100 comprimidos', description: '132mg Hierro con 1mg Acido Fólico. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
+  { id: 'barre-itis-5', name: 'BARRE-ITIS X5', description: 'Azitromicina 500 mg. Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$769.00' },
+  { id: 'barre-itis-20', name: 'BARRE-ITIS X20', description: 'Azitromicina 500 mg. Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$3,076.00' },
+  { id: 'barre-pm-100', name: 'BARRE PM X100', description: 'Amitriptilina 25 mg. Antidepresivo tricíclico utilizado también para el tratamiento del dolor crónico y prevención de migrañas.', price: '$2,000.00' },
+  { id: 'blindada-1', name: 'BLINDADA X1', description: 'Levonorgestrel 1.5 mg. Anticonceptivo de emergencia de dosis única, eficaz para prevenir el embarazo tras una relación sin protección.', price: '$99.00' },
+  { id: 'clp-30', name: 'CLP X30 OFERTA 2X1', description: 'Clopidogrel 75mg. Antiagregante plaquetario indicado para la prevención de eventos aterotrombóticos.', price: '$1,990.00' },
+  { id: 'dic-b-10', name: 'DIC-B X10', description: 'Diclofenac con vitaminas del complejo B. Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$500.00' },
+  { id: 'dic-b-100', name: 'DIC-B X100', description: 'Diclofenac con vitaminas del complejo B. Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$4,000.00' },
+  { id: 'dic-b-relax-20', name: 'DIC-B RELAX X20', description: 'Diclofenac con vitaminas del complejo B. Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
+  { id: 'flexi-move-100', name: 'FLEXI-MOVE X100', description: 'Meloxicam 15 mg. Antiinflamatorio no esteroideo (AINE) indicado para el tratamiento de la artritis y osteoartritis.', price: '$2,000.00' },
+  { id: 'hematocri-30', name: 'HEMATOCRI X30', description: '132mg Hierro con 1mg Acido Fólico. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
+  { id: 'hematocri-100', name: 'HEMATOCRI X100', description: '132mg Hierro con 1mg Acido Fólico. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
   { id: 'hematocri-suspension', name: 'HEMATOCRI SUSPENSION', description: '132mg Hierro con 1mg Acido Fólico en suspensión. Ideal para pacientes con dificultad para deglutir comprimidos.', price: '$990.00' },
   { id: 'ibone-oferta', name: 'IBONE OFERTA (2X1)', description: 'Ibandronato 150 mg. Bifosfonato indicado para el tratamiento y prevención de la osteoporosis en mujeres posmenopáusicas.', price: '$2,990.00' },
-  { id: 'jb-prazol-50', name: 'JB PRAZOL 40MG X 50 TABLETAS', description: 'Esomeprazol. Inhibidor de la bomba de protones indicado para el tratamiento del reflujo gastroesofágico y úlceras gástricas.', price: '$3,500.00' },
-  { id: 'levobacter-500-20', name: 'LEVOBACTER 500mg X 20 capletas', description: 'Levofloxacina 500 mg. Antibiótico quinolona de amplio espectro para infecciones respiratorias, urinarias y de piel.', price: '$2,500.00' },
-  { id: 'levobacter-750-20', name: 'LEVOBACTER 750mg X 20 capletas', description: 'Levofloxacina 750 mg. Antibiótico quinolona de alta potencia para infecciones bacterianas severas.', price: '$3,000.00' },
-  { id: 'lumdocer-30', name: 'LUMDOCER X 30 CAPLETAS', description: 'Pregabalina. Modulador del dolor neuropático y coadyuvante en el tratamiento de la epilepsia y ansiedad generalizada.', price: '$1,990.00' },
-  { id: 'melocox2-10', name: 'MELOCOX2 X 10 comprimidos', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$600.00' },
-  { id: 'melocox2-50', name: 'MELOCOX2 X 50 comprimidos', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$3,000.00' },
-  { id: 'melocox2-100', name: 'MELOCOX2 X 100 comprimidos', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$5,000.00' },
-  { id: 'taladro-50', name: 'TALADRO X 50 TABLETAS', description: 'Tadalafil 20 mg. Indicado para el tratamiento de la disfunción eréctil y síntomas de la hiperplasia benigna de próstata.', price: '$2,000.00' },
-  { id: 'taldro-5mg-30', name: 'TALDRO 5MG X 30 TABLETAS', description: 'Tadalafil 5 mg. Dosis diaria recomendada para el tratamiento continuo de la disfunción eréctil.', price: '$1,990.00' },
-  { id: 'xib-p-10', name: 'XIB-P X 10 CAPLETAS', description: 'Mezcla de Celecoxib 200mg con Pregabalina. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$1,100.00' },
-  { id: 'xib-p-50', name: 'XIB-P X 50 CAPLETAS', description: 'Mezcla de Celecoxib 200mg con Pregabalina. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$4,500.00' },
-  { id: 'xib-200mg-50', name: 'XIB 200MG X 50 CAPSULAS', description: 'Celecoxib 200mg. Inhibidor selectivo de la COX-2 indicado para el alivio del dolor y la inflamación.', price: '$3,000.00' },
-  { id: 'xib-400mg-50', name: 'XIB 400MG X 50 CAPSULAS', description: 'Celecoxib 400mg. Dosis reforzada para el tratamiento de procesos inflamatorios agudos y severos.', price: '$3,500.00' },
+  { id: 'jb-prazol-50', name: 'JB PRAZOL 40MG X50', description: 'Esomeprazol. Inhibidor de la bomba de protones indicado para el tratamiento del reflujo gastroesofágico y úlceras gástricas.', price: '$3,500.00' },
+  { id: 'levobacter-500-20', name: 'LEVOBACTER 500mg X20', description: 'Levofloxacina 500 mg. Antibiótico quinolona de amplio espectro para infecciones respiratorias, urinarias y de piel.', price: '$2,500.00' },
+  { id: 'levobacter-750-20', name: 'LEVOBACTER 750mg X20', description: 'Levofloxacina 750 mg. Antibiótico quinolona de alta potencia para infecciones bacterianas severas.', price: '$3,000.00' },
+  { id: 'lumdocer-30', name: 'LUMDOCER X30', description: 'Pregabalina. Modulador del dolor neuropático y coadyuvante en el tratamiento de la epilepsia y ansiedad generalizada.', price: '$1,990.00' },
+  //{ id: 'melocox2-10', name: 'MELOCOX2 X 10 comprimidos', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$600.00' },
+  //{ id: 'melocox2-50', name: 'MELOCOX2 X 50 comprimidos', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$3,000.00' },
+  { id: 'melocox2-100', name: 'MELOCOX2 X100', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$5,000.00' },
+  { id: 'taladro-50', name: 'TALADRO X50', description: 'Tadalafil 20 mg. Indicado para el tratamiento de la disfunción eréctil y síntomas de la hiperplasia benigna de próstata.', price: '$2,000.00' },
+  { id: 'taldro-5mg-30', name: 'TALDRO 5MG X30', description: 'Tadalafil 5 mg. Dosis diaria recomendada para el tratamiento continuo de la disfunción eréctil.', price: '$1,990.00' },
+  { id: 'xib-p-10', name: 'XIB-P X10', description: 'Mezcla de Celecoxib 200mg con Pregabalina. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$1,100.00' },
+  { id: 'xib-p-50', name: 'XIB-P X50', description: 'Mezcla de Celecoxib 200mg con Pregabalina. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$4,500.00' },
+  { id: 'xib-200mg-50', name: 'XIB 200MG X50', description: 'Celecoxib 200mg. Inhibidor selectivo de la COX-2 indicado para el alivio del dolor y la inflamación.', price: '$3,000.00' },
+  { id: 'xib-400mg-50', name: 'XIB 400MG X50', description: 'Celecoxib 400mg. Dosis reforzada para el tratamiento de procesos inflamatorios agudos y severos.', price: '$3,500.00' },
 ];
 
 //CLOUDINARY
 const IMAGE_MAP: Record<string, string> = {
   'barre-itis-5': 'barre-itis-5',
+  'barre-itis-20': 'BARRE ITIS X20',  
   'barre-pm-100': 'BARRE PM X100',
   'blindada-1': 'BLINDADA',
   'clp-30': 'CLP',
   'dic-b-10': 'DIC-B X10',
+  'dic-b-100': 'DIC-B X100',
+  'dic-b-relax-20': 'DIC-B RELAX',
   'flexi-move-100': 'FLEXI-MOVE',
   'hematocri-suspension': 'HEMATOCRI SUSPENSION',
   'hematocri-100': 'HEMATOCRI',
+  'hematocri-30': 'HEMATOCRI X30',  
   'ibone-oferta': 'IBONE',
   'jb-prazol-50': 'JB PRAZOL X50',
   'levobacter-500-20': 'LEVOBACTER 500MG',
@@ -1013,10 +1017,12 @@ function ProductsView() {
                             {product.description.split('.').slice(1).join('.').trim() || "Medicamento de alta calidad."}
                           </p>
                           
-                          <div className="pt-4 border-t border-gray-100 mt-auto flex items-center justify-end">
-                              {/* Precio oculto temporalmente */}
-                              <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors text-gray-400">
-                              <ArrowRight size={20} />
+                          <div className="pt-5 border-t border-gray-50 mt-auto flex items-center justify-between group-hover:border-primary/20 transition-colors duration-500">
+                            <span className="text-[11px] font-bold text-gray-400 group-hover:text-primary uppercase tracking-widest transition-colors duration-300">
+                              Ver ficha técnica
+                            </span>
+                            <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1 text-gray-400 shadow-sm">
+                              <ArrowRight size={18} />
                             </div>
                           </div>
                         </div>
