@@ -1,28 +1,31 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Pill, Phone, Mail, MapPin, Menu, X, ArrowRight, ShieldCheck, Truck, Clock, CheckCircle2, Search, ArrowLeft, Building2, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Pill, Phone, Mail, MapPin, Search, X, ArrowRight, ShieldCheck, Truck, CheckCircle2, ArrowLeft, Building2, Instagram, Facebook, Twitter, Home, Clock } from 'lucide-react';
 import logoEmpresa from './assets/JBarreiro.png';
 import logoCarol from './assets/LogoCarol.png';
 import logoGBC from './assets/LogoGBC.png';
 import logoHidalgos from './assets/LogoHidalgos.png';
 import logoValue from './assets/LogoValue.png';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+
+
 
 const productsData = [
   { id: 'barre-itis-5', name: 'BARRE-ITIS X5', description: 'Azitromicina 500 mg. Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$769.00' },
   { id: 'barre-itis-20', name: 'BARRE-ITIS X20', description: 'Azitromicina 500 mg. Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$3,076.00' },
   { id: 'barre-pm-100', name: 'BARRE PM X100', description: 'Amitriptilina 25 mg. Antidepresivo tricíclico utilizado también para el tratamiento del dolor crónico y prevención de migrañas.', price: '$2,000.00' },
   { id: 'blindada-1', name: 'BLINDADA X1', description: 'Levonorgestrel 1,5 mg. Anticonceptivo de emergencia de dosis única, eficaz para prevenir el embarazo tras una relación sin protección.', price: '$99.00' },
-  { id: 'clp-30', name: 'CLP X30 OFERTA 2X1', description: 'Clopidogrel 75mg. Antiagregante plaquetario indicado para la prevención de eventos aterotrombóticos.', price: '$1,990.00' },
-  { id: 'dic-b-10', name: 'DIC-B X10', description: 'Diclofenac 100 mg + vitaminas del complejo B. Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$500.00' },
-  { id: 'dic-b-100', name: 'DIC-B X100', description: 'Diclofenac 100 mg + vitaminas del complejo B. Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$4,000.00' },
-  { id: 'dic-b-relax-20', name: 'DIC-B RELAX X20', description: 'Diclofenac 100mg con complejo B + Clorzoxazona. Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
+  { id: 'clp-30', name: 'CLP X30 OFERTA (2X1)', description: 'Clopidogrel 75mg. Antiagregante plaquetario indicado para la prevención de eventos aterotrombóticos.', price: '$1,990.00' },
+  { id: 'dic-b-10', name: 'DIC-B X10', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12). Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$500.00' },
+  { id: 'dic-b-100', name: 'DIC-B X100', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12). Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$4,000.00' },
+  { id: 'dic-b-relax-20', name: 'DIC-B RELAX X20', description: 'Diclofenac 100mg + Vit (B1, B6 y B12) +Clorzoxazona 50 mg. Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
   { id: 'flexi-move-100', name: 'FLEXI-MOVE X100', description: 'Meloxicam 15 mg. Antiinflamatorio no esteroideo (AINE) indicado para el tratamiento de la artritis y osteoartritis.', price: '$2,000.00' },
-  { id: 'hematocri-30', name: 'HEMATOCRI X30', description: '132mg Hierro con 1mg Acido Fólico. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
-  { id: 'hematocri-100', name: 'HEMATOCRI X100', description: '132mg Hierro con 1mg Acido Fólico. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
-  { id: 'hematocri-suspension', name: 'HEMATOCRI SUSPENSION', description: '132mg Hierro con 1mg Acido Fólico en suspensión. Ideal para pacientes con dificultad para deglutir comprimidos.', price: '$990.00' },
+  { id: 'hematocri-30', name: 'HEMATOCRI X30', description: 'Fumarrato Ferroso 400mg + Acido Folico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
+  { id: 'hematocri-100', name: 'HEMATOCRI X100', description: 'Fumarrato Ferroso 400mg + Acido Folico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
+  { id: 'hematocri-suspension', name: 'HEMATOCRI SUSPENSION', description: 'Fumarrato Ferroso 400mg + Acido Folico 1mg en Suspensión. Ideal para pacientes con dificultad para deglutir comprimidos.', price: '$990.00' },
   { id: 'ibone-oferta', name: 'IBONE OFERTA (2X1)', description: 'Ibandronato 150 mg. Bifosfonato indicado para el tratamiento y prevención de la osteoporosis en mujeres posmenopáusicas.', price: '$2,990.00' },
-  { id: 'jb-prazol-50', name: 'JB PRAZOL 40MG X50', description: 'Esomeprazol 40 mg. Inhibidor de la bomba de protones indicado para el tratamiento del reflujo gastroesofágico y úlceras gástricas.', price: '$3,500.00' },
+  { id: 'jb-prazol-50', name: 'JB PRAZOL X50', description: 'Esomeprazol 40 mg. Inhibidor de la bomba de protones indicado para el tratamiento del reflujo gastroesofágico y úlceras gástricas.', price: '$3,500.00' },
   { id: 'levobacter-500-20', name: 'LEVOBACTER 500mg X20', description: 'Levofloxacina 500 mg. Antibiótico quinolona de amplio espectro para infecciones respiratorias, urinarias y de piel.', price: '$2,500.00' },
   { id: 'levobacter-750-20', name: 'LEVOBACTER 750mg X20', description: 'Levofloxacina 750 mg. Antibiótico quinolona de alta potencia para infecciones bacterianas severas.', price: '$3,000.00' },
   { id: 'lumdocer-30', name: 'LUMDOCER X30', description: 'Pregabalina 75 mg. Modulador del dolor neuropático y coadyuvante en el tratamiento de la epilepsia y ansiedad generalizada.', price: '$1,990.00' },
@@ -31,7 +34,7 @@ const productsData = [
   { id: 'melocox2-100', name: 'MELOCOX2 X100', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$5,000.00' },
   { id: 'taladro-50', name: 'TALADRO X50', description: 'Tadalafil 20 mg. Indicado para el tratamiento de la disfunción eréctil y síntomas de la hiperplasia benigna de próstata.', price: '$2,000.00' },
   { id: 'taldro-5mg-30', name: 'TALDRO 5MG X30', description: 'Tadalafil 5 mg. Dosis diaria recomendada para el tratamiento continuo de la disfunción eréctil.', price: '$1,990.00' },
-  { id: 'xib-p-10', name: 'XIB-P X10', description: 'Mezcla de Celecoxib 200mg con Pregabalina. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$1,100.00' },
+  { id: 'xib-p-10', name: 'XIB-P X10', description: 'Celecoxib 200mg + Pregabalina 75 mg. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$1,100.00' },
   //{ id: 'xib-p-50', name: 'XIB-P X50', description: 'Mezcla de Celecoxib 200mg con Pregabalina. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$4,500.00' },
   { id: 'xib-200mg-50', name: 'XIB 200MG X10', description: 'Celecoxib 200mg. Inhibidor selectivo de la COX-2 indicado para el alivio del dolor y la inflamación.', price: '$3,000.00' },
   { id: 'xib-400mg-50', name: 'XIB 400MG X50', description: 'Celecoxib 400mg. Dosis reforzada para el tratamiento de procesos inflamatorios agudos y severos.', price: '$3,500.00' },
@@ -75,45 +78,48 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="min-h-screen bg-gray-50 flex flex-col font-sans text-gray-900 pb-16 md:pb-0">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<HomeView />} />
-            <Route path="/productos" element={<ProductsView />} />
-            <Route path="/productos/:id" element={<ProductDetailView />} />
-            <Route path="/contacto" element={<ContactView />} />
-          </Routes>
+    <HelmetProvider>
+      <Router>
+        <ScrollToTop />
+        <div className="min-h-screen bg-gray-50 flex flex-col font-sans text-gray-900 pb-20 md:pb-0">
+          <Navbar />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<HomeView />} />
+              <Route path="/productos" element={<ProductsView />} />
+              <Route path="/productos/:id" element={<ProductDetailView />} />
+              <Route path="/contacto" element={<ContactView />} />
+            </Routes>
+          </main>
+          <Footer />
           
-        </main>
-        <Footer />
-        
-        {/* WhatsApp FAB */}
-        <a 
-          href="https://wa.me/18097651953" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="fixed bottom-20 right-6 md:bottom-8 md:right-8 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
-          aria-label="Contactar por WhatsApp"
-        >
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" className="text-white">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-          </svg>
-          <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all duration-500 ease-in-out whitespace-nowrap font-medium">
-            WhatsApp
-          </span>
-        </a>
+          {/* WhatsApp FAB - RESTAURADO */}
+          <a 
+            href="https://wa.me/18099092606" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="fixed bottom-24 right-6 md:bottom-8 md:right-8 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
+            aria-label="Contactar por WhatsApp"            
+          >
 
-        {/* Mobile Bottom Navigation */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 px-6 py-3 flex justify-between items-center shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
-          <BottomNavLink to="/" icon={<Clock size={24} />} label="Inicio" />
-          <BottomNavLink to="/productos" icon={<Pill size={24} />} label="Productos" />
-          <BottomNavLink to="/contacto" icon={<Mail size={24} />} label="Contacto" />
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" className="text-white">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+
+            <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all duration-500 ease-in-out whitespace-nowrap font-medium">
+              WhatsApp
+            </span>
+          </a>
+
+          {/* Mobile Bottom Navigation */}
+          <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 px-6 py-3 flex justify-between items-center shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+            <BottomNavLink to="/" icon={<Home size={24} />} label="Inicio" />
+            <BottomNavLink to="/productos" icon={<Pill size={24} />} label="Productos" />
+            <BottomNavLink to="/contacto" icon={<Mail size={24} />} label="Contacto" />
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </HelmetProvider> 
   );
 }
 
@@ -132,7 +138,6 @@ function BottomNavLink({ to, icon, label }: { to: string; icon: React.ReactNode;
 }
 
 function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
@@ -142,9 +147,6 @@ function Navbar() {
     return location.pathname === path;
   };
 
-  const closeMenu = () => setIsMobileMenuOpen(false);
-
-  // Efecto para reducir sutilmente el header al hacer scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
@@ -153,20 +155,14 @@ function Navbar() {
 
   return (
     <header className={`bg-primary sticky top-0 z-50 transition-all duration-500 border-b border-primary-dark/20 ${scrolled ? 'shadow-xl' : ''}`}>
-      {/* Contenedor sin márgenes laterales (fluido) */}
       <div className="w-full pl-0 pr-4 sm:pr-6 lg:pr-12">
         <div className={`flex justify-between items-stretch transition-all duration-500 ${scrolled ? 'h-16 md:h-20' : 'h-20 md:h-28'}`}>
           
-          {/* SECCIÓN DEL LOGOTIPO */}
-          <Link to="/" className="relative flex items-center h-full cursor-pointer group" onClick={closeMenu}>
-            {/* Fondo blanco absoluto expandido para eliminar la línea verde de subpíxeles */}
+          <Link to="/" className="relative flex items-center h-full cursor-pointer group">
             <motion.div 
               className="absolute -top-[2px] -bottom-[2px] -left-[20px] right-0 bg-white shadow-[10px_0_30px_rgba(0,0,0,0.15)] transition-all duration-500 group-hover:-right-[16px]"
-              style={{
-                clipPath: "polygon(0 0, 100% 0, calc(100% - 25px) 100%, 0% 100%)" // Corte diagonal derecho
-              }}
+              style={{ clipPath: "polygon(0 0, 100% 0, calc(100% - 25px) 100%, 0% 100%)" }}
             />
-            {/* Contenedor de la imagen por encima del fondo blanco */}
             <div className="relative z-10 px-6 sm:px-10 md:px-14 h-full flex items-center justify-center">
               <img 
                 src={logoEmpresa} 
@@ -178,74 +174,13 @@ function Navbar() {
           
           {/* Navegación de Escritorio */}
           <nav className="hidden md:flex space-x-2 h-full items-center">
-            <Link 
-              to="/" 
-              className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}
-            >
-              Inicio
-            </Link>
-            <Link 
-              to="/productos" 
-              className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/productos') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}
-            >
-              Productos
-            </Link>
-            <Link 
-              to="/contacto" 
-              className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/contacto') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}
-            >
-              Contacto
-            </Link>
+            <Link to="/" className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}>Inicio</Link>
+            <Link to="/productos" className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/productos') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}>Productos</Link>
+            <Link to="/contacto" className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/contacto') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}>Contacto</Link>
           </nav>
 
-          {/* Botón de Menú Móvil */}
-          <div className="md:hidden flex items-center h-full">
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-white hover:bg-white/10 p-3 rounded-2xl transition-colors focus:outline-none"
-              aria-label="Menu"
-            >
-              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
         </div>
       </div>
-
-      {/* Menú Móvil */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-primary border-t border-white/10 overflow-hidden shadow-2xl"
-          >
-            <div className="px-4 py-6 space-y-2 flex flex-col">
-              <Link 
-                to="/" 
-                onClick={closeMenu} 
-                className={`block px-6 py-4 rounded-2xl text-lg font-bold transition-colors ${isActive('/') ? 'bg-white text-primary' : 'text-white hover:bg-white/10'}`}
-              >
-                Inicio
-              </Link>
-              <Link 
-                to="/productos" 
-                onClick={closeMenu} 
-                className={`block px-6 py-4 rounded-2xl text-lg font-bold transition-colors ${isActive('/productos') ? 'bg-white text-primary' : 'text-white hover:bg-white/10'}`}
-              >
-                Productos
-              </Link>
-              <Link 
-                to="/contacto" 
-                onClick={closeMenu} 
-                className={`block px-6 py-4 rounded-2xl text-lg font-bold transition-colors ${isActive('/contacto') ? 'bg-white text-primary' : 'text-white hover:bg-white/10'}`}
-              >
-                Contacto
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 }
@@ -359,9 +294,7 @@ function HomeView() {
       exit={{ opacity: 0 }}
       className="w-full bg-white"
     >
-      {/* Dynamic Hero Section Re-imaginada y Ajustada */}
       <section className="relative min-h-[calc(100vh-7rem)] flex items-center overflow-hidden bg-gradient-to-b from-gray-50 to-white">
-        {/* Animated Background Elements & Mesh Gradient */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <motion.div 
             animate={{ rotate: 360, scale: [1, 1.1, 1] }}
@@ -373,14 +306,12 @@ function HomeView() {
             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             className="absolute -bottom-[20%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-emerald-400/10 to-transparent blur-[100px]"
           />
-          {/* Subtle Grid Pattern Overlay */}
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMCwgMCwgMCwgMC4wNSkiLz48L3N2Zz4=')] opacity-40"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-10 pb-16 lg:pt-4 lg:pb-20 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-center">
             
-            {/* Contenido Textual Izquierdo */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -419,14 +350,12 @@ function HomeView() {
               </div>
             </motion.div>
 
-            {/* Composición Visual Interactiva Derecha */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, ease: "easeOut" }}
               className="relative hidden lg:block h-[450px] xl:h-[550px]"
             >
-              {/* Tarjeta Flotante Principal (Glassmorphism) */}
               <motion.div
                 animate={{ y: [-10, 10, -10] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -451,7 +380,6 @@ function HomeView() {
                 </div>
               </motion.div>
 
-              {/* Elemento Flotante 1 - Top Right (Garantía) */}
               <motion.div
                 animate={{ y: [0, -15, 0], rotate: [0, 3, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
@@ -466,7 +394,6 @@ function HomeView() {
                 </div>
               </motion.div>
 
-              {/* Elemento Flotante 2 - Center Left (Logística) - CORREGIDO */}
               <motion.div
                 animate={{ y: [0, 15, 0], rotate: [0, -3, 0] }}
                 transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
@@ -481,7 +408,6 @@ function HomeView() {
                 </div>
               </motion.div>
 
-              {/* Decoraciones Estáticas Flotantes */}
               <motion.div
                  animate={{ y: [-20, 20, -20], rotate: [0, 45, 0] }}
                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
@@ -502,7 +428,6 @@ function HomeView() {
         </div>
       </section>
 
-      {/* Infinite Marquee Text */}
       <div className="bg-primary py-6 overflow-hidden flex whitespace-nowrap">
         <motion.div 
           className="flex shrink-0 items-center gap-8 px-4"
@@ -520,7 +445,6 @@ function HomeView() {
         </motion.div>
       </div>
 
-      {/* Featured Products Carousel Section */}
       <section className="py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
@@ -541,64 +465,62 @@ function HomeView() {
             </button>
           </motion.div>
 
-          {/* Contenedor del Carrusel Ajustado para Móvil */}
           <div className="relative min-h-[600px] md:min-h-[550px]">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={activeFeaturedIndex}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="absolute inset-0 grid grid-cols-1 lg:grid-cols-5 gap-8"
-              >
-                {/* Tarjeta Principal del Producto */}
-                <div className="lg:col-span-3 bg-gray-50 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-gray-100 flex flex-col md:flex-row group h-full">
-                  
-                  {/* Área de Imagen: Cuadrada en móvil, mitad del ancho en desktop */}
-                  <div className="w-full md:w-1/2 bg-white flex items-center justify-center p-8 md:p-12 relative overflow-hidden aspect-square md:aspect-auto">
-                    <div className="absolute inset-0 bg-primary/5 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
-                      <div className="w-full h-full bg-white rounded-[1.5rem] md:rounded-[2rem] shadow-inner flex items-center justify-center relative z-10 group-hover:scale-105 transition-transform duration-500 overflow-hidden p-4">
-                        <img 
-                          src={getCloudinaryUrl(featuredProducts[activeFeaturedIndex].id)} 
-                          alt={featuredProducts[activeFeaturedIndex].name}
-                          className="max-w-full max-h-full object-contain relative z-10"
-                          loading="eager"
-                          onError={(e) => {
-                            e.currentTarget.style.opacity = '0';
-                          }}
-                        />
-                        <Pill size={80} className="text-gray-100 absolute z-0 opacity-40 md:w-[100px] md:h-[100px]" />
+              {featuredProducts.length > 0 && (
+                <motion.div
+                  key={activeFeaturedIndex}
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="absolute inset-0 grid grid-cols-1 lg:grid-cols-5 gap-8"
+                >
+                  <div className="lg:col-span-3 bg-gray-50 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-gray-100 flex flex-col md:flex-row group h-full">
+                    
+                    <div className="w-full md:w-1/2 bg-white flex items-center justify-center p-8 md:p-12 relative overflow-hidden aspect-square md:aspect-auto">
+                      <div className="absolute inset-0 bg-primary/5 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
+                        <div className="w-full h-full bg-white rounded-[1.5rem] md:rounded-[2rem] shadow-inner flex items-center justify-center relative z-10 group-hover:scale-105 transition-transform duration-500 overflow-hidden p-4">
+                          <img 
+                            src={getCloudinaryUrl(featuredProducts[activeFeaturedIndex]?.id || '')} 
+                            alt={featuredProducts[activeFeaturedIndex]?.name || 'Producto'}
+                            className="max-w-full max-h-full object-contain relative z-10"
+                            loading="eager"
+                            onError={(e) => {
+                              e.currentTarget.style.opacity = '0';
+                            }}
+                          />
+                          <Pill size={80} className="text-gray-100 absolute z-0 opacity-40 md:w-[100px] md:h-[100px]" />
+                        </div>
+                      </div>
+                    
+                    <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-gray-50">
+                      <span className="text-primary font-bold text-xs md:text-sm uppercase tracking-widest mb-3 md:mb-4 block">Destacado</span>
+                      <h3 className="text-2xl md:text-4xl font-extrabold text-gray-900 mb-4 md:mb-6 leading-tight line-clamp-2 md:line-clamp-none">{featuredProducts[activeFeaturedIndex]?.name}</h3>
+                      <p className="text-gray-500 text-base md:text-xl mb-6 md:mb-10 line-clamp-3 md:line-clamp-4 font-light">{featuredProducts[activeFeaturedIndex]?.description}</p>
+                      
+                      {/* UX MÓVIL: Botón grande para celulares */}
+                      <div className="mt-auto flex items-center justify-end pt-4 border-t border-gray-200 md:border-none md:pt-0">
+                        <Link 
+                          to={`/productos/${featuredProducts[activeFeaturedIndex]?.id || ''}`}
+                          className="w-full md:w-auto p-4 md:p-5 bg-primary/10 md:bg-white text-primary rounded-xl md:rounded-2xl hover:bg-primary hover:text-white transition-all md:shadow-md flex justify-center items-center font-bold"
+                        >
+                          <span className="md:hidden mr-2">Ver Detalles</span>
+                          <ArrowRight size={24} className="md:w-7 md:h-7" />
+                        </Link>
                       </div>
                     </div>
-                  
-                  {/* Área de Texto: Ajuste de padding y tipografía para móvil */}
-                  <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-gray-50">
-                    <span className="text-primary font-bold text-xs md:text-sm uppercase tracking-widest mb-3 md:mb-4 block">Destacado</span>
-                    <h3 className="text-2xl md:text-4xl font-extrabold text-gray-900 mb-4 md:mb-6 leading-tight line-clamp-2 md:line-clamp-none">{featuredProducts[activeFeaturedIndex].name}</h3>
-                    <p className="text-gray-500 text-base md:text-xl mb-6 md:mb-10 line-clamp-3 md:line-clamp-4 font-light">{featuredProducts[activeFeaturedIndex].description}</p>
-                    <div className="mt-auto flex items-center justify-end pt-4 border-t border-gray-200 md:border-none md:pt-0">
-                              {/* Precio oculto temporalmente */}
-                      <Link 
-                        to={`/productos/${featuredProducts[activeFeaturedIndex].id}`}
-                        className="p-3 md:p-5 bg-white text-primary rounded-xl md:rounded-2xl hover:bg-primary hover:text-white transition-all shadow-md"
-                      >
-                        <ArrowRight size={24} className="md:w-7 md:h-7" />
-                      </Link>
-                    </div>
                   </div>
-                </div>
-                
-                {/* Previsualización del Siguiente Producto (Oculto en móvil) */}
-                <div className="hidden lg:flex lg:col-span-2 bg-gray-50 rounded-[3rem] border border-gray-200 p-12 flex-col justify-center opacity-80 hover:opacity-100 transition-opacity cursor-pointer" onClick={() => setActiveFeaturedIndex((activeFeaturedIndex + 1) % featuredProducts.length)}>
-                  <p className="text-gray-400 font-bold text-sm uppercase mb-6 tracking-widest">Siguiente Producto</p>
-                  <h4 className="text-3xl font-bold text-gray-400 mb-4 line-clamp-3">{featuredProducts[(activeFeaturedIndex + 1) % featuredProducts.length].name}</h4>
-                  <div className="w-16 h-1 bg-gray-200 rounded-full mt-4"></div>
-                </div>
-              </motion.div>
+                  
+                  <div className="hidden lg:flex lg:col-span-2 bg-gray-50 rounded-[3rem] border border-gray-200 p-12 flex-col justify-center opacity-80 hover:opacity-100 transition-opacity cursor-pointer" onClick={() => setActiveFeaturedIndex((activeFeaturedIndex + 1) % featuredProducts.length)}>
+                    <p className="text-gray-400 font-bold text-sm uppercase mb-6 tracking-widest">Siguiente Producto</p>
+                    <h4 className="text-3xl font-bold text-gray-400 mb-4 line-clamp-3">{featuredProducts[(activeFeaturedIndex + 1) % featuredProducts.length]?.name}</h4>
+                    <div className="w-16 h-1 bg-gray-200 rounded-full mt-4"></div>
+                  </div>
+                </motion.div>
+              )}
             </AnimatePresence>
             
-            {/* Indicadores del Carrusel (Ajustados para no solaparse) */}
             <div className="absolute -bottom-12 md:-bottom-16 left-1/2 -translate-x-1/2 flex space-x-3 md:space-x-4">
               {featuredProducts.map((_, idx) => (
                 <button
@@ -613,10 +535,8 @@ function HomeView() {
         </div>
       </section>
 
-      {/* Trust Section - Pharmacy Chains Marquee */}
       <section className="py-24 bg-white relative overflow-hidden border-t border-gray-100">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
-        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <span className="text-primary font-bold text-sm uppercase tracking-widest mb-2 block">Respaldados por los mejores</span>
@@ -625,8 +545,6 @@ function HomeView() {
               Nuestros productos están presentes en las redes farmacéuticas más importantes y prestigiosas del país.
             </p>
           </div>
-          
-          {/* Se implementa un Grid para un alineamiento responsivo perfecto */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 items-center justify-items-center">
             <ChainLogo name="Farmacia Carol" />
             <ChainLogo name="GBC" />
@@ -636,7 +554,6 @@ function HomeView() {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="py-32 bg-primary text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -649,7 +566,6 @@ function HomeView() {
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
@@ -774,195 +690,122 @@ function ProductsView() {
     return filteredProducts.slice(0, displayCount);
   }, [filteredProducts, displayCount]);
 
+  const getProductPresentation = (name: string) => {
+    const match = name.match(/^(.*?)\s+(X\d+.*|OFERTA.*|\(?\d+X\d+\)?.*)$/i);
+    if (match) {
+      return {
+        baseName: match[1].trim(),
+        presentation: match[2].trim().toUpperCase(),
+      };
+    }
+    return {
+      baseName: name,
+      presentation: null,
+    };
+  };
+
+  const formatActiveIngredient = (text: string) => {
+    return text.replace(/MG/gi, 'mg').trim();
+  };
+
   return (
     <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="w-full bg-gray-50 min-h-screen pb-24"
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="w-full bg-[#f8fafc] min-h-screen pb-24 relative overflow-hidden"
     >
-      {/* Premium Header Flotante para Productos */}
-      <div className="relative pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden bg-gradient-to-b from-white to-gray-50 border-b border-gray-100">
+      <Helmet>
+        <title>Catálogo de Productos | J. Barreiro & CO</title>
+        <meta name="description" content="Explora nuestro catálogo completo de medicamentos de alta calidad. Disponibilidad, garantía y logística a nivel nacional en República Dominicana." />
+      </Helmet>
+
+      <div className="absolute top-0 left-0 w-full h-[60vh] z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-[100px]"></div>
+        <div className="absolute top-[20%] right-[-10%] w-[30vw] h-[30vw] bg-emerald-400/5 rounded-full blur-[80px]"></div>
+
+        <motion.div animate={{ y: [0, -15, 0], rotate: [0, 90, 0] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} className="absolute top-[10%] md:top-[25%] left-[5%] md:left-[20%] text-primary/20">
+          <svg width="30" height="30" className="md:w-[40px] md:h-[40px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        </motion.div>
         
-        {/* Elementos flotantes de fondo MEJORADOS */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          {/* Píldora Izquierda */}
-          <motion.div 
-            animate={{ y: [-20, 20, -20], x: [-10, 10, -10], rotate: [0, 45, 0] }} 
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} 
-            className="absolute top-[10%] left-[5%] text-primary/5 blur-[2px]"
-          >
-            <Pill size={140} />
-          </motion.div>
-          
-          {/* Píldora Derecha */}
-          <motion.div 
-            animate={{ y: [20, -20, 20], x: [10, -10, 10], rotate: [45, 0, 45] }} 
-            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 1 }} 
-            className="absolute bottom-[10%] right-[5%] text-emerald-400/5 blur-[2px]"
-          >
-            <Pill size={180} />
-          </motion.div>
+        <motion.div animate={{ y: [0, 30, 0], x: [0, 15, 0], rotate: [0, 45, 0] }} transition={{ duration: 18, repeat: Infinity }} className="absolute top-[5%] md:top-[35%] right-[10%] md:left-[10%] text-primary/10">
+          <Pill size={60} className="md:w-[100px] md:h-[100px]" />
+        </motion.div>
+      </div>
 
-          {/* Nuevos Elementos Abstractos */}
-          <motion.div 
-            animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }} 
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }} 
-            className="absolute top-[30%] right-[20%] text-primary/5 blur-[1px]"
-          >
-            {/* Estrella médica/Cruz */}
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"/>
-            </svg>
-          </motion.div>
-
-          <motion.div 
-            animate={{ scale: [1, 1.1, 1] }} 
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }} 
-            className="absolute bottom-[40%] left-[20%] w-16 h-16 rounded-full border-4 border-emerald-400/10 blur-[1px]"
-          />
-
-          {/* Brillo central */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[100px]"></div>
-        </div>
-
+      <div className="relative pt-10 pb-16 md:pt-16 lg:pt-24 lg:pb-20 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          {/* Título Principal CORREGIDO */}
-          <div className="text-center max-w-4xl mx-auto mb-16 relative">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-5xl md:text-6xl lg:text-[5rem] font-extrabold text-gray-900 tracking-tight"
+          <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}
+              className="inline-flex items-center px-4 py-2 rounded-full bg-white shadow-sm border border-gray-100 text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-4 md:mb-6"
             >
-              Nuestros{' '}
-              {/* Solución al corte de la S: padding derecho sutil pero suficiente */}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400 italic pr-3">
-                Productos
-              </span>
-            </motion.h2>
+              <span className="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"></span>
+              Catálogo Completo
+            </motion.div>
+            <h1 className="text-5xl md:text-6xl lg:text-[5rem] font-black text-gray-900 tracking-tighter leading-[1.1]">
+              Nuestros <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400 pr-2">Productos</span>
+            </h1>
           </div>
 
-          {/* Tarjetas Flotantes Independientes */}
-          <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-16">
-            
-            {/* Cápsula 1: Logística */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="bg-white/80 backdrop-blur-xl px-6 py-4 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white flex items-center gap-4 w-full md:w-auto cursor-default"
-            >
-              <div className="w-12 h-12 bg-[#E8F5E9] rounded-2xl flex items-center justify-center text-[#2E7D32]">
-                <Truck size={24} />
-              </div>
-              <div>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Logística</p>
-                <p className="text-sm font-bold text-gray-900">Entrega en 24/48h</p>
-              </div>
-            </motion.div>
-
-            {/* Cápsula 2: Garantía */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="bg-white/80 backdrop-blur-xl px-6 py-4 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white flex items-center gap-4 w-full md:w-auto md:-translate-y-4 cursor-default z-10"
-            >
-              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500">
-                <ShieldCheck size={24} />
-              </div>
-              <div>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Garantía</p>
-                <p className="text-sm font-bold text-gray-900">Lotes Certificados</p>
-              </div>
-            </motion.div>
-
-            {/* Cápsula 3: Disponibilidad */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="bg-white/80 backdrop-blur-xl px-6 py-4 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white flex items-center gap-4 w-full md:w-auto cursor-default"
-            >
-              <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-500 relative">
-                <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-white"></span>
-                </span>
-                <CheckCircle2 size={24} />
-              </div>
-              <div>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Disponibilidad</p>
-                <p className="text-sm font-bold text-gray-900">Stock Actualizado</p>
-              </div>
-            </motion.div>
-
-          </div>
-
-          {/* Buscador Avanzado Estilo Píldora Mejorado */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="max-w-4xl mx-auto w-full px-2 sm:px-0"
+            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+            className="max-w-3xl mx-auto w-full relative z-20"
           >
-            <div className="relative group flex items-center bg-white p-1.5 sm:p-2 rounded-full shadow-[0_8px_20px_-6px_rgba(0,0,0,0.08)] border-2 border-transparent focus-within:border-primary/40 focus-within:ring-4 focus-within:ring-primary/10 focus-within:shadow-[0_20px_50px_-12px_rgba(32,167,64,0.2)] transition-all duration-300">
-              
-              {/* Icono de Búsqueda */}
-              <div className="pl-4 sm:pl-6 pr-2 sm:pr-4 flex items-center justify-center">
-                <Search className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-gray-400 group-focus-within:text-primary transition-colors" />
+            <div className="flex items-center bg-white p-3 rounded-full shadow-[0_15px_40px_-15px_rgba(0,0,0,0.1)] border border-gray-100 focus-within:shadow-[0_20px_50px_-15px_rgba(27,166,75,0.2)] focus-within:border-primary/30 transition-all duration-500 transform hover:-translate-y-1">
+              <div className="pl-4 md:pl-6 pr-2 md:pr-4 flex items-center justify-center">
+                <Search className="h-5 w-5 md:h-6 md:w-6 text-primary/60" />
               </div>
-              
-              {/* Campo de Entrada */}
               <input
                 type="text"
-                className="block w-full py-3 sm:py-4 bg-transparent border-0 focus:ring-0 text-base sm:text-lg md:text-xl text-gray-900 font-medium placeholder-gray-400 focus:outline-none"
-                placeholder="Buscar medicamento, principio..."
+                className="block w-full py-2 md:py-4 bg-transparent border-0 focus:ring-0 text-lg md:text-xl text-gray-900 font-bold placeholder-gray-300 focus:outline-none"
+                placeholder="Buscar molécula, marca..."
                 value={searchTerm}
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
                   setDisplayCount(16);
                 }}
               />
-
-              {/* Botón de Limpiar Búsqueda (Aparece dinámicamente) */}
               <AnimatePresence>
                 {searchTerm.length > 0 && (
                   <motion.button
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }}
                     onClick={() => setSearchTerm('')}
-                    className="p-2 mr-2 sm:mr-4 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors focus:outline-none"
-                    aria-label="Limpiar búsqueda"
+                    className="p-2 md:p-3 mr-2 text-gray-400 hover:text-white bg-gray-100 hover:bg-primary rounded-full transition-colors focus:outline-none"
                   >
-                    <X size={20} className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <X size={18} />
                   </motion.button>
                 )}
               </AnimatePresence>
-
-              {/* Botón Buscar */}
-              <div className="hidden sm:block pr-1">
-                <button 
-                  className="bg-primary text-white px-8 py-3.5 rounded-full font-bold text-lg hover:bg-primary-dark transition-all shadow-md hover:shadow-primary/30 transform hover:-translate-y-0.5 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                >
-                  Buscar
-                </button>
-              </div>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Listado de Productos */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-16">
-        {filteredProducts.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-[3rem] shadow-sm border border-gray-100">
-            <Pill className="mx-auto h-16 w-16 text-gray-300 mb-4" />
-            <p className="text-gray-500 text-xl font-medium">No encontramos coincidencias.</p>
-            <button 
-              onClick={() => setSearchTerm('')}
-              className="mt-6 px-6 py-2 bg-primary/10 text-primary font-bold rounded-full hover:bg-primary hover:text-white transition-colors"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-2 md:pt-4">
+        
+        <AnimatePresence>
+          {searchTerm && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
+              className="mb-10 text-center"
             >
+              <div className="inline-block bg-white px-6 py-2 rounded-full border border-gray-100 shadow-sm">
+                <p className="text-gray-500 text-sm font-medium">
+                  Encontramos <span className="font-black text-gray-900">{filteredProducts.length}</span> resultados para <span className="text-primary font-black">"{searchTerm}"</span>
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {filteredProducts.length === 0 ? (
+          <div className="text-center py-24 bg-white rounded-[3rem] shadow-sm border border-gray-100">
+            <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Search className="h-10 w-10 text-gray-300" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Sin resultados</h3>
+            <p className="text-gray-500 mb-8">No hemos encontrado ningún medicamento con ese nombre.</p>
+            <button onClick={() => setSearchTerm('')} className="px-8 py-4 bg-primary text-white font-bold rounded-full hover:bg-primary-dark transition-all shadow-md hover:-translate-y-1">
               Ver todo el catálogo
             </button>
           </div>
@@ -970,62 +813,60 @@ function ProductsView() {
           <>
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {visibleProducts.map((product, index) => {
-                const activeIngredient = product.description.split('.')[0];
+                const activeIngredientRaw = product.description.split('.')[0];
+                const activeIngredient = formatActiveIngredient(activeIngredientRaw);
+                const { baseName, presentation } = getProductPresentation(product.name);
+
                 return (
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
                     key={product.id}
                   >
-                    <Link to={`/productos/${product.id}`} className="block h-full">
-                      <div className="bg-white rounded-[2.5rem] p-3 shadow-sm border border-gray-100 hover:shadow-[0_20px_40px_-15px_rgba(32,167,64,0.15)] hover:border-primary/20 transition-all duration-500 flex flex-col h-full group">
+                    <Link to={`/productos/${product.id}`} className="block h-full outline-none">
+                      <div className="bg-white rounded-[2rem] p-4 shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary/20 transform md:hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group">
                         
-                        {/* Image Area */}
-                        <div className="w-full h-56 bg-white rounded-[2rem] flex items-center justify-center relative overflow-hidden mb-4 p-4 shadow-inner">
+                        <div className="w-full h-48 md:h-52 bg-gray-50/70 rounded-2xl flex items-center justify-center relative overflow-hidden mb-5 border border-gray-100/50">
+                          
+                          {/* ETIQUETA X5 / OFERTA ADENTRO DEL CONTENEDOR Y CON ESTILO BLANCO/VERDE */}
+                          {presentation && (
+                            <div className="absolute bottom-3 right-3 z-30 bg-white px-3 py-1 rounded-xl border-2 border-primary shadow-sm transform group-hover:scale-105 transition-transform duration-300">
+                              <span className="text-primary font-black text-xs md:text-sm uppercase tracking-widest">{presentation}</span>
+                            </div>
+                          )}
+
                           <img 
                             src={getCloudinaryUrl(product.id)} 
-                            alt={product.name}
+                            alt={baseName}
                             loading="lazy" 
-                            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 relative z-10"
-                            onError={(e) => {
-                              e.currentTarget.style.opacity = '0';
-                            }}
+                            className="w-full h-full object-contain p-4 transition-all duration-700 md:group-hover:scale-105 relative z-10 mix-blend-multiply"
+                            onError={(e) => { e.currentTarget.style.opacity = '0'; }}
                           />
-                          
-                          <Pill className="text-gray-100 w-20 h-20 absolute z-0 opacity-50" />
-                          
-                          <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"></div>
-                          
-                          {/* Hover Overlay */}
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/20 backdrop-blur-[2px] z-30">
-                            <div className="bg-white text-primary font-bold px-6 py-3 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center">
-                              Ver detalles <ArrowRight size={18} className="ml-2" />
-                            </div>
-                          </div>
                         </div>
                         
-                        {/* Content Area */}
-                        <div className="px-5 pb-5 flex-grow flex flex-col">
-                          <div className="mb-3">
-                            <span className="inline-block px-3 py-1 bg-gray-100 text-gray-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
-                              {activeIngredient}
-                            </span>
-                          </div>
-                          <h3 className="text-xl font-extrabold text-gray-900 mb-2 group-hover:text-primary transition-colors">{product.name}</h3>
-                          <p className="text-sm text-gray-500 flex-grow mb-6 line-clamp-2 leading-relaxed">
-                            {product.description.split('.').slice(1).join('.').trim() || "Medicamento de alta calidad."}
+                        <div className="px-1 flex-grow flex flex-col relative">
+                          {/* PRINCIPIO ACTIVO DISTRIBUIDO LIMPIAMENTE */}
+                          <p className="text-[11px] font-bold text-primary/80 uppercase tracking-widest mb-1.5 line-clamp-1">
+                            {activeIngredient}
                           </p>
                           
-                          <div className="pt-5 border-t border-gray-50 mt-auto flex items-center justify-between group-hover:border-primary/20 transition-colors duration-500">
-                            <span className="text-[11px] font-bold text-gray-400 group-hover:text-primary uppercase tracking-widest transition-colors duration-300">
-                              Ver ficha técnica
-                            </span>
-                            <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1 text-gray-400 shadow-sm">
-                              <ArrowRight size={18} />
+                          <h3 className="text-2xl font-black leading-tight mb-3 text-gray-900 md:group-hover:text-primary transition-colors">
+                            {baseName}
+                          </h3>
+                          
+                          <p className="text-sm text-gray-500 flex-grow mb-6 line-clamp-2 leading-relaxed">
+                            {product.description.split('.').slice(1).join('.').trim() || "Medicamento de alta eficacia."}
+                          </p>
+                          
+                          <div className="mt-auto">
+                            {/* BOTÓN AL ESTILO DE TU REFERENCIA */}
+                            <div className="w-full py-3.5 rounded-xl flex items-center justify-center transition-all duration-300 gap-2 font-bold text-sm bg-primary/10 text-primary md:group-hover:bg-primary md:group-hover:text-white">
+                              Ver Ficha Técnica <ArrowRight size={18} className="transform md:group-hover:translate-x-1 transition-transform" />
                             </div>
                           </div>
                         </div>
+
                       </div>
                     </Link>
                   </motion.div>
@@ -1035,11 +876,8 @@ function ProductsView() {
             
             {displayCount < filteredProducts.length && (
               <div className="mt-20 text-center">
-                <button 
-                  onClick={() => setDisplayCount(prev => prev + 16)}
-                  className="inline-flex items-center px-10 py-4 bg-white text-primary border border-gray-200 font-bold rounded-full hover:border-primary hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 text-lg group"
-                >
-                  Cargar más productos
+                <button onClick={() => setDisplayCount(prev => prev + 16)} className="inline-flex items-center px-10 py-4 bg-white text-gray-900 border border-gray-200 font-bold rounded-full hover:border-primary hover:text-primary shadow-sm hover:shadow-[0_10px_30px_-10px_rgba(27,166,75,0.3)] transition-all duration-300 transform md:hover:-translate-y-1 text-base group">
+                  Mostrar más catálogo
                   <svg className="ml-3 w-5 h-5 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
@@ -1059,9 +897,11 @@ function ProductDetailView() {
   const product = productsData.find(p => p.id === id);
 
   if (!product) {
-    // ... (Mantén tu código de "Producto no encontrado" igual)
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <Helmet>
+          <title>Producto no encontrado | J. Barreiro</title>
+        </Helmet>
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Producto no encontrado</h2>
         <p className="text-gray-500 mb-8">El producto que buscas no existe o ha sido retirado.</p>
         <button 
@@ -1075,8 +915,33 @@ function ProductDetailView() {
     );
   }
 
-  const activeIngredient = product.description.split('.')[0];
-  const restOfDescription = product.description.split('.').slice(1).join('.');
+  const formatActiveIngredient = (text: string) => {
+    return text.replace(/MG/gi, 'mg').trim();
+  };
+
+  // Misma lógica actualizada para la vista individual
+  const getProductPresentation = (name: string) => {
+    const match = name.match(/^(.*?)\s+(X\d+.*|OFERTA.*|\(?\d+X\d+\)?.*)$/i);
+    if (match) {
+      return {
+        baseName: match[1].trim(),
+        presentation: match[2].trim().toUpperCase(),
+      };
+    }
+    return {
+      baseName: name,
+      presentation: null,
+    };
+  };
+
+  const descriptionParts = product.description.split('.');
+  const activeIngredientRaw = descriptionParts[0];
+  const activeIngredient = formatActiveIngredient(activeIngredientRaw);
+  
+  const restOfDescription = descriptionParts.slice(1).join('.').trim();
+
+  const { baseName, presentation } = getProductPresentation(product.name);
+  const isSuspension = product.id === 'hematocri-suspension';
 
   return (
     <motion.div 
@@ -1086,70 +951,78 @@ function ProductDetailView() {
       transition={{ duration: 0.3 }}
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
     >
+      <Helmet>
+        <title>{baseName} | J. Barreiro & CO</title>
+        <meta name="description" content={`${product.name} - ${activeIngredient}. ${restOfDescription}`} />
+        <meta property="og:title" content={`${product.name} | Distribuidora Farmacéutica`} />
+        <meta property="og:description" content={`${activeIngredient}. ${restOfDescription}`} />
+        <meta property="og:image" content={getCloudinaryUrl(product.id)} />
+        <meta property="og:url" content={`https://jbarreiro.com.do/productos/${product.id}`} />
+      </Helmet>
+
       <button 
         onClick={() => navigate('/productos')}
-        className="inline-flex items-center text-gray-500 hover:text-primary mb-8 transition-colors font-medium"
+        className="inline-flex items-center text-gray-500 hover:text-primary mb-8 transition-colors font-medium bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm"
       >
-        <ArrowLeft className="mr-2" size={20} />
+        <ArrowLeft className="mr-2" size={18} />
         Volver a productos
       </button>
 
-      <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl border border-gray-100 overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2">
           
-          {/* SECCIÓN DE LA IMAGEN ACTUALIZADA */}
-          <div className="bg-white h-96 md:h-auto flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-100 p-12 relative overflow-hidden">
-            {/* Imagen real desde Cloudinary */}
+          <div className="bg-gray-50/50 h-96 md:h-auto flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-100 p-12 relative overflow-hidden">
             <img 
               src={getCloudinaryUrl(product.id)} 
-              alt={product.name}
-              className="max-h-full max-w-full object-contain relative z-10 transition-transform duration-500 hover:scale-105"
-              onError={(e) => {
-                // Si la imagen falla, ocultamos el elemento para mostrar el ícono de respaldo
-                e.currentTarget.style.display = 'none';
-              }}
+              alt={baseName}
+              className="max-h-full max-w-full object-contain relative z-10 transition-transform duration-500 hover:scale-105 mix-blend-multiply"
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
-            {/* Ícono de respaldo (Pill) que se ve solo si la imagen no carga */}
-            <Pill size={120} className="text-gray-50 absolute z-0 opacity-40" />
+            <Pill size={120} className="text-gray-200 absolute z-0 opacity-40" />
           </div>
 
-          <div className="p-10 lg:p-16 flex flex-col justify-center">
-            {/* ... (El resto de tu código de descripción, precio y botón se mantiene igual) */}
-            <div className="mb-4 flex flex-wrap gap-2">
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary uppercase tracking-wider">
-                Comprimidos
+          <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+            <div className="mb-6 flex flex-wrap gap-3">
+              <span className={`inline-flex items-center px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest border ${
+                isSuspension ? 'bg-orange-50 text-orange-600 border-orange-100' : 'bg-primary/10 text-primary border-primary/20'
+              }`}>
+                {isSuspension ? 'Suspensión Oral' : 'Comprimidos'}
               </span>
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-600 uppercase tracking-wider">
+              <span className="inline-flex items-center px-4 py-1.5 rounded-lg text-xs font-bold bg-blue-50 text-blue-600 uppercase tracking-widest border border-blue-100">
                 Calidad Certificada
               </span>
             </div>
             
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2">{product.name}</h1>
+            <div className="mb-6">
+              <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight inline-block mr-3">
+                {baseName}
+              </h1>
+              {presentation && (
+                <span className="inline-block text-2xl sm:text-3xl font-black text-gray-400 align-text-bottom pb-1">
+                  {presentation}
+                </span>
+              )}
+            </div>
             
-            <div className="bg-primary/5 border-l-4 border-primary p-4 mb-8 rounded-r-xl">
-              <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Principio Activo</p>
-              <p className="text-xl font-bold text-gray-900 italic">{activeIngredient}</p>
+            <div className="relative pl-6 py-2 mb-8">
+              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary rounded-full"></div>
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Principio Activo</p>
+              <p className="text-xl font-bold text-gray-800">{activeIngredient}</p>
             </div>
 
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+            <p className="text-lg text-gray-600 mb-10 leading-relaxed font-light">
               {restOfDescription || "Medicamento de alta calidad distribuido por J. Barreiro."}
             </p>
             
-            {/* <div className="mb-8">
-              <p className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-1">Precio de Referencia</p>
-              <p className="text-4xl font-bold text-primary">{product.price}</p>
-            </div> 
-            */}
-
             <div className="mt-auto pt-8 border-t border-gray-100">
               <button 
                 onClick={() => navigate('/contacto')}
-                className="w-full flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-xl text-white bg-primary hover:bg-primary-dark transition-colors shadow-sm"
+                className="w-full flex items-center justify-center px-8 py-5 border border-transparent text-xl font-bold rounded-2xl text-white bg-primary hover:bg-primary-dark transition-all shadow-[0_8px_20px_-6px_rgba(27,166,75,0.4)] transform hover:-translate-y-1"
               >
-                Contactar para comprar
+                Contactar para cotizar
               </button>
-              <p className="text-center text-sm text-gray-500 mt-4">
-                Venta exclusiva a farmacias y centros de salud autorizados.
+              <p className="text-center text-sm text-gray-400 mt-5 flex items-center justify-center">
+                <ShieldCheck size={16} className="mr-2 text-primary" /> Venta exclusiva a establecimientos autorizados.
               </p>
             </div>
           </div>
