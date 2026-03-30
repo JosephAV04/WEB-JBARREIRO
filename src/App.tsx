@@ -19,7 +19,7 @@ const productsData = [
   { id: 'clp-30', name: 'CLP X30 OFERTA (2X1)', description: 'Clopidogrel 75mg. Antiagregante plaquetario indicado para la prevención de eventos aterotrombóticos.', price: '$1,990.00' },
   { id: 'dic-b-10', name: 'DIC-B X10', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12). Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$500.00' },
   { id: 'dic-b-100', name: 'DIC-B X100', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12). Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$4,000.00' },
-  { id: 'dic-b-relax-20', name: 'DIC-B RELAX X20', description: 'Diclofenac 100mg + Vit (B1, B6 y B12) +Clorzoxazona 50 mg. Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
+  { id: 'dic-b-relax-20', name: 'DIC-B RELAX X20', description: 'Diclofenac 100mg + Vit (B1, B6 y B12) + Clorzoxazona 50 mg. Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
   { id: 'flexi-move-100', name: 'FLEXI-MOVE X100', description: 'Meloxicam 15 mg. Antiinflamatorio no esteroideo (AINE) indicado para el tratamiento de la artritis y osteoartritis.', price: '$2,000.00' },
   { id: 'hematocri-30', name: 'HEMATOCRI X30', description: 'Fumarrato Ferroso 400mg + Acido Folico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
   { id: 'hematocri-100', name: 'HEMATOCRI X100', description: 'Fumarrato Ferroso 400mg + Acido Folico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
