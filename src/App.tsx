@@ -21,9 +21,9 @@ const productsData = [
   { id: 'dic-b-100', name: 'DIC-B X100', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12). Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$4,000.00' },
   { id: 'dic-b-relax-20', name: 'DIC-B RELAX X20', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12) + Clorzoxazona 50 mg. Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
   { id: 'flexi-move-100', name: 'FLEXI-MOVE X100', description: 'Meloxicam 15 mg. Antiinflamatorio no esteroideo (AINE) indicado para el tratamiento de la artritis y osteoartritis.', price: '$2,000.00' },
-  { id: 'hematocri-30', name: 'HEMATOCRI X30', description: 'Fumarrato Ferroso 400 mg + Acido Folico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
-  { id: 'hematocri-100', name: 'HEMATOCRI X100', description: 'Fumarrato Ferroso 400 mg + Acido Folico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
-  { id: 'hematocri-suspension', name: 'HEMATOCRI SUSPENSION', description: 'Fumarrato Ferroso 400 mg + Acido Folico 1 mg en Suspensión. Ideal para pacientes con dificultad para deglutir comprimidos.', price: '$990.00' },
+  { id: 'hematocri-30', name: 'HEMATOCRI X30', description: 'Fumarrato Ferroso 400 mg + Ácido Fólico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
+  { id: 'hematocri-100', name: 'HEMATOCRI X100', description: 'Fumarrato Ferroso 400 mg + Ácido Fólico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
+  { id: 'hematocri-suspension', name: 'HEMATOCRI SUSPENSION', description: 'Fumarrato Ferroso 400 mg + Ácido Fólico 1 mg en Suspensión. Ideal para pacientes con dificultad para deglutir comprimidos.', price: '$990.00' },
   { id: 'ibone-oferta', name: 'IBONE OFERTA (2X1)', description: 'Ibandronato 150 mg. Bifosfonato indicado para el tratamiento y prevención de la osteoporosis en mujeres posmenopáusicas.', price: '$2,990.00' },
   { id: 'jb-prazol-50', name: 'JB PRAZOL X50', description: 'Esomeprazol 40 mg. Inhibidor de la bomba de protones indicado para el tratamiento del reflujo gastroesofágico y úlceras gástricas.', price: '$3,500.00' },
   { id: 'levobacter-500-20', name: 'LEVOBACTER 500mg X20', description: 'Levofloxacina 500 mg. Antibiótico quinolona de amplio espectro para infecciones respiratorias, urinarias y de piel.', price: '$2,500.00' },
@@ -1039,94 +1039,95 @@ function ContactView() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="w-full bg-gray-50 min-h-screen pb-24"
+      className="w-full bg-[#f8fafc] min-h-screen pb-24 relative overflow-hidden"
     >
-      {/* Premium Header Mejorado con Identidad */}
-      <div className="bg-[#0B1C10] text-white pt-28 pb-40 relative overflow-hidden">
-        {/* Patrones de fondo y degradados */}
-        <div className="absolute inset-0 z-0 opacity-30">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary/60 via-transparent to-transparent"></div>
-          {/* Patrón de puntos sutil para textura */}
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wNCkiLz48L3N2Zz4=')]"></div>
+      {/* Header Dinámico y Luminoso (Tamaño estandarizado con la web) */}
+      <div className="relative pt-12 pb-24 md:pt-16 md:pb-32 overflow-hidden bg-white border-b border-gray-100 shadow-sm z-10">
+        
+        {/* Fondo decorativo dinámico pero sutil */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-60">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] md:w-[800px] h-[60vw] md:h-[400px] bg-gradient-to-b from-primary/10 to-transparent rounded-full blur-[80px]"></div>
+          <div className="absolute bottom-0 right-0 w-[50vw] md:w-[400px] h-[50vw] md:h-[400px] bg-emerald-400/10 rounded-full blur-[100px] transform translate-y-1/2 translate-x-1/4"></div>
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMCwgMCwgMCwgMC4wNSkiLz48L3N2Zz4=')] opacity-50"></div>
         </div>
         
-        {/* Formas farmacéuticas flotantes (Identidad visual) */}
+        {/* Formas farmacéuticas flotantes restauradas y adaptadas a fondo claro */}
         <motion.div
           animate={{ y: [-15, 15, -15], rotate: [0, 15, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 right-[10%] text-primary/20 blur-[1px] hidden md:block"
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[20%] right-[10%] text-primary/10 blur-[1px] hidden md:block"
         >
           <Pill size={100} />
         </motion.div>
         <motion.div
           animate={{ y: [15, -15, 15], rotate: [0, -15, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-10 left-[10%] text-emerald-500/10 blur-[2px] hidden md:block"
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-[10%] left-[10%] text-emerald-500/10 blur-[2px] hidden md:block"
         >
           <ShieldCheck size={120} />
         </motion.div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center mt-6 md:mt-0">
           
-          {/* Detalle pequeño: Status de conexión */}
+          {/* Etiqueta de status con pulso verde restaurada */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 shadow-lg"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center px-4 py-2 rounded-full bg-white shadow-sm border border-gray-100 mb-6 md:mb-8"
           >
             <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 mr-3 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             </span>
-            <span className="text-emerald-400 font-bold text-xs uppercase tracking-[0.15em]">Equipo de ventas en línea</span>
+            <span className="text-gray-500 font-bold text-xs uppercase tracking-[0.15em]">Equipo de ventas en línea</span>
           </motion.div>
 
-          <motion.h2 
+          <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight leading-tight"
+            className="text-5xl md:text-6xl lg:text-[5rem] font-black text-gray-900 tracking-tighter leading-[1.1] mb-6"
           >
             Hablemos de <br className="md:hidden" />
             <span className="relative inline-block mt-2 md:mt-0">
-              <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-300 italic pr-2">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400 pr-2">
                 Negocios
               </span>
-              {/* Detalle pequeño: Subrayado curvo debajo de la palabra */}
-              <svg className="absolute w-full h-3 -bottom-1 left-0 text-primary/40 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
-                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="4" fill="transparent" strokeLinecap="round" />
+              {/* Subrayado curvo restaurado */}
+              <svg className="absolute w-full h-3 -bottom-1 md:-bottom-2 left-0 text-emerald-300/40 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="6" fill="transparent" strokeLinecap="round" />
               </svg>
             </span>
-          </motion.h2>
+          </motion.h1>
           
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 font-light leading-relaxed"
+            className="max-w-2xl mx-auto text-lg md:text-xl text-gray-500 font-medium leading-relaxed"
           >
-            Tu farmacia merece <strong className="text-white font-medium">calidad y abastecimiento continuo</strong>. Nuestro equipo está listo para diseñar el plan de abastecimiento ideal para ti.
+            Tu farmacia merece <strong className="text-gray-900 font-extrabold">calidad y abastecimiento continuo</strong>. Nuestro equipo está listo para ayudarte a crecer.
           </motion.p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 md:-mt-16 relative z-20">
         
-        {/* Interactive Contact Hub */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-20">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+        {/* Grid de Tarjetas de Contacto Estáticas */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-24">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="h-full">
             <ContactCard 
-              icon={<Phone className="text-white" size={26} />}
+              icon={<Phone className="text-white" size={24} strokeWidth={2.5} />}
               title="Línea Principal"
               value="809 980 8810"
               desc="Lunes a Viernes, 8:00 AM - 5:00 PM"
               href="tel:8099808810"
-              color="bg-primary"
             />
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="h-full">
             <ContactCard 
               icon={
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" className="text-white">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" className="text-white">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                 </svg>
               }
@@ -1134,80 +1135,72 @@ function ContactView() {
               value="809 909 2606"
               desc="Respuesta rápida en < 1 hora"
               href="https://wa.me/18099092606"
-              color="bg-[#25D366]"
             />
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>            
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="h-full">            
             <ContactCard 
-              icon={
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-              }
+              icon={<Mail className="text-white" size={24} strokeWidth={2.5} />}
               title="Email Corporativo"
               value="jbarreiro.co@gmail.com"
               desc="Cotizaciones y logística"
               href="mailto:jbarreiro.co@gmail.com"
-              color="bg-[#EA4335]" 
             />
           </motion.div>
         </div>
 
-        {/* COMPONENTE DEL MAPA - SIN MODIFICAR */}
+        {/* Sección de Sede y Mapa */}
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="bg-white rounded-[3rem] shadow-2xl border border-gray-100 overflow-hidden mb-16"
+          transition={{ delay: 0.4 }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-5">
-            {/* Location Info */}
-            <div className="lg:col-span-2 bg-gray-50 p-12 lg:p-16 flex flex-col justify-center relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
-              
-              <h3 className="text-4xl font-extrabold text-gray-900 mb-10 relative z-10">Nuestra Sede</h3>
-              
-              <div className="space-y-10 relative z-10">
-                <div className="flex items-start group">
-                  <div className="bg-white p-4 rounded-2xl mr-6 shadow-sm border border-gray-100 group-hover:border-primary/30 group-hover:shadow-md transition-all">
-                    <MapPin className="text-primary" size={32} />
-                  </div>
-                  <div>
-                    <p className="font-bold text-xl text-gray-900 mb-2">Dirección Principal</p>
-                    <p className="text-gray-600 leading-relaxed text-lg">
-                      Manzana 8 No. 19, Ciudad Colosal<br/>
-                      Santo Domingo, República Dominicana
-                    </p>
-                  </div>
+          {/* Columna Izquierda: Información */}
+          <div className="lg:col-span-5 flex flex-col justify-center pt-4">
+            <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-8 tracking-tight">Nuestra Sede</h3>
+            
+            <div className="space-y-6">
+              <div className="bg-white p-6 md:p-8 rounded-[2rem] shadow-sm border border-gray-100 relative overflow-hidden flex items-start">
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
+                <div className="w-12 h-12 bg-gray-50 border border-gray-100 rounded-2xl flex items-center justify-center mr-5 flex-shrink-0">
+                  <MapPin className="text-primary" size={24} />
                 </div>
-                
-                <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
-                  <div className="flex items-center mb-4">
-                    <ShieldCheck className="text-primary mr-3" size={28} />
-                    <span className="font-extrabold text-xl text-gray-900">Distribución Nacional</span>
-                  </div>
-                  <p className="text-gray-500 leading-relaxed">
-                    Contamos con una red logística que cubre todo el territorio nacional, garantizando que nuestros productos lleguen a las principales cadenas de farmacias.
+                <div>
+                  <p className="font-extrabold text-lg text-gray-900 mb-2">Dirección Principal</p>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    Manzana 8 No. 19, Ciudad Colosal<br/>
+                    Santo Domingo, República Dominicana
+                  </p>
+                </div>
+              </div>
+              
+              <div className="bg-white p-6 md:p-8 rounded-[2rem] shadow-sm border border-gray-100 relative overflow-hidden flex items-start">
+                <div className="w-12 h-12 bg-gray-50 border border-gray-100 rounded-2xl flex items-center justify-center mr-5 flex-shrink-0">
+                  <ShieldCheck className="text-primary" size={24} />
+                </div>
+                <div>
+                  <p className="font-extrabold text-lg text-gray-900 mb-2">Distribución Nacional</p>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    Nuestra red logística cubre todo el territorio nacional, garantizando disponibilidad en las principales cadenas de farmacias.
                   </p>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Mapa */}
-            <div className="lg:col-span-3 h-[500px] lg:h-auto min-h-[500px] relative">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.455049393656!2d-69.7896493!3d18.508327599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf87f41177423f%3A0xa20e45aa0ee936b0!2sJ.%20Barreiro%20%26%20CO.%20S.R.L!5e0!3m2!1ses-419!2sdo!4v1772326455098!5m2!1ses-419!2sdo"                 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen={false} 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Ubicación de J. Barreiro"
-                className="absolute inset-0"
-              ></iframe>
-            </div>
+          {/* Columna Derecha: Mapa */}
+          <div className="lg:col-span-7 h-[400px] md:h-[500px] bg-gray-100 rounded-[2.5rem] overflow-hidden shadow-inner relative border border-gray-200">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.455049393656!2d-69.7896493!3d18.508327599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf87f41177423f%3A0xa20e45aa0ee936b0!2sJ.%20Barreiro%20%26%20CO.%20S.R.L!5e0!3m2!1ses-419!2sdo!4v1772326455098!5m2!1ses-419!2sdo"                 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen={false} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Ubicación de J. Barreiro"
+              className="absolute inset-0"
+            ></iframe>
           </div>
         </motion.div>
       </div>
@@ -1215,25 +1208,54 @@ function ContactView() {
   );
 }
 
-function ContactCard({ icon, title, value, desc, href, color }: { icon: React.ReactNode; title: string; value: string; desc: string; href: string; color: string }) {
+function ContactCard({ icon, title, value, desc, href }: { icon: React.ReactNode; title: string; value: string; desc: string; href: string }) {
   return (
     <a 
       href={href} 
       target="_blank" 
       rel="noopener noreferrer"
-      className="bg-white p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-[0_20px_40px_-15px_rgba(24,128,49,0.15)] hover:border-primary/30 transition-all duration-500 group flex flex-col h-full relative overflow-hidden"
+      className="group relative flex flex-col h-full bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 hover:shadow-lg transition-shadow duration-300 overflow-hidden"
     >
-      {/* Detalle Pequeño: Icono de flecha en la esquina */}
-      <div className="absolute top-6 right-6 text-gray-300 group-hover:text-primary transition-colors duration-300 transform group-hover:-translate-y-1 group-hover:translate-x-1">
-        <ArrowRight size={20} className="-rotate-45" />
-      </div>
+      {/* LÍNEAS VERDES ESTÁTICAS CREATIVAS */}
+      
+      {/* 1. Acento arquitectónico alineado matemáticamente con el bloque de texto */}
+      {/* Explicación: top-[120px] alinea exactamente con el inicio del H4, y h-14 abraza el H4 y la etiqueta P */}
+      <div className="absolute left-0 top-[120px] w-1.5 h-14 bg-primary rounded-r-md opacity-80 group-hover:h-16 group-hover:bg-primary-dark transition-all duration-300"></div>
+      
+      {/* 2. Red molecular/geométrica estática en la esquina inferior derecha */}
+      <svg className="absolute right-0 bottom-0 text-primary opacity-[0.07] w-36 h-36 pointer-events-none transform translate-x-4 translate-y-4 group-hover:scale-110 transition-transform duration-700" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
+         <path d="M100 10 L50 10 L10 50 L10 100" strokeDasharray="4 4" />
+         <path d="M100 30 L70 30 L30 70 L30 100" />
+         <circle cx="50" cy="10" r="3" fill="currentColor" />
+         <circle cx="70" cy="30" r="2" fill="currentColor" />
+         <circle cx="30" cy="70" r="3" fill="currentColor" />
+         <circle cx="10" cy="50" r="2" fill="currentColor" />
+      </svg>
 
-      <div className={`w-14 h-14 ${color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 shadow-md`}>
-        {icon}
+      <div className="relative z-10 flex flex-col h-full">
+        {/* Cabecera de la tarjeta: Icono a la izquierda, flecha a la derecha */}
+        <div className="flex justify-between items-start mb-8">
+          <div className="w-14 h-14 bg-[#1BA64B] text-white rounded-[1rem] flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+            {icon}
+          </div>
+          
+          <div className="text-gray-300 group-hover:text-primary transition-colors duration-300 mt-1">
+            <ArrowRight size={20} className="-rotate-45" />
+          </div>
+        </div>
+
+        {/* Contenido de texto */}
+        <h4 className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest mb-2">{title}</h4>
+        
+        {/* Ajuste de tamaño de fuente para evitar cortes en el correo */}
+        <p className="text-2xl xl:text-[1.7rem] font-black text-gray-900 mb-2 group-hover:text-primary transition-colors duration-300 tracking-tight truncate">
+          {value}
+        </p>
+        
+        <div className="mt-auto pt-6">
+          <p className="text-sm font-medium text-gray-500">{desc}</p>
+        </div>
       </div>
-      <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">{title}</h4>
-      <p className="text-xl lg:text-2xl font-extrabold text-gray-900 mb-2 break-all group-hover:text-primary transition-colors">{value}</p>
-      <p className="text-sm text-gray-500 mt-auto pt-5 border-t border-gray-50">{desc}</p>
     </a>
   );
 }
