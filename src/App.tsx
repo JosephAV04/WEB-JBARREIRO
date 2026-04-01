@@ -19,11 +19,11 @@ const productsData = [
   { id: 'clp-30', name: 'CLP X30 OFERTA (2X1)', description: 'Clopidogrel 75mg. Antiagregante plaquetario indicado para la prevención de eventos aterotrombóticos.', price: '$1,990.00' },
   { id: 'dic-b-10', name: 'DIC-B X10', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12). Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$500.00' },
   { id: 'dic-b-100', name: 'DIC-B X100', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12). Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$4,000.00' },
-  { id: 'dic-b-relax-20', name: 'DIC-B RELAX X20', description: 'Diclofenac 100mg + Vit (B1, B6 y B12) + Clorzoxazona 50 mg. Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
+  { id: 'dic-b-relax-20', name: 'DIC-B RELAX X20', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12) + Clorzoxazona 50 mg. Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
   { id: 'flexi-move-100', name: 'FLEXI-MOVE X100', description: 'Meloxicam 15 mg. Antiinflamatorio no esteroideo (AINE) indicado para el tratamiento de la artritis y osteoartritis.', price: '$2,000.00' },
-  { id: 'hematocri-30', name: 'HEMATOCRI X30', description: 'Fumarrato Ferroso 400mg + Acido Folico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
-  { id: 'hematocri-100', name: 'HEMATOCRI X100', description: 'Fumarrato Ferroso 400mg + Acido Folico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
-  { id: 'hematocri-suspension', name: 'HEMATOCRI SUSPENSION', description: 'Fumarrato Ferroso 400mg + Acido Folico 1mg en Suspensión. Ideal para pacientes con dificultad para deglutir comprimidos.', price: '$990.00' },
+  { id: 'hematocri-30', name: 'HEMATOCRI X30', description: 'Fumarrato Ferroso 400 mg + Acido Folico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
+  { id: 'hematocri-100', name: 'HEMATOCRI X100', description: 'Fumarrato Ferroso 400 mg + Acido Folico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
+  { id: 'hematocri-suspension', name: 'HEMATOCRI SUSPENSION', description: 'Fumarrato Ferroso 400 mg + Acido Folico 1 mg en Suspensión. Ideal para pacientes con dificultad para deglutir comprimidos.', price: '$990.00' },
   { id: 'ibone-oferta', name: 'IBONE OFERTA (2X1)', description: 'Ibandronato 150 mg. Bifosfonato indicado para el tratamiento y prevención de la osteoporosis en mujeres posmenopáusicas.', price: '$2,990.00' },
   { id: 'jb-prazol-50', name: 'JB PRAZOL X50', description: 'Esomeprazol 40 mg. Inhibidor de la bomba de protones indicado para el tratamiento del reflujo gastroesofágico y úlceras gástricas.', price: '$3,500.00' },
   { id: 'levobacter-500-20', name: 'LEVOBACTER 500mg X20', description: 'Levofloxacina 500 mg. Antibiótico quinolona de amplio espectro para infecciones respiratorias, urinarias y de piel.', price: '$2,500.00' },
@@ -31,13 +31,13 @@ const productsData = [
   { id: 'lumdocer-30', name: 'LUMDOCER X30', description: 'Pregabalina 75 mg. Modulador del dolor neuropático y coadyuvante en el tratamiento de la epilepsia y ansiedad generalizada.', price: '$1,990.00' },
   //{ id: 'melocox2-10', name: 'MELOCOX2 X 10 comprimidos', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$600.00' },
   //{ id: 'melocox2-50', name: 'MELOCOX2 X 50 comprimidos', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$3,000.00' },
-  { id: 'melocox2-100', name: 'MELOCOX2 X100', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$5,000.00' },
+  { id: 'melocox2-100', name: 'MELOCOX2 X100', description: 'Meloxicam 15 mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$5,000.00' },
   { id: 'taladro-50', name: 'TALADRO X50', description: 'Tadalafil 20 mg. Indicado para el tratamiento de la disfunción eréctil y síntomas de la hiperplasia benigna de próstata.', price: '$2,000.00' },
   { id: 'taldro-5mg-30', name: 'TALDRO 5MG X30', description: 'Tadalafil 5 mg. Dosis diaria recomendada para el tratamiento continuo de la disfunción eréctil.', price: '$1,990.00' },
-  { id: 'xib-p-10', name: 'XIB-P X10', description: 'Celecoxib 200mg + Pregabalina 75 mg. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$1,100.00' },
+  { id: 'xib-p-10', name: 'XIB-P X10', description: 'Celecoxib 200 mg + Pregabalina 75 mg. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$1,100.00' },
   //{ id: 'xib-p-50', name: 'XIB-P X50', description: 'Mezcla de Celecoxib 200mg con Pregabalina. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$4,500.00' },
-  { id: 'xib-200mg-50', name: 'XIB 200MG X10', description: 'Celecoxib 200mg. Inhibidor selectivo de la COX-2 indicado para el alivio del dolor y la inflamación.', price: '$3,000.00' },
-  { id: 'xib-400mg-50', name: 'XIB 400MG X50', description: 'Celecoxib 400mg. Dosis reforzada para el tratamiento de procesos inflamatorios agudos y severos.', price: '$3,500.00' },
+  { id: 'xib-200mg-50', name: 'XIB 200MG X10', description: 'Celecoxib 200 mg. Inhibidor selectivo de la COX-2 indicado para el alivio del dolor y la inflamación.', price: '$3,000.00' },
+  { id: 'xib-400mg-50', name: 'XIB 400MG X50', description: 'Celecoxib 400 mg. Dosis reforzada para el tratamiento de procesos inflamatorios agudos y severos.', price: '$3,500.00' },
 ];
 
 //CLOUDINARY
@@ -982,15 +982,16 @@ function ProductDetailView() {
           </div>
 
           <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+            
             <div className="mb-6 flex flex-wrap gap-3">
               <span className={`inline-flex items-center px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest border ${
                 isSuspension ? 'bg-orange-50 text-orange-600 border-orange-100' : 'bg-primary/10 text-primary border-primary/20'
               }`}>
                 {isSuspension ? 'Suspensión Oral' : 'Comprimidos'}
               </span>
-              <span className="inline-flex items-center px-4 py-1.5 rounded-lg text-xs font-bold bg-blue-50 text-blue-600 uppercase tracking-widest border border-blue-100">
+              {/* <span className="inline-flex items-center px-4 py-1.5 rounded-lg text-xs font-bold bg-blue-50 text-blue-600 uppercase tracking-widest border border-blue-100">
                 Calidad Certificada
-              </span>
+              </span> */}
             </div>
             
             <div className="mb-6">
