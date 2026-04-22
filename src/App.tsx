@@ -12,32 +12,33 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 
 const productsData = [
-  { id: 'barre-itis-5', name: 'BARRE-ITIS X5', description: 'Azitromicina 500 mg. Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$769.00' },
-  { id: 'barre-itis-20', name: 'BARRE-ITIS X20', description: 'Azitromicina 500 mg. Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$3,076.00' },
-  { id: 'barre-pm-100', name: 'BARRE PM X100', description: 'Amitriptilina 25 mg. Antidepresivo tricíclico utilizado también para el tratamiento del dolor crónico y prevención de migrañas.', price: '$2,000.00' },
-  { id: 'blindada-1', name: 'BLINDADA X1', description: 'Levonorgestrel 1,5 mg. Anticonceptivo de emergencia de dosis única, eficaz para prevenir el embarazo tras una relación sin protección.', price: '$99.00' },
-  { id: 'clp-30', name: 'CLP X30 OFERTA (2X1)', description: 'Clopidogrel 75mg. Antiagregante plaquetario indicado para la prevención de eventos aterotrombóticos.', price: '$1,990.00' },
-  { id: 'dic-b-10', name: 'DIC-B X10', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12). Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$500.00' },
-  { id: 'dic-b-100', name: 'DIC-B X100', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12). Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$4,000.00' },
-  { id: 'dic-b-relax-20', name: 'DIC-B RELAX X20', description: 'Diclofenac 100 mg + Vit (B1, B6 y B12) + Clorzoxazona 50 mg. Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
-  { id: 'flexi-move-100', name: 'FLEXI-MOVE X100', description: 'Meloxicam 15 mg. Antiinflamatorio no esteroideo (AINE) indicado para el tratamiento de la artritis y osteoartritis.', price: '$2,000.00' },
-  { id: 'hematocri-30', name: 'HEMATOCRI X30', description: 'Fumarrato Ferroso 400 mg + Ácido Fólico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
-  { id: 'hematocri-100', name: 'HEMATOCRI X100', description: 'Fumarrato Ferroso 400 mg + Ácido Fólico 1mg. Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
-  { id: 'hematocri-suspension', name: 'HEMATOCRI SUSPENSION', description: 'Fumarrato Ferroso 400 mg + Ácido Fólico 1 mg en Suspensión. Ideal para pacientes con dificultad para deglutir comprimidos.', price: '$990.00' },
-  { id: 'ibone-oferta', name: 'IBONE OFERTA (2X1)', description: 'Ibandronato 150 mg. Bifosfonato indicado para el tratamiento y prevención de la osteoporosis en mujeres posmenopáusicas.', price: '$2,990.00' },
-  { id: 'jb-prazol-50', name: 'JB PRAZOL X50', description: 'Esomeprazol 40 mg. Inhibidor de la bomba de protones indicado para el tratamiento del reflujo gastroesofágico y úlceras gástricas.', price: '$3,500.00' },
-  { id: 'levobacter-500-20', name: 'LEVOBACTER 500mg X20', description: 'Levofloxacina 500 mg. Antibiótico quinolona de amplio espectro para infecciones respiratorias, urinarias y de piel.', price: '$2,500.00' },
-  { id: 'levobacter-750-20', name: 'LEVOBACTER 750mg X20', description: 'Levofloxacina 750 mg. Antibiótico quinolona de alta potencia para infecciones bacterianas severas.', price: '$3,000.00' },
-  { id: 'lumdocer-30', name: 'LUMDOCER X30', description: 'Pregabalina 75 mg. Modulador del dolor neuropático y coadyuvante en el tratamiento de la epilepsia y ansiedad generalizada.', price: '$1,990.00' },
+  { id: 'barre-itis-5', name: 'BARRE-ITIS X5', description: 'Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$769.00' },
+  { id: 'barre-itis-20', name: 'BARRE-ITIS X20', description: 'Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$3,076.00' },
+  { id: 'barre-pm-100', name: 'BARRE PM X100', description: 'Tratamiento utilizado como inductor del sueño. ', price: '$2,000.00' },
+  { id: 'blindada-1', name: 'BLINDADA X1', description: 'Anticonceptivo de emergencia de dosis única, eficaz para prevenir el embarazo tras una relación sin protección.', price: '$99.00' },
+  { id: 'clp-30', name: 'CLP X30 OFERTA (2X1)', description: 'Antiagregante plaquetario indicado para la prevención de eventos aterotrombóticos.', price: '$1,990.00' },
+  { id: 'dic-b-10', name: 'DIC-B X10', description: 'Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$500.00' },
+  { id: 'dic-b-100', name: 'DIC-B X100', description: 'Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$4,000.00' },
+  { id: 'dic-b-relax-20', name: 'DIC-B RELAX X20', description: 'Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
+  { id: 'hematocri-30', name: 'HEMATOCRI X30', description: 'Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
+  { id: 'hematocri-100', name: 'HEMATOCRI X100', description: 'Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
+  { id: 'hematocri-suspension', name: 'HEMATOCRI SUSPENSION', description: 'Suplemento antianémico en suspensión, ideal para pacientes con dificultad para deglutir comprimidos.', price: '$990.00' },
+  { id: 'ibone-oferta', name: 'IBONE OFERTA (2X1)', description: 'Indicado para el tratamiento y prevención de la osteoporosis.', price: '$2,990.00' },
+  { id: 'jb-prazol-50', name: 'JB PRAZOL X50', description: 'Indicado para el tratamiento del reflujo gastroesofágico y úlceras gástricas.', price: '$3,500.00' },
+  { id: 'levobacter-500-20', name: 'LEVOBACTER 500mg X20', description: 'Antibiótico de amplio espectro para infecciones bacterianas.', price: '$2,500.00' },
+  { id: 'levobacter-750-20', name: 'LEVOBACTER 750mg X20', description: 'Antibiótico de alta potencia para infecciones bacterianas severas.', price: '$3,000.00' },
+  { id: 'lumdocer-30', name: 'LUMDOCER X30', description: 'Modulador del dolor neuropático y coadyuvante.', price: '$1,990.00' },
   //{ id: 'melocox2-10', name: 'MELOCOX2 X 10 comprimidos', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$600.00' },
   //{ id: 'melocox2-50', name: 'MELOCOX2 X 50 comprimidos', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$3,000.00' },
-  { id: 'melocox2-100', name: 'MELOCOX2 X100', description: 'Meloxicam 15 mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$5,000.00' },
-  { id: 'taladro-50', name: 'TALADRO X50', description: 'Tadalafil 20 mg. Indicado para el tratamiento de la disfunción eréctil y síntomas de la hiperplasia benigna de próstata.', price: '$2,000.00' },
-  { id: 'taldro-5mg-30', name: 'TALDRO 5MG X30', description: 'Tadalafil 5 mg. Dosis diaria recomendada para el tratamiento continuo de la disfunción eréctil.', price: '$1,990.00' },
-  { id: 'xib-p-10', name: 'XIB-P X10', description: 'Celecoxib 200 mg + Pregabalina 75 mg. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$1,100.00' },
+  { id: 'melocox2-100', name: 'MELOCOX2 X100', description: 'Potente antiinflamatorio y analgésico.', price: '$5,000.00' },
+  { id: 'taladro-50', name: 'TALADRO 20 mg X50', description: 'Indicado para la disfunción eréctil siendo utilizado como Estimulante Sexual.', price: '$2,000.00' },
+  { id: 'taldro-5mg-30', name: 'TALDRO 5 mg X30', description: 'Ayuda al vaciado de la próstata, la miccion urinaria y favorece la erección.', price: '$1,990.00' },
+  { id: 'taldro-fast-x10-20ml', name: 'TALDRO FAST 20 ml X10', description: 'Taladafilo 20 mg (cajita x10). Cada frasco de 20 ml contiene 20 mg de Taladafilo.', price: '$2,000.00' },
+  { id: 'taldro-fast-frasco-240ml', name: 'TALDRO FAST 240 ml', description: 'Taladafilo 5 mg. Cada 5 ml equivale a 5 mg de Taladafilo. El frasco de 240 ml rinde 48 dosis.', price: '$1,990.00' },
+  { id: 'xib-p-10', name: 'XIB-P X10', description: 'Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$1,100.00' },
   //{ id: 'xib-p-50', name: 'XIB-P X50', description: 'Mezcla de Celecoxib 200mg con Pregabalina. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$4,500.00' },
-  { id: 'xib-200mg-50', name: 'XIB 200MG X10', description: 'Celecoxib 200 mg. Inhibidor selectivo de la COX-2 indicado para el alivio del dolor y la inflamación.', price: '$3,000.00' },
-  { id: 'xib-400mg-50', name: 'XIB 400MG X50', description: 'Celecoxib 400 mg. Dosis reforzada para el tratamiento de procesos inflamatorios agudos y severos.', price: '$3,500.00' },
+  { id: 'xib-200mg-50', name: 'XIB 200mg X10', description: 'Indicado para el alivio del dolor y la inflamación.', price: '$3,000.00' },
+  { id: 'xib-400mg-50', name: 'XIB 400mg X50', description: 'Indicado para el alivio del dolor y la inflamación.', price: '$3,500.00' },
 ];
 
 //CLOUDINARY
@@ -50,7 +51,6 @@ const IMAGE_MAP: Record<string, string> = {
   'dic-b-10': 'DIC-B X10',
   'dic-b-100': 'DIC-B X100',
   'dic-b-relax-20': 'DIC-B RELAX',
-  'flexi-move-100': 'FLEXI-MOVE',
   'hematocri-suspension': 'HEMATOCRI SUSPENSION',
   'hematocri-100': 'HEMATOCRI',
   'hematocri-30': 'HEMATOCRI X30',  
@@ -61,6 +61,8 @@ const IMAGE_MAP: Record<string, string> = {
   'lumdocer-30': 'LUMDOCER',
   'taladro-50': 'TALADRO',
   'taldro-5mg-30': 'TALDRO 5mg',
+  'taldro-fast-x10-20ml': 'TALDRO_FAST_X10_xu13er',
+  'taldro-fast-frasco-240ml': 'TALDRO_FAST_240_ML_ps8sms',
   'melocox2-100': 'MELOCOX2 X100',
   'xib-p-10': 'XIB P',
   'xib-p-50': 'XIB P',
@@ -671,8 +673,12 @@ function FeatureCard({ icon, title, desc }: { icon: React.ReactNode; title: stri
 const getCloudinaryUrl = (productId: string) => {
   const cloudName = 'didhygevw'; // Tu cuenta
   const fileName = IMAGE_MAP[productId] || productId;
-  
-  return `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto,c_pad,w_600,h_600/catalogo_productos/${encodeURIComponent(fileName)}`;
+
+  // TALDRO FAST se cargó en la raíz de Cloudinary y no dentro de catalogo_productos.
+  const isTaldroFast = productId === 'taldro-fast-x10-20ml' || productId === 'taldro-fast-frasco-240ml';
+  const basePath = isTaldroFast ? '' : 'catalogo_productos/';
+
+  return `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto,c_pad,w_600,h_600/${basePath}${encodeURIComponent(fileName)}`;
 };
 
 function ProductsView() {
@@ -813,8 +819,12 @@ function ProductsView() {
           <>
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {visibleProducts.map((product, index) => {
+                const isTaldroFast = product.id.startsWith('taldro-fast');
                 const activeIngredientRaw = product.description.split('.')[0];
                 const activeIngredient = formatActiveIngredient(activeIngredientRaw);
+                const cardDescription = isTaldroFast
+                  ? product.description.split('.').slice(1).join('.').trim()
+                  : product.description;
                 const { baseName, presentation } = getProductPresentation(product.name);
 
                 return (
@@ -846,17 +856,18 @@ function ProductsView() {
                         </div>
                         
                         <div className="px-1 flex-grow flex flex-col relative">
-                          {/* PRINCIPIO ACTIVO DISTRIBUIDO LIMPIAMENTE */}
-                          <p className="text-[11px] font-bold text-primary/80 uppercase tracking-widest mb-1.5 line-clamp-1">
-                            {activeIngredient}
-                          </p>
+                          {isTaldroFast && (
+                            <p className="text-[11px] font-bold text-primary/80 uppercase tracking-widest mb-1.5 line-clamp-1">
+                              {activeIngredient}
+                            </p>
+                          )}
                           
                           <h3 className="text-2xl font-black leading-tight mb-3 text-gray-900 md:group-hover:text-primary transition-colors">
                             {baseName}
                           </h3>
                           
                           <p className="text-sm text-gray-500 flex-grow mb-6 line-clamp-2 leading-relaxed">
-                            {product.description.split('.').slice(1).join('.').trim() || "Medicamento de alta eficacia."}
+                            {cardDescription || "Medicamento de alta eficacia."}
                           </p>
                           
                           <div className="mt-auto">
@@ -934,11 +945,13 @@ function ProductDetailView() {
     };
   };
 
+  const isTaldroFast = product.id.startsWith('taldro-fast');
   const descriptionParts = product.description.split('.');
   const activeIngredientRaw = descriptionParts[0];
-  const activeIngredient = formatActiveIngredient(activeIngredientRaw);
-  
-  const restOfDescription = descriptionParts.slice(1).join('.').trim();
+  const activeIngredient = isTaldroFast ? formatActiveIngredient(activeIngredientRaw) : '';
+  const detailDescription = isTaldroFast
+    ? descriptionParts.slice(1).join('.').trim()
+    : product.description;
 
   const { baseName, presentation } = getProductPresentation(product.name);
   const isSuspension = product.id === 'hematocri-suspension';
@@ -953,9 +966,9 @@ function ProductDetailView() {
     >
       <Helmet>
         <title>{baseName} | J. Barreiro & CO</title>
-        <meta name="description" content={`${product.name} - ${activeIngredient}. ${restOfDescription}`} />
+        <meta name="description" content={`${product.name} - ${product.description}`} />
         <meta property="og:title" content={`${product.name} | Distribuidora Farmacéutica`} />
-        <meta property="og:description" content={`${activeIngredient}. ${restOfDescription}`} />
+        <meta property="og:description" content={product.description} />
         <meta property="og:image" content={getCloudinaryUrl(product.id)} />
         <meta property="og:url" content={`https://jbarreiro.com.do/productos/${product.id}`} />
       </Helmet>
@@ -1005,14 +1018,16 @@ function ProductDetailView() {
               )}
             </div>
             
-            <div className="relative pl-6 py-2 mb-8">
-              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary rounded-full"></div>
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Principio Activo</p>
-              <p className="text-xl font-bold text-gray-800">{activeIngredient}</p>
-            </div>
+            {isTaldroFast && (
+              <div className="relative pl-6 py-2 mb-8">
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary rounded-full"></div>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Principio Activo</p>
+                <p className="text-xl font-bold text-gray-800">{activeIngredient}</p>
+              </div>
+            )}
 
             <p className="text-lg text-gray-600 mb-10 leading-relaxed font-light">
-              {restOfDescription || "Medicamento de alta calidad distribuido por J. Barreiro."}
+              {detailDescription || "Medicamento de alta calidad distribuido por J. Barreiro."}
             </p>
             
             <div className="mt-auto pt-8 border-t border-gray-100">
