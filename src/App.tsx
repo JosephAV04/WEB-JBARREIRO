@@ -33,8 +33,8 @@ const productsData = [
   { id: 'melocox2-100', name: 'MELOCOX2 X100', description: 'Potente antiinflamatorio y analgésico.', price: '$5,000.00' },
   { id: 'taladro-50', name: 'TALADRO 20 mg X50', description: 'Indicado para la disfunción eréctil siendo utilizado como Estimulante Sexual.', price: '$2,000.00' },
   { id: 'taldro-5mg-30', name: 'TALDRO 5 mg X30', description: 'Ayuda al vaciado de la próstata, la miccion urinaria y favorece la erección.', price: '$1,990.00' },
-  { id: 'taldro-fast-x10-20ml', name: 'TALDRO FAST 20 ml X10', description: 'Taladafilo 20 mg (cajita x10). Cada frasco de 20 ml contiene 20 mg de Taladafilo.', price: '$2,000.00' },
-  { id: 'taldro-fast-frasco-240ml', name: 'TALDRO FAST 240 ml', description: 'Taladafilo 5 mg. Cada 5 ml equivale a 5 mg de Taladafilo. El frasco de 240 ml rinde 48 dosis.', price: '$1,990.00' },
+  { id: 'taldro-fast-x10-20ml', name: 'TALDRO FAST SUSP. ORAL 20 ml X10', description: 'Taladafilo 20 mg (cajita x10). Cada frasco de 20 ml = 20 mg de Taladafilo.', price: '$2,000.00' },
+  { id: 'taldro-fast-frasco-240ml', name: 'TALDRO FAST SUSP. ORAL 240 ml', description: 'Taladafilo 5 mg. Cada 5 ml = 5 mg de Taladafilo. El frasco de 240 ml rinde 48 dosis.', price: '$1,990.00' },
   { id: 'xib-p-10', name: 'XIB-P X10', description: 'Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$1,100.00' },
   //{ id: 'xib-p-50', name: 'XIB-P X50', description: 'Mezcla de Celecoxib 200mg con Pregabalina. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$4,500.00' },
   { id: 'xib-200mg-50', name: 'XIB 200mg X10', description: 'Indicado para el alivio del dolor y la inflamación.', price: '$3,000.00' },
@@ -965,12 +965,45 @@ function ProductDetailView() {
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
     >
       <Helmet>
-        <title>{baseName} | J. Barreiro & CO</title>
-        <meta name="description" content={`${product.name} - ${product.description}`} />
-        <meta property="og:title" content={`${product.name} | Distribuidora Farmacéutica`} />
+        <title>{product.name} | Medicamentos J. Barreiro</title>
+        <meta name="description" content={`${product.name} - ${product.description}. Distribuidora farmacéutica en República Dominicana.`} />
+        <meta name="keywords" content={`${product.name}, ${baseName}, medicamentos, farmacia, República Dominicana`} />
+        <link rel="canonical" href={`https://jbarreiro.com.do/productos/${product.id}`} />
+        
+        {/* Open Graph para redes sociales */}
+        <meta property="og:title" content={`${product.name} | Medicamentos J. Barreiro`} />
         <meta property="og:description" content={product.description} />
         <meta property="og:image" content={getCloudinaryUrl(product.id)} />
         <meta property="og:url" content={`https://jbarreiro.com.do/productos/${product.id}`} />
+        <meta property="og:type" content="product" />
+        
+        {/* Structured Data para Google (Product Schema) */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product.name,
+            "description": product.description,
+            "image": getCloudinaryUrl(product.id),
+            "brand": {
+              "@type": "Brand",
+              "name": "J. Barreiro & CO"
+            },
+            "manufacturer": {
+              "@type": "Organization",
+              "name": "J. Barreiro & CO",
+              "url": "https://jbarreiro.com.do"
+            },
+            "url": `https://jbarreiro.com.do/productos/${product.id}`,
+            "offers": {
+              "@type": "Offer",
+              "price": product.price.replace(/[\$,]/g, ''),
+              "priceCurrency": "DOP",
+              "availability": "https://schema.org/InStock",
+              "url": `https://jbarreiro.com.do/productos/${product.id}`
+            }
+          })}
+        </script>
       </Helmet>
 
       <button 
