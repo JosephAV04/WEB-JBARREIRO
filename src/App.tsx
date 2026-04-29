@@ -1082,6 +1082,8 @@ function ProductDetailView() {
 }
 
 function ContactView() {
+  const displayTitle = presentation ? `${baseName} ${presentation}` : baseName;
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -1244,47 +1246,47 @@ function ContactView() {
               height="100%" 
               style={{ border: 0 }} 
               allowFullScreen={false} 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Ubicación de J. Barreiro"
-              className="absolute inset-0"
-            ></iframe>
-          </div>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
+              <Helmet>
+                <title>{`${displayTitle} | Medicamentos J. Barreiro`}</title>
+                <meta name="description" content={`${displayTitle} - ${product.description}. Distribuidora farmacéutica en República Dominicana.`} />
+                <meta name="keywords" content={`${displayTitle}, ${baseName}, medicamentos, farmacia, República Dominicana`} />
+                <link rel="canonical" href={`https://jbarreiro.com.do/productos/${product.id}`} />
 
-function ContactCard({ icon, title, value, desc, href }: { icon: React.ReactNode; title: string; value: string; desc: string; href: string }) {
-  return (
-    <a 
-      href={href} 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="group relative flex flex-col h-full bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 hover:shadow-lg transition-shadow duration-300 overflow-hidden"
-    >
-      {/* LÍNEAS VERDES ESTÁTICAS CREATIVAS */}
-      
-      {/* 1. Acento arquitectónico alineado matemáticamente con el bloque de texto */}
-      {/* Explicación: top-[120px] alinea exactamente con el inicio del H4, y h-14 abraza el H4 y la etiqueta P */}
-      <div className="absolute left-0 top-[120px] w-1.5 h-14 bg-primary rounded-r-md opacity-80 group-hover:h-16 group-hover:bg-primary-dark transition-all duration-300"></div>
-      
-      {/* 2. Red molecular/geométrica estática en la esquina inferior derecha */}
-      <svg className="absolute right-0 bottom-0 text-primary opacity-[0.07] w-36 h-36 pointer-events-none transform translate-x-4 translate-y-4 group-hover:scale-110 transition-transform duration-700" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
-         <path d="M100 10 L50 10 L10 50 L10 100" strokeDasharray="4 4" />
-         <path d="M100 30 L70 30 L30 70 L30 100" />
-         <circle cx="50" cy="10" r="3" fill="currentColor" />
-         <circle cx="70" cy="30" r="2" fill="currentColor" />
-         <circle cx="30" cy="70" r="3" fill="currentColor" />
-         <circle cx="10" cy="50" r="2" fill="currentColor" />
-      </svg>
+                {/* Open Graph para redes sociales */}
+                <meta property="og:title" content={`${displayTitle} | Medicamentos J. Barreiro`} />
+                <meta property="og:description" content={product.description} />
+                <meta property="og:image" content={getCloudinaryUrl(product.id)} />
+                <meta property="og:url" content={`https://jbarreiro.com.do/productos/${product.id}`} />
+                <meta property="og:type" content="product" />
 
-      <div className="relative z-10 flex flex-col h-full">
-        {/* Cabecera de la tarjeta: Icono a la izquierda, flecha a la derecha */}
-        <div className="flex justify-between items-start mb-8">
-          <div className="w-14 h-14 bg-[#1BA64B] text-white rounded-[1rem] flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-            {icon}
+                {/* Structured Data para Google (Product Schema) */}
+                <script type="application/ld+json">
+                  {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "Product",
+                    "name": displayTitle,
+                    "description": product.description,
+                    "image": getCloudinaryUrl(product.id),
+                    "brand": {
+                      "@type": "Brand",
+                      "name": "J. Barreiro & CO"
+                    },
+                    "manufacturer": {
+                      "@type": "Organization",
+                      "name": "J. Barreiro & CO",
+                      "url": "https://jbarreiro.com.do"
+                    },
+                    "url": `https://jbarreiro.com.do/productos/${product.id}`,
+                    "offers": {
+                      "@type": "Offer",
+                      "price": product.price.replace(/[$,]/g, ''),
+                      "priceCurrency": "DOP",
+                      "availability": "https://schema.org/InStock",
+                      "url": `https://jbarreiro.com.do/productos/${product.id}`
+                    }
+                  })}
+                </script>
+              </Helmet>
           </div>
           
           <div className="text-gray-300 group-hover:text-primary transition-colors duration-300 mt-1">
