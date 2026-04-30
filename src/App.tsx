@@ -1192,33 +1192,46 @@ function ContactView() {
               style={{ border: 0 }}
               allowFullScreen={false}
             />
-            <Helmet>
-              <title>Contacto | J. Barreiro & CO</title>
-              <meta name="description" content="Contacta a J. Barreiro & CO para cotización y distribución mayorista de medicamentos en República Dominicana." />
-              <link rel="canonical" href="https://jbarreiro.com.do/contacto" />
-              <meta property="og:title" content="Contacto | J. Barreiro & CO" />
-              <meta property="og:url" content="https://jbarreiro.com.do/contacto" />
-              <meta property="og:type" content="website" />
-            </Helmet>
-          </div>
-          
-          <div className="text-gray-300 group-hover:text-primary transition-colors duration-300 mt-1">
-            <ArrowRight size={20} className="-rotate-45" />
           </div>
         </motion.div>
+      </div>
 
-        {/* Contenido de texto */}
-        <h4 className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest mb-2">{title}</h4>
-        
-        {/* Ajuste de tamaño de fuente para evitar cortes en el correo */}
-        <p className="text-2xl xl:text-[1.7rem] font-black text-gray-900 mb-2 group-hover:text-primary transition-colors duration-300 tracking-tight truncate">
-          {value}
-        </p>
-        
-        <div className="mt-auto pt-6">
-          <p className="text-sm font-medium text-gray-500">{desc}</p>
+      <Helmet>
+        <title>Contacto | J. Barreiro & CO</title>
+        <meta name="description" content="Contacta a J. Barreiro & CO para cotización y distribución mayorista de medicamentos en República Dominicana." />
+        <link rel="canonical" href="https://jbarreiro.com.do/contacto" />
+        <meta property="og:title" content="Contacto | J. Barreiro & CO" />
+        <meta property="og:url" content="https://jbarreiro.com.do/contacto" />
+        <meta property="og:type" content="website" />
+      </Helmet>
+    </motion.div>
+  );
+}
+
+function ContactCard({ icon, title, value, desc, href }: { icon: React.ReactNode; title: string; value: string; desc: string; href: string }) {
+  const isExternal = href.startsWith('http');
+  return (
+    <a
+      href={href}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+      className="group flex flex-col h-full bg-white p-6 md:p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+    >
+      <div className="flex items-start justify-between mb-6">
+        <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center shadow-md">
+          {icon}
+        </div>
+        <div className="text-gray-300 group-hover:text-primary transition-colors duration-300 mt-1">
+          <ArrowRight size={20} className="-rotate-45" />
         </div>
       </div>
-    </motion.div>
+      <h4 className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest mb-2">{title}</h4>
+      <p className="text-2xl xl:text-[1.7rem] font-black text-gray-900 mb-2 group-hover:text-primary transition-colors duration-300 tracking-tight truncate">
+        {value}
+      </p>
+      <div className="mt-auto pt-6">
+        <p className="text-sm font-medium text-gray-500">{desc}</p>
+      </div>
+    </a>
   );
 }
