@@ -1029,8 +1029,6 @@ function ProductDetailView() {
 }
 
 function ContactView() {
-  const displayTitle = presentation ? `${baseName} ${presentation}` : baseName;
-
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -1195,46 +1193,13 @@ function ContactView() {
               allowFullScreen={false}
             />
             <Helmet>
-                <title>{`${displayTitle} | Medicamentos J. Barreiro`}</title>
-                <meta name="description" content={`${displayTitle} - ${product.description}. Distribuidora farmacéutica en República Dominicana.`} />
-                <meta name="keywords" content={`${displayTitle}, ${baseName}, medicamentos, farmacia, República Dominicana`} />
-                <link rel="canonical" href={`https://jbarreiro.com.do/productos/${product.id}`} />
-
-                {/* Open Graph para redes sociales */}
-                <meta property="og:title" content={`${displayTitle} | Medicamentos J. Barreiro`} />
-                <meta property="og:description" content={product.description} />
-                <meta property="og:image" content={getCloudinaryUrl(product.id)} />
-                <meta property="og:url" content={`https://jbarreiro.com.do/productos/${product.id}`} />
-                <meta property="og:type" content="product" />
-
-                {/* Structured Data para Google (Product Schema) */}
-                <script type="application/ld+json">
-                  {JSON.stringify({
-                    "@context": "https://schema.org",
-                    "@type": "Product",
-                    "name": displayTitle,
-                    "description": product.description,
-                    "image": getCloudinaryUrl(product.id),
-                    "brand": {
-                      "@type": "Brand",
-                      "name": "J. Barreiro & CO"
-                    },
-                    "manufacturer": {
-                      "@type": "Organization",
-                      "name": "J. Barreiro & CO",
-                      "url": "https://jbarreiro.com.do"
-                    },
-                    "url": `https://jbarreiro.com.do/productos/${product.id}`,
-                    "offers": {
-                      "@type": "Offer",
-                      "price": product.price.replace(/[$,]/g, ''),
-                      "priceCurrency": "DOP",
-                      "availability": "https://schema.org/InStock",
-                      "url": `https://jbarreiro.com.do/productos/${product.id}`
-                    }
-                  })}
-                </script>
-              </Helmet>
+              <title>Contacto | J. Barreiro & CO</title>
+              <meta name="description" content="Contacta a J. Barreiro & CO para cotización y distribución mayorista de medicamentos en República Dominicana." />
+              <link rel="canonical" href="https://jbarreiro.com.do/contacto" />
+              <meta property="og:title" content="Contacto | J. Barreiro & CO" />
+              <meta property="og:url" content="https://jbarreiro.com.do/contacto" />
+              <meta property="og:type" content="website" />
+            </Helmet>
           </div>
           
           <div className="text-gray-300 group-hover:text-primary transition-colors duration-300 mt-1">
