@@ -8,67 +8,8 @@ import logoGBC from './assets/LogoGBC.png';
 import logoHidalgos from './assets/LogoHidalgos.png';
 import logoValue from './assets/LogoValue.png';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { productsData, getCloudinaryUrl } from './data/products';
 
-
-
-const productsData = [
-  { id: 'barre-itis-5', name: 'BARRE-ITIS X5', description: 'Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$769.00' },
-  { id: 'barre-itis-20', name: 'BARRE-ITIS X20', description: 'Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.', price: '$3,076.00' },
-  { id: 'barre-pm-100', name: 'BARRE PM X100', description: 'Tratamiento utilizado como inductor del sueño. ', price: '$2,000.00' },
-  { id: 'blindada-1', name: 'BLINDADA X1', description: 'Anticonceptivo de emergencia de dosis única, eficaz para prevenir el embarazo tras una relación sin protección.', price: '$99.00' },
-  { id: 'clp-30', name: 'CLP X30 OFERTA (2X1)', description: 'Antiagregante plaquetario indicado para la prevención de eventos aterotrombóticos.', price: '$1,990.00' },
-  { id: 'dic-b-10', name: 'DIC-B X10', description: 'Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$500.00' },
-  { id: 'dic-b-100', name: 'DIC-B X100', description: 'Combinación analgésica, antiinflamatoria y neurotrópica.', price: '$4,000.00' },
-  { id: 'dic-b-relax-20', name: 'DIC-B RELAX X20', description: 'Formulación diseñada para el alivio del dolor inflamatorio con componente neurítico.', price: '$1,000.00' },
-  { id: 'hematocri-30', name: 'HEMATOCRI X30', description: 'Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$990.00' },
-  { id: 'hematocri-100', name: 'HEMATOCRI X100', description: 'Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.', price: '$2,990.00' },
-  { id: 'hematocri-suspension', name: 'HEMATOCRI SUSPENSION', description: 'Suplemento antianémico en suspensión, ideal para pacientes con dificultad para deglutir comprimidos.', price: '$990.00' },
-  { id: 'ibone-oferta', name: 'IBONE OFERTA (2X1)', description: 'Indicado para el tratamiento y prevención de la osteoporosis.', price: '$2,990.00' },
-  { id: 'jb-prazol-50', name: 'JB PRAZOL X50', description: 'Indicado para el tratamiento del reflujo gastroesofágico y úlceras gástricas.', price: '$3,500.00' },
-  { id: 'levobacter-500-20', name: 'LEVOBACTER 500mg X20', description: 'Antibiótico de amplio espectro para infecciones bacterianas.', price: '$2,500.00' },
-  { id: 'levobacter-750-20', name: 'LEVOBACTER 750mg X20', description: 'Antibiótico de alta potencia para infecciones bacterianas severas.', price: '$3,000.00' },
-  { id: 'lumdocer-30', name: 'LUMDOCER X30', description: 'Modulador del dolor neuropático y coadyuvante.', price: '$1,990.00' },
-  //{ id: 'melocox2-10', name: 'MELOCOX2 X 10 comprimidos', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$600.00' },
-  //{ id: 'melocox2-50', name: 'MELOCOX2 X 50 comprimidos', description: 'Meloxicam 15mg. Potente antiinflamatorio y analgésico indicado para afecciones osteoarticulares.', price: '$3,000.00' },
-  { id: 'melocox2-100', name: 'MELOCOX2 X100', description: 'Potente antiinflamatorio y analgésico.', price: '$5,000.00' },
-  { id: 'taladro-50', name: 'TALADRO 20 mg X50', description: 'Indicado para la disfunción eréctil siendo utilizado como Estimulante Sexual.', price: '$2,000.00' },
-  { id: 'taldro-5mg-30', name: 'TALDRO 5 mg X30', description: 'Ayuda al vaciado de la próstata, la miccion urinaria y favorece la erección.', price: '$1,990.00' },
-  { id: 'taldro-fast-x10-20ml', name: 'TALDRO FAST SUSP. ORAL 20 ml X10', description: 'Taladafilo 20 mg (cajita x10). Cada frasco de 20 ml = 20 mg de Taladafilo.', price: '$2,000.00' },
-  { id: 'taldro-fast-frasco-240ml', name: 'TALDRO FAST SUSP. ORAL 240 ml', description: 'Taladafilo 5 mg. Cada 5 ml = 5 mg de Taladafilo. El frasco de 240 ml rinde 48 dosis.', price: '$1,990.00' },
-  { id: 'xib-p-10', name: 'XIB-P X10', description: 'Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$1,100.00' },
-  //{ id: 'xib-p-50', name: 'XIB-P X50', description: 'Mezcla de Celecoxib 200mg con Pregabalina. Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$4,500.00' },
-  { id: 'xib-200mg-50', name: 'XIB 200mg X10', description: 'Indicado para el alivio del dolor y la inflamación.', price: '$3,000.00' },
-  { id: 'xib-400mg-50', name: 'XIB 400mg X50', description: 'Indicado para el alivio del dolor y la inflamación.', price: '$3,500.00' },
-];
-
-//CLOUDINARY
-const IMAGE_MAP: Record<string, string> = {
-  'barre-itis-5': 'barre-itis-5',
-  'barre-itis-20': 'BARRE ITIS X20',  
-  'barre-pm-100': 'BARRE PM X100',
-  'blindada-1': 'BLINDADA',
-  'clp-30': 'CLP',
-  'dic-b-10': 'DIC-B X10',
-  'dic-b-100': 'DIC-B X100',
-  'dic-b-relax-20': 'DIC-B RELAX',
-  'hematocri-suspension': 'HEMATOCRI SUSPENSION',
-  'hematocri-100': 'HEMATOCRI',
-  'hematocri-30': 'HEMATOCRI X30',  
-  'ibone-oferta': 'IBONE',
-  'jb-prazol-50': 'JB PRAZOL X50',
-  'levobacter-500-20': 'LEVOBACTER 500MG',
-  'levobacter-750-20': 'LEVOBACTER 750MG',
-  'lumdocer-30': 'LUMDOCER',
-  'taladro-50': 'TALADRO',
-  'taldro-5mg-30': 'TALDRO 5mg',
-  'taldro-fast-x10-20ml': 'TALDRO_FAST_X10_xu13er',
-  'taldro-fast-frasco-240ml': 'TALDRO_FAST_240_ML_ps8sms',
-  'melocox2-100': 'MELOCOX2 X100',
-  'xib-p-10': 'XIB P',
-  'xib-p-50': 'XIB P',
-  'xib-200mg-50': 'XIB 200mg',
-  'xib-400mg-50': 'XIB 400mg x50'  
-};
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -150,15 +91,31 @@ function Navbar() {
   };
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    let rafId = 0;
+    const update = () => {
+      rafId = 0;
+      const y = window.scrollY;
+      setScrolled((prev: boolean) => {
+        if (!prev && y > 40) return true;
+        if (prev && y < 10) return false;
+        return prev;
+      });
+    };
+    const handleScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(update);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
-    <header className={`bg-primary sticky top-0 z-50 transition-all duration-500 border-b border-primary-dark/20 ${scrolled ? 'shadow-xl' : ''}`}>
+    <header className={`bg-primary sticky top-0 z-50 transition-shadow duration-300 border-b border-primary-dark/20 will-change-transform ${scrolled ? 'shadow-xl' : ''}`}>
       <div className="w-full pl-0 pr-4 sm:pr-6 lg:pr-12">
-        <div className={`flex justify-between items-stretch transition-all duration-500 ${scrolled ? 'h-16 md:h-20' : 'h-20 md:h-28'}`}>
+        <div className={`flex justify-between items-stretch transition-[height] duration-300 ease-out will-change-[height] ${scrolled ? 'h-16 md:h-20' : 'h-20 md:h-28'}`}>
           
           <Link to="/" className="relative flex items-center h-full cursor-pointer group">
             <motion.div 
@@ -670,16 +627,6 @@ function FeatureCard({ icon, title, desc }: { icon: React.ReactNode; title: stri
 
 
 
-const getCloudinaryUrl = (productId: string) => {
-  const cloudName = 'didhygevw'; // Tu cuenta
-  const fileName = IMAGE_MAP[productId] || productId;
-
-  // TALDRO FAST se cargó en la raíz de Cloudinary y no dentro de catalogo_productos.
-  const isTaldroFast = productId === 'taldro-fast-x10-20ml' || productId === 'taldro-fast-frasco-240ml';
-  const basePath = isTaldroFast ? '' : 'catalogo_productos/';
-
-  return `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto,c_pad,w_600,h_600/${basePath}${encodeURIComponent(fileName)}`;
-};
 
 function ProductsView() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -1240,13 +1187,14 @@ function ContactView() {
 
           {/* Columna Derecha: Mapa */}
           <div className="lg:col-span-7 h-[400px] md:h-[500px] bg-gray-100 rounded-[2.5rem] overflow-hidden shadow-inner relative border border-gray-200">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.455049393656!2d-69.7896493!3d18.508327599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf87f41177423f%3A0xa20e45aa0ee936b0!2sJ.%20Barreiro%20%26%20CO.%20S.R.L!5e0!3m2!1ses-419!2sdo!4v1772326455098!5m2!1ses-419!2sdo"                 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen={false} 
-              <Helmet>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.455049393656!2d-69.7896493!3d18.508327599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf87f41177423f%3A0xa20e45aa0ee936b0!2sJ.%20Barreiro%20%26%20CO.%20S.R.L!5e0!3m2!1ses-419!2sdo!4v1772326455098!5m2!1ses-419!2sdo"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen={false}
+            />
+            <Helmet>
                 <title>{`${displayTitle} | Medicamentos J. Barreiro`}</title>
                 <meta name="description" content={`${displayTitle} - ${product.description}. Distribuidora farmacéutica en República Dominicana.`} />
                 <meta name="keywords" content={`${displayTitle}, ${baseName}, medicamentos, farmacia, República Dominicana`} />
@@ -1292,7 +1240,7 @@ function ContactView() {
           <div className="text-gray-300 group-hover:text-primary transition-colors duration-300 mt-1">
             <ArrowRight size={20} className="-rotate-45" />
           </div>
-        </div>
+        </motion.div>
 
         {/* Contenido de texto */}
         <h4 className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest mb-2">{title}</h4>
@@ -1306,6 +1254,6 @@ function ContactView() {
           <p className="text-sm font-medium text-gray-500">{desc}</p>
         </div>
       </div>
-    </a>
+    </motion.div>
   );
 }
