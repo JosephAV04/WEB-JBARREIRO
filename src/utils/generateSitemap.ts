@@ -28,9 +28,9 @@ const productsData: Product[] = [
   { id: 'melocox2-100', name: 'MELOCOX2 X100', description: 'Potente antiinflamatorio y analgésico.', price: '$5,000.00' },
   { id: 'taladro-50', name: 'TALADRO 20 mg X50', description: 'Indicado para la disfunción eréctil siendo utilizado como Estimulante Sexual.', price: '$2,000.00' },
   { id: 'taldro-5mg-30', name: 'TALDRO 5 mg X30', description: 'Ayuda al vaciado de la próstata, la miccion urinaria y favorece la erección.', price: '$1,990.00' },
-  { id: 'taldro-fast-x10-20ml', name: 'TALDRO FAST SUSP. ORAL 20 ml X10', description: 'Taladafilo 20 mg (cajita x10). Cada frasco de 20 ml = 20 mg de Taladafilo.', price: '$2,000.00' },
-  { id: 'taldro-fast-frasco-240ml', name: 'TALDRO FAST SUSP. ORAL 240 ml', description: 'Taladafilo 5 mg. Cada 5 ml = 5 mg de Taladafilo. El frasco de 240 ml rinde 48 dosis.', price: '$1,990.00' },
-  { id: 'xib-p-10', name: 'XIB-P X10', description: 'Combinación sinérgica para el manejo del dolor inflamatorio y neuropático.', price: '$1,100.00' },
+  { id: 'taldro-fast-x10-20ml', name: 'TALDRO FAST SUSP. ORAL 20 ml/mg X10', description: 'Taladafilo 20 mg (cajita x10). Cada frasco de 20 ml = 20 mg de Taladafilo.', price: '$2,000.00' },
+  { id: 'taldro-fast-frasco-240ml', name: 'TALDRO FAST SUSP. ORAL 240 ml', description: 'Taladafilo 5 mg. Cada 5 ml = 5 mg de Taladafilo. Frasco de 240 ml = 48 dosis.', price: '$1,990.00' },
+  { id: 'xib-p-10', name: 'XIB-P X10', description: 'Combinación sinérgica para el manejo del dolor, inflamación y neuropatologías.', price: '$1,100.00' },
   { id: 'xib-200mg-50', name: 'XIB 200mg X10', description: 'Indicado para el alivio del dolor y la inflamación.', price: '$3,000.00' },
   { id: 'xib-400mg-50', name: 'XIB 400mg X50', description: 'Indicado para el alivio del dolor y la inflamación.', price: '$3,500.00' },
 ];
