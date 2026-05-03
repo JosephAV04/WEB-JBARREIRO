@@ -125,7 +125,7 @@ function Navbar() {
             <div className="relative z-10 px-6 sm:px-10 md:px-14 h-full flex items-center justify-center">
               <img 
                 src={logoEmpresa} 
-                alt="J. Barreiro Logo" 
+                alt="JBARREIRO Logo" 
                 className="h-[60%] sm:h-[70%] w-auto object-contain transition-transform duration-500 group-hover:scale-105"
               />
             </div>
@@ -211,7 +211,7 @@ function Footer() {
           </div>
           
           <p className="text-gray-500 text-sm font-light">
-            © {new Date().getFullYear()} J. Barreiro & CO. S.R.L. Todos los derechos reservados.
+            © {new Date().getFullYear()} JBARREIRO & CO. S.R.L. Todos los derechos reservados.
           </p>
           
           <div className="hidden md:block">
@@ -223,7 +223,7 @@ function Footer() {
       {/* Massive watermark text (Separado y corregido para evitar cortes) */}
       <div className="absolute bottom-0 left-0 w-full pointer-events-none select-none flex justify-center opacity-[0.03] z-0 pb-2">
         <span className="text-[12vw] font-black whitespace-nowrap text-white">
-          J. BARREIRO
+          JBARREIRO
         </span>
       </div>
     </footer>
@@ -331,7 +331,7 @@ function HomeView() {
                   <div className="absolute bottom-0 left-0 right-0 p-6 xl:p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
                     <div className="bg-white/10 backdrop-blur-md p-5 xl:p-6 rounded-2xl border border-white/20">
                       <p className="text-emerald-300 font-bold text-xs xl:text-sm uppercase mb-2 tracking-widest flex items-center">
-                        <ShieldCheck size={16} className="mr-2" /> Compromiso J. Barreiro
+                        <ShieldCheck size={16} className="mr-2" /> Compromiso JBARREIRO
                       </p>
                       <p className="text-white font-extrabold text-2xl xl:text-3xl leading-tight">Calidad Farmacéutica Superior</p>
                     </div>
@@ -667,7 +667,7 @@ function ProductsView() {
       className="w-full bg-[#f8fafc] min-h-screen pb-24 relative overflow-hidden"
     >
       <Helmet>
-        <title>Catálogo de Productos | J. Barreiro & CO</title>
+        <title>Catálogo de Productos | JBARREIRO & CO</title>
         <meta name="description" content="Explora nuestro catálogo completo de medicamentos de alta calidad. Disponibilidad, garantía y logística a nivel nacional en República Dominicana." />
       </Helmet>
 
@@ -858,7 +858,7 @@ function ProductDetailView() {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
         <Helmet>
-          <title>Producto no encontrado | J. Barreiro</title>
+          <title>Producto no encontrado | JBARREIRO</title>
         </Helmet>
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Producto no encontrado</h2>
         <p className="text-gray-500 mb-8">El producto que buscas no existe o ha sido retirado.</p>
@@ -912,13 +912,13 @@ function ProductDetailView() {
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
     >
       <Helmet>
-        <title>{product.name} | Medicamentos J. Barreiro</title>
+        <title>{product.name} | Medicamentos JBARREIRO</title>
         <meta name="description" content={`${product.name} - ${product.description}. Distribuidora farmacéutica en República Dominicana.`} />
         <meta name="keywords" content={`${product.name}, ${baseName}, medicamentos, farmacia, República Dominicana`} />
         <link rel="canonical" href={`https://jbarreiro.com.do/productos/${product.id}`} />
         
         {/* Open Graph para redes sociales */}
-        <meta property="og:title" content={`${product.name} | Medicamentos J. Barreiro`} />
+        <meta property="og:title" content={`${product.name} | Medicamentos JBARREIRO`} />
         <meta property="og:description" content={product.description} />
         <meta property="og:image" content={getCloudinaryUrl(product.id)} />
         <meta property="og:url" content={`https://jbarreiro.com.do/productos/${product.id}`} />
@@ -934,11 +934,11 @@ function ProductDetailView() {
             "image": getCloudinaryUrl(product.id),
             "brand": {
               "@type": "Brand",
-              "name": "J. Barreiro & CO"
+              "name": "JBARREIRO & CO"
             },
             "manufacturer": {
               "@type": "Organization",
-              "name": "J. Barreiro & CO",
+              "name": "JBARREIRO & CO",
               "url": "https://jbarreiro.com.do"
             },
             "url": `https://jbarreiro.com.do/productos/${product.id}`,
@@ -1007,7 +1007,7 @@ function ProductDetailView() {
             )}
 
             <p className="text-lg text-gray-600 mb-10 leading-relaxed font-light">
-              {detailDescription || "Medicamento de alta calidad distribuido por J. Barreiro."}
+              {detailDescription || "Medicamento de alta calidad distribuido por JBARREIRO."}
             </p>
             
             <div className="mt-auto pt-8 border-t border-gray-100">
@@ -1186,7 +1186,7 @@ function ContactView() {
           {/* Columna Derecha: Mapa */}
           <div className="lg:col-span-7 h-[400px] md:h-[500px] bg-gray-100 rounded-[2.5rem] overflow-hidden shadow-inner relative border border-gray-200">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.455049393656!2d-69.7896493!3d18.508327599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf87f41177423f%3A0xa20e45aa0ee936b0!2sJ.%20Barreiro%20%26%20CO.%20S.R.L!5e0!3m2!1ses-419!2sdo!4v1772326455098!5m2!1ses-419!2sdo"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.455049393656!2d-69.7896493!3d18.508327599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf87f41177423f%3A0xa20e45aa0ee936b0!2sJBARREIRO%20%26%20CO.%20S.R.L!5e0!3m2!1ses-419!2sdo!4v1772326455098!5m2!1ses-419!2sdo"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -1197,10 +1197,10 @@ function ContactView() {
       </div>
 
       <Helmet>
-        <title>Contacto | J. Barreiro & CO</title>
-        <meta name="description" content="Contacta a J. Barreiro & CO para cotización y distribución mayorista de medicamentos en República Dominicana." />
+        <title>Contacto | JBARREIRO & CO</title>
+        <meta name="description" content="Contacta a JBARREIRO & CO para cotización y distribución mayorista de medicamentos en República Dominicana." />
         <link rel="canonical" href="https://jbarreiro.com.do/contacto" />
-        <meta property="og:title" content="Contacto | J. Barreiro & CO" />
+        <meta property="og:title" content="Contacto | JBARREIRO & CO" />
         <meta property="og:url" content="https://jbarreiro.com.do/contacto" />
         <meta property="og:type" content="website" />
       </Helmet>

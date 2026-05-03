@@ -6,7 +6,7 @@ import { productsData, getCloudinaryUrl } from '../src/data/products';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const distDir = resolve(__dirname, '..', 'dist');
 const baseUrl = 'https://jbarreiro.com.do';
-const siteName = 'J. Barreiro & CO';
+const siteName = 'JBARREIRO & CO';
 
 const indexHtml = readFileSync(resolve(distDir, 'index.html'), 'utf8');
 
@@ -34,17 +34,17 @@ const routes: RouteMeta[] = [
     path: '/productos',
     title: `Catálogo de Productos | ${siteName}`,
     description:
-      'Catálogo completo de medicamentos J. Barreiro & CO: antibióticos, analgésicos, suplementos y más. Venta exclusiva a establecimientos farmacéuticos.',
+      'Catálogo completo de medicamentos JBARREIRO & CO: antibióticos, analgésicos, suplementos y más. Venta exclusiva a establecimientos farmacéuticos.',
   },
   {
     path: '/contacto',
     title: `Contacto | ${siteName}`,
     description:
-      'Contacta a J. Barreiro & CO para cotización y distribución mayorista de medicamentos en República Dominicana.',
+      'Contacta a JBARREIRO & CO para cotización y distribución mayorista de medicamentos en República Dominicana.',
   },
   ...productsData.map<RouteMeta>(p => ({
     path: `/productos/${p.id}`,
-    title: `${p.name} | Medicamentos J. Barreiro`,
+    title: `${p.name} | Medicamentos JBARREIRO`,
     description: `${p.name} - ${p.description.trim()} Distribuidora farmacéutica en República Dominicana.`,
     ogImage: cloudinaryFor(p.id),
     jsonLd: {
