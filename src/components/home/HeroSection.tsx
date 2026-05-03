@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import { ArrowRight, ShieldCheck, MapPin, Pill, ChevronDown, Sparkles } from 'lucide-react';
-import frenteImg from '../../assets/Frente JBARREIRO.png';
+import frenteImg from '../../assets/Frente JBARREIRO.jpg';
 
 export default function HeroSection() {
   const navigate = useNavigate();
