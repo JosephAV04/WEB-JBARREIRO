@@ -1,15 +1,18 @@
-import { useMemo, useRef, useState, useEffect, useCallback } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Pill, ArrowRight, ArrowLeft, Sparkles } from 'lucide-react';
 import { productsData, getCloudinaryUrl } from '../../data/products';
 import RevealOnScroll from '../motion/RevealOnScroll';
+import { useIsDesktop } from '../../hooks/useIsDesktop';
 
 type Product = typeof productsData[number];
 
 export default function FeaturedProducts() {
   const navigate = useNavigate();
   const reduceMotion = useReducedMotion();
+  const isDesktop = useIsDesktop();
+  const enableHeavyFx = isDesktop && !reduceMotion;
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -66,8 +69,8 @@ export default function FeaturedProducts() {
 
   return (
     <section className="py-24 md:py-32 bg-gradient-to-b from-white via-emerald-50/20 to-white overflow-hidden relative">
-      <div className="absolute top-1/4 -left-40 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-1/4 -right-40 w-96 h-96 bg-emerald-300/15 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-1/4 -left-40 w-96 h-96 bg-primary/5 rounded-full blur-[60px] md:blur-[120px] pointer-events-none hidden md:block"></div>
+      <div className="absolute bottom-1/4 -right-40 w-96 h-96 bg-emerald-300/15 rounded-full blur-[60px] md:blur-[120px] pointer-events-none hidden md:block"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <RevealOnScroll className="flex flex-col md:flex-row md:justify-between md:items-end mb-12 md:mb-16 gap-6">
@@ -100,7 +103,7 @@ export default function FeaturedProducts() {
               <div className="bg-primary text-white px-4 py-1.5 rounded-full font-black text-xs tracking-widest uppercase shadow-lg shadow-primary/30">
                 {String(activeIndex + 1).padStart(2, '0')} <span className="opacity-60">/ {String(total).padStart(2, '0')}</span>
               </div>
-              <div className="hidden md:flex items-center gap-2 bg-white/80 backdrop-blur px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-gray-500 border border-gray-100">
+              <div className="hidden md:flex items-center gap-2 bg-white/80 md:backdrop-blur px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-gray-500 border border-gray-100">
                 <span className={`w-1.5 h-1.5 rounded-full ${isPaused || reduceMotion ? 'bg-gray-300' : 'bg-primary animate-pulse'}`}></span>
                 {isPaused || reduceMotion ? 'Pausa' : 'Auto'}
               </div>
@@ -137,14 +140,14 @@ export default function FeaturedProducts() {
                   />
 
                   <motion.div
-                    animate={reduceMotion ? undefined : { rotate: [0, 6, 0], y: [0, -6, 0] }}
+                    animate={enableHeavyFx ? { rotate: [0, 6, 0], y: [0, -6, 0] } : undefined}
                     transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
                     className="absolute top-12 right-12 text-primary/20 hidden md:block pointer-events-none"
                   >
                     <Pill size={60} />
                   </motion.div>
                   <motion.div
-                    animate={reduceMotion ? undefined : { rotate: [0, -6, 0], y: [0, 6, 0] }}
+                    animate={enableHeavyFx ? { rotate: [0, -6, 0], y: [0, 6, 0] } : undefined}
                     transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
                     className="absolute bottom-12 left-12 text-emerald-300/40 hidden md:block pointer-events-none"
                   >
@@ -212,14 +215,14 @@ export default function FeaturedProducts() {
             <button
               onClick={prev}
               aria-label="Producto anterior"
-              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/90 backdrop-blur border border-gray-200 shadow-xl text-gray-700 hover:bg-primary hover:text-white hover:border-primary hover:scale-110 transition-all flex items-center justify-center"
+              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white md:bg-white/90 md:backdrop-blur border border-gray-200 shadow-xl text-gray-700 hover:bg-primary hover:text-white hover:border-primary hover:scale-110 transition-all flex items-center justify-center"
             >
               <ArrowLeft size={20} />
             </button>
             <button
               onClick={next}
               aria-label="Producto siguiente"
-              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/90 backdrop-blur border border-gray-200 shadow-xl text-gray-700 hover:bg-primary hover:text-white hover:border-primary hover:scale-110 transition-all flex items-center justify-center"
+              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white md:bg-white/90 md:backdrop-blur border border-gray-200 shadow-xl text-gray-700 hover:bg-primary hover:text-white hover:border-primary hover:scale-110 transition-all flex items-center justify-center"
             >
               <ArrowRight size={20} />
             </button>

@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import { Pill, ShieldCheck } from 'lucide-react';
 import AnimatedCounter from '../motion/AnimatedCounter';
+import { useIsDesktop } from '../../hooks/useIsDesktop';
 
 const stats = [
   { value: 10, suffix: '+', label: 'Años de experiencia' },
@@ -13,6 +14,8 @@ const stats = [
 export default function StatsSection() {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  const isDesktop = useIsDesktop();
+  const enableFx = isDesktop && !reduceMotion;
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const yPills = useTransform(scrollYProgress, [0, 1], ['-30%', '30%']);
 
@@ -22,7 +25,7 @@ export default function StatsSection() {
       className="relative py-28 md:py-40 bg-gradient-to-br from-primary-dark via-primary to-emerald-600 text-white overflow-hidden"
     >
       <motion.div
-        style={reduceMotion ? undefined : { y: yPills }}
+        style={enableFx ? { y: yPills } : undefined}
         className="absolute inset-0 pointer-events-none"
       >
         <div className="absolute top-10 left-[5%] text-white/10 hidden md:block">

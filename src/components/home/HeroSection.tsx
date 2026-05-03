@@ -1,22 +1,15 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import { ArrowRight, ShieldCheck, MapPin, Pill, ChevronDown, Sparkles } from 'lucide-react';
 import frenteImg from '../../assets/Frente JBARREIRO.jpg';
+import { useIsDesktop } from '../../hooks/useIsDesktop';
 
 export default function HeroSection() {
   const navigate = useNavigate();
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 1024px)');
-    const update = () => setIsDesktop(mq.matches);
-    update();
-    mq.addEventListener('change', update);
-    return () => mq.removeEventListener('change', update);
-  }, []);
+  const isDesktop = useIsDesktop();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -29,6 +22,7 @@ export default function HeroSection() {
   const scaleContent = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
 
   const enableScrollFx = isDesktop && !reduceMotion;
+  const enableHeavyFx = isDesktop && !reduceMotion;
 
   return (
     <section
@@ -36,20 +30,29 @@ export default function HeroSection() {
       className="relative min-h-[100svh] flex items-center overflow-hidden bg-gradient-to-b from-white via-emerald-50/30 to-white"
     >
       <motion.div
-        style={reduceMotion ? undefined : { y: yBg }}
+        style={enableScrollFx ? { y: yBg } : undefined}
         className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
       >
-        <motion.div
-          animate={reduceMotion ? undefined : { rotate: 360 }}
-          transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-          className="absolute -top-[40%] -right-[20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-br from-primary/25 via-emerald-400/10 to-transparent blur-[140px]"
-        />
-        <motion.div
-          animate={reduceMotion ? undefined : { rotate: -360 }}
-          transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
-          className="absolute -bottom-[30%] -left-[20%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-tr from-emerald-300/25 via-primary/10 to-transparent blur-[120px]"
-        />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.06)_1px,transparent_0)] [background-size:32px_32px] opacity-40"></div>
+        {enableHeavyFx ? (
+          <>
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+              className="absolute -top-[40%] -right-[20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-br from-primary/25 via-emerald-400/10 to-transparent blur-[140px]"
+            />
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
+              className="absolute -bottom-[30%] -left-[20%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-tr from-emerald-300/25 via-primary/10 to-transparent blur-[120px]"
+            />
+          </>
+        ) : (
+          <>
+            <div className="absolute -top-[20%] -right-[10%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-[60px]" />
+            <div className="absolute -bottom-[15%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-emerald-300/20 to-transparent blur-[60px]" />
+          </>
+        )}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.06)_1px,transparent_0)] [background-size:32px_32px] opacity-40 hidden md:block"></div>
       </motion.div>
 
       <motion.div
@@ -63,7 +66,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex items-center px-4 py-2 rounded-full bg-white/80 backdrop-blur-md text-primary font-bold text-xs sm:text-sm uppercase tracking-widest mb-6 border border-primary/20 shadow-sm"
+              className="inline-flex items-center px-4 py-2 rounded-full bg-white md:bg-white/80 md:backdrop-blur-md text-primary font-bold text-xs sm:text-sm uppercase tracking-widest mb-6 border border-primary/20 shadow-sm"
             >
               <span className="relative flex h-2.5 w-2.5 mr-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
@@ -123,7 +126,7 @@ export default function HeroSection() {
               </button>
               <button
                 onClick={() => navigate('/contacto')}
-                className="px-8 py-4 bg-white/80 backdrop-blur text-gray-900 border-2 border-gray-200 font-bold rounded-full hover:border-primary/40 hover:bg-white transition-all flex items-center justify-center text-lg"
+                className="px-8 py-4 bg-white md:bg-white/80 md:backdrop-blur text-gray-900 border-2 border-gray-200 font-bold rounded-full hover:border-primary/40 hover:bg-white transition-all flex items-center justify-center text-lg"
               >
                 Contactar Ventas
               </button>
@@ -157,7 +160,7 @@ export default function HeroSection() {
                   transition={{ duration: 0.6, delay: 1.6 }}
                   className="absolute bottom-0 left-0 right-0 p-5 md:p-7"
                 >
-                  <div className="bg-white/15 backdrop-blur-xl px-5 py-4 rounded-2xl border border-white/25 inline-flex items-center gap-3">
+                  <div className="bg-black/30 md:bg-white/15 md:backdrop-blur-xl px-5 py-4 rounded-2xl border border-white/25 inline-flex items-center gap-3">
                     <MapPin size={18} className="text-emerald-200 shrink-0" />
                     <div className="text-left">
                       <p className="text-[10px] font-bold text-emerald-200 uppercase tracking-[0.2em]">Sede Central</p>
@@ -174,7 +177,7 @@ export default function HeroSection() {
                 className="absolute -top-6 -right-3 md:-top-8 md:-right-8 z-30"
               >
                 <motion.div
-                  animate={reduceMotion ? undefined : { y: [0, -10, 0], rotate: [-2, 2, -2] }}
+                  animate={enableHeavyFx ? { y: [0, -10, 0], rotate: [-2, 2, -2] } : undefined}
                   transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
                   className="bg-white px-4 py-3 md:px-5 md:py-4 rounded-2xl shadow-2xl border border-gray-100 flex items-center gap-3"
                 >
@@ -195,7 +198,7 @@ export default function HeroSection() {
                 className="absolute -bottom-5 -left-3 md:-bottom-8 md:-left-8 z-30"
               >
                 <motion.div
-                  animate={reduceMotion ? undefined : { y: [0, 10, 0], rotate: [2, -2, 2] }}
+                  animate={enableHeavyFx ? { y: [0, 10, 0], rotate: [2, -2, 2] } : undefined}
                   transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
                   className="bg-white px-4 py-3 md:px-5 md:py-4 rounded-2xl shadow-2xl border border-gray-100 flex items-center gap-3"
                 >

@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
 import { useRef } from 'react';
 import { ShieldCheck, Truck, Clock, ArrowUpRight } from 'lucide-react';
 import RevealOnScroll from '../motion/RevealOnScroll';
+import { useIsDesktop } from '../../hooks/useIsDesktop';
 
 const features = [
   {
@@ -33,6 +34,8 @@ const features = [
 export default function FeaturesSection() {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  const isDesktop = useIsDesktop();
+  const enableFx = isDesktop && !reduceMotion;
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const yDecor = useTransform(scrollYProgress, [0, 1], ['-15%', '15%']);
 
@@ -42,11 +45,11 @@ export default function FeaturesSection() {
       className="relative py-24 md:py-36 bg-[#0B1C10] text-white overflow-hidden"
     >
       <motion.div
-        style={reduceMotion ? undefined : { y: yDecor }}
+        style={enableFx ? { y: yDecor } : undefined}
         className="absolute inset-0 pointer-events-none"
       >
-        <div className="absolute top-0 left-1/3 w-[60vw] h-[60vw] rounded-full bg-primary/20 blur-[180px]"></div>
-        <div className="absolute bottom-0 right-0 w-[50vw] h-[50vw] rounded-full bg-emerald-500/15 blur-[160px]"></div>
+        <div className="absolute top-0 left-1/3 w-[60vw] h-[60vw] rounded-full bg-primary/20 blur-[80px] md:blur-[180px]"></div>
+        <div className="absolute bottom-0 right-0 w-[50vw] h-[50vw] rounded-full bg-emerald-500/15 blur-[80px] md:blur-[160px]"></div>
       </motion.div>
 
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] [background-size:32px_32px] pointer-events-none"></div>
@@ -75,7 +78,7 @@ export default function FeaturesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative rounded-3xl md:rounded-[2rem] border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] hover:border-primary/40 transition-colors duration-500 overflow-hidden"
+              className="group relative rounded-3xl md:rounded-[2rem] border border-white/10 bg-white/[0.03] md:backdrop-blur-sm hover:bg-white/[0.06] hover:border-primary/40 transition-colors duration-500 overflow-hidden"
             >
               <div className={`absolute left-0 top-0 bottom-0 w-1 md:w-1.5 bg-gradient-to-b ${f.accent} origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-700`}></div>
 
