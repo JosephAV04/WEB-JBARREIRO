@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Pill, Search, X, Star, Sparkles } from 'lucide-react';
+import { Pill, Search, X, Sparkles } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { productsData } from '../data/products';
 import ProductCard from '../components/products/ProductCard';
@@ -165,13 +165,13 @@ export default function ProductsView() {
                 >
                   <div>
                     <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-amber-50 to-amber-100/60 border border-amber-200 text-amber-700 font-bold text-[10px] uppercase tracking-[0.25em] mb-3">
-                      <Star size={12} className="fill-current" /> Destacados
+                      <Sparkles size={12} className="fill-current" /> Novedades
                     </span>
                     <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight leading-tight">
-                      Los más solicitados
+                      Lo nuevo en catálogo
                     </h2>
                     <p className="text-gray-500 mt-2 text-sm md:text-base">
-                      Familia <span className="font-black text-amber-600">TALDRO</span> y selección de bestsellers de nuestro catálogo.
+                      Familia <span className="font-black text-amber-600">TALDRO</span> y novedades destacadas de nuestra línea.
                     </p>
                   </div>
                   <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">

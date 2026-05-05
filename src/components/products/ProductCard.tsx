@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Pill, ArrowRight, Star, Sparkles } from 'lucide-react';
+import { Pill, ArrowRight, Sparkles, Tag } from 'lucide-react';
 import type { Product } from '../../data/products';
 import { getCloudinaryUrl } from '../../data/products';
 
@@ -63,13 +63,13 @@ export default function ProductCard({
             <div className="absolute top-3 left-3 z-30 flex flex-col gap-2">
               {isStar && (
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-amber-500/40">
-                  <Star size={11} className="fill-current" />
-                  Más vendido
+                  <Sparkles size={11} className="fill-current" />
+                  Nuevo
                 </span>
               )}
               {isOferta && (
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gradient-to-r from-rose-500 to-red-500 text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-red-500/40">
-                  <Sparkles size={11} />
+                  <Tag size={11} />
                   Oferta 2×1
                 </span>
               )}
