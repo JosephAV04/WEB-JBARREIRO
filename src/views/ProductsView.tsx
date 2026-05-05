@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Pill, Search, X, ArrowRight } from 'lucide-react';
+import { Pill, Search, X, Star, Sparkles } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
-import { productsData, getCloudinaryUrl } from '../data/products';
+import { productsData } from '../data/products';
+import ProductCard from '../components/products/ProductCard';
 
 export default function ProductsView() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,27 +16,24 @@ export default function ProductsView() {
     );
   }, [searchTerm]);
 
-  const visibleProducts = useMemo(() => {
-    return filteredProducts.slice(0, displayCount);
-  }, [filteredProducts, displayCount]);
+  const sortedProducts = useMemo(() => {
+    return [...filteredProducts].sort((a, b) => {
+      const aStar = a.tag === 'estrella' ? 0 : 1;
+      const bStar = b.tag === 'estrella' ? 0 : 1;
+      if (aStar !== bStar) return aStar - bStar;
+      const aFeat = a.featured ? 0 : 1;
+      const bFeat = b.featured ? 0 : 1;
+      return aFeat - bFeat;
+    });
+  }, [filteredProducts]);
 
-  const getProductPresentation = (name: string) => {
-    const match = name.match(/^(.*?)\s+(X\d+.*|OFERTA.*|\(?\d+X\d+\)?.*)$/i);
-    if (match) {
-      return {
-        baseName: match[1].trim(),
-        presentation: match[2].trim().toUpperCase(),
-      };
-    }
-    return {
-      baseName: name,
-      presentation: null,
-    };
-  };
+  const isSearching = searchTerm.length > 0;
+  const featuredList = sortedProducts.filter(p => p.featured);
+  const restList = sortedProducts.filter(p => !p.featured);
+  const visibleRest = restList.slice(0, Math.max(0, displayCount - featuredList.length));
+  const totalVisible = featuredList.length + visibleRest.length;
 
-  const formatActiveIngredient = (text: string) => {
-    return text.replace(/MG/gi, 'mg').trim();
-  };
+  const visibleSearchProducts = sortedProducts.slice(0, displayCount);
 
   return (
     <motion.div
@@ -49,19 +46,19 @@ export default function ProductsView() {
       </Helmet>
 
       <div className="absolute top-0 left-0 w-full h-[60vh] z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-[100px]"></div>
-        <div className="absolute top-[20%] right-[-10%] w-[30vw] h-[30vw] bg-emerald-400/5 rounded-full blur-[80px]"></div>
+        <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-[60px] md:blur-[100px]"></div>
+        <div className="absolute top-[20%] right-[-10%] w-[30vw] h-[30vw] bg-emerald-400/5 rounded-full blur-[60px] md:blur-[80px]"></div>
 
-        <motion.div animate={{ y: [0, -15, 0], rotate: [0, 90, 0] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} className="absolute top-[10%] md:top-[25%] left-[5%] md:left-[20%] text-primary/20">
+        <motion.div animate={{ y: [0, -15, 0], rotate: [0, 90, 0] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} className="absolute top-[10%] md:top-[25%] left-[5%] md:left-[20%] text-primary/20 hidden md:block">
           <svg width="30" height="30" className="md:w-[40px] md:h-[40px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14"/></svg>
         </motion.div>
 
-        <motion.div animate={{ y: [0, 30, 0], x: [0, 15, 0], rotate: [0, 45, 0] }} transition={{ duration: 18, repeat: Infinity }} className="absolute top-[5%] md:top-[35%] right-[10%] md:left-[10%] text-primary/10">
+        <motion.div animate={{ y: [0, 30, 0], x: [0, 15, 0], rotate: [0, 45, 0] }} transition={{ duration: 18, repeat: Infinity }} className="absolute top-[5%] md:top-[35%] right-[10%] md:left-[10%] text-primary/10 hidden md:block">
           <Pill size={60} className="md:w-[100px] md:h-[100px]" />
         </motion.div>
       </div>
 
-      <div className="relative pt-10 pb-16 md:pt-16 lg:pt-24 lg:pb-20 z-10">
+      <div className="relative pt-10 pb-12 md:pt-16 lg:pt-24 lg:pb-16 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
           <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
@@ -114,7 +111,7 @@ export default function ProductsView() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-2 md:pt-4">
 
         <AnimatePresence>
-          {searchTerm && (
+          {isSearching && (
             <motion.div
               initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
               className="mb-10 text-center"
@@ -139,87 +136,109 @@ export default function ProductsView() {
               Ver todo el catálogo
             </button>
           </div>
-        ) : (
+        ) : isSearching ? (
           <>
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {visibleProducts.map((product, index) => {
-                const isTaldroFast = product.id.startsWith('taldro-fast');
-                const activeIngredientRaw = product.description.split('.')[0];
-                const activeIngredient = formatActiveIngredient(activeIngredientRaw);
-                const cardDescription = isTaldroFast
-                  ? product.description.split('.').slice(1).join('.').trim()
-                  : product.description;
-                const { baseName, presentation } = getProductPresentation(product.name);
-
-                return (
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    key={product.id}
-                  >
-                    <Link to={`/productos/${product.id}`} className="block h-full outline-none">
-                      <div className="bg-white rounded-[2rem] p-4 shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary/20 transform md:hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group">
-
-                        <div className="w-full h-48 md:h-52 bg-gray-50/70 rounded-2xl flex items-center justify-center relative overflow-hidden mb-5 border border-gray-100/50">
-
-                          {presentation && (
-                            <div className="absolute bottom-3 right-3 z-30 bg-white px-3 py-1 rounded-xl border-2 border-primary shadow-sm transform group-hover:scale-105 transition-transform duration-300">
-                              <span className="text-primary font-black text-xs md:text-sm uppercase tracking-widest">{presentation}</span>
-                            </div>
-                          )}
-
-                          <img
-                            src={getCloudinaryUrl(product.id)}
-                            alt={baseName}
-                            loading="lazy"
-                            className="w-full h-full object-contain p-4 transition-all duration-700 md:group-hover:scale-105 relative z-10 mix-blend-multiply"
-                            onError={(e) => { e.currentTarget.style.opacity = '0'; }}
-                          />
-                        </div>
-
-                        <div className="px-1 flex-grow flex flex-col relative">
-                          {isTaldroFast && (
-                            <p className="text-[11px] font-bold text-primary/80 uppercase tracking-widest mb-1.5 line-clamp-1">
-                              {activeIngredient}
-                            </p>
-                          )}
-
-                          <h3 className="text-2xl font-black leading-tight mb-3 text-gray-900 md:group-hover:text-primary transition-colors">
-                            {baseName}
-                          </h3>
-
-                          <p className="text-sm text-gray-500 flex-grow mb-6 line-clamp-2 leading-relaxed">
-                            {cardDescription || "Medicamento de alta eficacia."}
-                          </p>
-
-                          <div className="mt-auto">
-                            <div className="w-full py-3.5 rounded-xl flex items-center justify-center transition-all duration-300 gap-2 font-bold text-sm bg-primary/10 text-primary md:group-hover:bg-primary md:group-hover:text-white">
-                              Ver Ficha Técnica <ArrowRight size={18} className="transform md:group-hover:translate-x-1 transition-transform" />
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
+              {visibleSearchProducts.map((product, index) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  index={index}
+                  variant={product.featured ? 'featured' : 'default'}
+                />
+              ))}
             </div>
+            {displayCount < sortedProducts.length && (
+              <LoadMoreButton onClick={() => setDisplayCount(prev => prev + 16)} />
+            )}
+          </>
+        ) : (
+          <>
+            {featuredList.length > 0 && (
+              <section className="mb-16 md:mb-20">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-8 md:mb-10"
+                >
+                  <div>
+                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-amber-50 to-amber-100/60 border border-amber-200 text-amber-700 font-bold text-[10px] uppercase tracking-[0.25em] mb-3">
+                      <Star size={12} className="fill-current" /> Destacados
+                    </span>
+                    <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight leading-tight">
+                      Los más solicitados
+                    </h2>
+                    <p className="text-gray-500 mt-2 text-sm md:text-base">
+                      Familia <span className="font-black text-amber-600">TALDRO</span> y selección de bestsellers de nuestro catálogo.
+                    </p>
+                  </div>
+                  <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                    {featuredList.length} productos
+                  </span>
+                </motion.div>
 
-            {displayCount < filteredProducts.length && (
-              <div className="mt-20 text-center">
-                <button onClick={() => setDisplayCount(prev => prev + 16)} className="inline-flex items-center px-10 py-4 bg-white text-gray-900 border border-gray-200 font-bold rounded-full hover:border-primary hover:text-primary shadow-sm hover:shadow-[0_10px_30px_-10px_rgba(27,166,75,0.3)] transition-all duration-300 transform md:hover:-translate-y-1 text-base group">
-                  Mostrar más catálogo
-                  <svg className="ml-3 w-5 h-5 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                  </svg>
-                </button>
-              </div>
+                <div className="relative">
+                  <div className="absolute -inset-x-4 -inset-y-6 md:-inset-x-8 md:-inset-y-10 -z-10 rounded-[3rem] bg-gradient-to-br from-amber-50/40 via-white to-emerald-50/30 border border-amber-100/50 hidden md:block"></div>
+                  <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {featuredList.map((product, index) => (
+                      <ProductCard key={product.id} product={product} index={index} variant="featured" />
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {restList.length > 0 && (
+              <section>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="flex items-end justify-between gap-3 mb-8 md:mb-10"
+                >
+                  <div>
+                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-50 border border-gray-200 text-gray-500 font-bold text-[10px] uppercase tracking-[0.25em] mb-3">
+                      <Sparkles size={12} /> Catálogo
+                    </span>
+                    <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight leading-tight">
+                      Resto del catálogo
+                    </h2>
+                  </div>
+                  <span className="text-sm font-bold text-gray-400 uppercase tracking-widest hidden sm:inline">
+                    {restList.length} productos
+                  </span>
+                </motion.div>
+
+                <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {visibleRest.map((product, index) => (
+                    <ProductCard key={product.id} product={product} index={index} />
+                  ))}
+                </div>
+
+                {totalVisible < sortedProducts.length && (
+                  <LoadMoreButton onClick={() => setDisplayCount(prev => prev + 16)} />
+                )}
+              </section>
             )}
           </>
         )}
       </div>
     </motion.div>
+  );
+}
+
+function LoadMoreButton({ onClick }: { onClick: () => void }) {
+  return (
+    <div className="mt-16 md:mt-20 text-center">
+      <button onClick={onClick} className="inline-flex items-center px-10 py-4 bg-white text-gray-900 border border-gray-200 font-bold rounded-full hover:border-primary hover:text-primary shadow-sm hover:shadow-[0_10px_30px_-10px_rgba(27,166,75,0.3)] transition-all duration-300 transform md:hover:-translate-y-1 text-base group">
+        Mostrar más catálogo
+        <svg className="ml-3 w-5 h-5 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </button>
+    </div>
   );
 }
