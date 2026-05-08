@@ -12,9 +12,7 @@ export default function ParallaxCTA() {
   const enableFx = isDesktop && !reduceMotion;
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const yLayer1 = useTransform(scrollYProgress, [0, 1], ['-20%', '20%']);
-  const yLayer2 = useTransform(scrollYProgress, [0, 1], ['20%', '-20%']);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 1.02]);
+  const yLayer = useTransform(scrollYProgress, [0, 1], ['-20%', '20%']);
 
   return (
     <section
@@ -22,7 +20,7 @@ export default function ParallaxCTA() {
       className="relative py-32 md:py-48 overflow-hidden bg-[#0B1C10]"
     >
       <motion.div
-        style={enableFx ? { y: yLayer1 } : undefined}
+        style={enableFx ? { y: yLayer } : undefined}
         className="absolute inset-0 pointer-events-none hidden md:block"
       >
         <div className="absolute top-[10%] left-[5%] text-primary/15 blur-sm">
@@ -34,12 +32,6 @@ export default function ParallaxCTA() {
         <div className="absolute bottom-[10%] right-[20%] text-primary/10 blur-sm rotate-45">
           <Pill size={100} />
         </div>
-      </motion.div>
-
-      <motion.div
-        style={enableFx ? { y: yLayer2 } : undefined}
-        className="absolute inset-0 pointer-events-none hidden md:block"
-      >
         <div className="absolute top-[20%] right-[10%] text-emerald-400/10">
           <Pill size={140} />
         </div>
@@ -51,10 +43,7 @@ export default function ParallaxCTA() {
       <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-emerald-500/20 pointer-events-none"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(32,167,64,0.25),transparent_70%)] pointer-events-none"></div>
 
-      <motion.div
-        style={enableFx ? { scale } : undefined}
-        className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center"
-      >
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -102,7 +91,7 @@ export default function ParallaxCTA() {
             </a>
           </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

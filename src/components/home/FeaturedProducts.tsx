@@ -4,15 +4,12 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Pill, ArrowRight, ArrowLeft, Sparkles } from 'lucide-react';
 import { productsData, getCloudinaryUrl } from '../../data/products';
 import RevealOnScroll from '../motion/RevealOnScroll';
-import { useIsDesktop } from '../../hooks/useIsDesktop';
 
 type Product = typeof productsData[number];
 
 export default function FeaturedProducts() {
   const navigate = useNavigate();
   const reduceMotion = useReducedMotion();
-  const isDesktop = useIsDesktop();
-  const enableHeavyFx = isDesktop && !reduceMotion;
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -139,20 +136,12 @@ export default function FeaturedProducts() {
                     className="absolute inset-6 md:inset-10 rounded-[2rem] bg-gradient-to-br from-emerald-50 via-white to-primary/5 border border-gray-100/80"
                   />
 
-                  <motion.div
-                    animate={enableHeavyFx ? { rotate: [0, 6, 0], y: [0, -6, 0] } : undefined}
-                    transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-                    className="absolute top-12 right-12 text-primary/20 hidden md:block pointer-events-none"
-                  >
+                  <div className="absolute top-12 right-12 text-primary/20 hidden md:block pointer-events-none">
                     <Pill size={60} />
-                  </motion.div>
-                  <motion.div
-                    animate={enableHeavyFx ? { rotate: [0, -6, 0], y: [0, 6, 0] } : undefined}
-                    transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                    className="absolute bottom-12 left-12 text-emerald-300/40 hidden md:block pointer-events-none"
-                  >
+                  </div>
+                  <div className="absolute bottom-12 left-12 text-emerald-300/40 hidden md:block pointer-events-none">
                     <Pill size={48} />
-                  </motion.div>
+                  </div>
 
                   <motion.img
                     src={getCloudinaryUrl(active.id)}

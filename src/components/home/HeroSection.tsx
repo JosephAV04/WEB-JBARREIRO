@@ -19,7 +19,6 @@ export default function HeroSection() {
   const yBg = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
   const yImg = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scaleContent = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
 
   const enableScrollFx = isDesktop && !reduceMotion;
   const enableHeavyFx = isDesktop && !reduceMotion;
@@ -33,30 +32,13 @@ export default function HeroSection() {
         style={enableScrollFx ? { y: yBg } : undefined}
         className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
       >
-        {enableHeavyFx ? (
-          <>
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-              className="absolute -top-[40%] -right-[20%] w-[90vw] h-[90vw] rounded-full bg-gradient-to-br from-primary/25 via-emerald-400/10 to-transparent blur-[140px]"
-            />
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
-              className="absolute -bottom-[30%] -left-[20%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-tr from-emerald-300/25 via-primary/10 to-transparent blur-[120px]"
-            />
-          </>
-        ) : (
-          <>
-            <div className="absolute -top-[20%] -right-[10%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-[60px]" />
-            <div className="absolute -bottom-[15%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-emerald-300/20 to-transparent blur-[60px]" />
-          </>
-        )}
+        <div className="absolute -top-[30%] -right-[15%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-br from-primary/25 via-emerald-400/10 to-transparent blur-[80px] md:blur-[120px]" />
+        <div className="absolute -bottom-[25%] -left-[15%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-tr from-emerald-300/25 via-primary/10 to-transparent blur-[80px] md:blur-[100px]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.06)_1px,transparent_0)] [background-size:32px_32px] opacity-40 hidden md:block"></div>
       </motion.div>
 
       <motion.div
-        style={enableScrollFx ? { opacity, scale: scaleContent } : undefined}
+        style={enableScrollFx ? { opacity } : undefined}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12 pb-20 lg:pt-8 lg:pb-28 w-full"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-center">
@@ -212,28 +194,15 @@ export default function HeroSection() {
                 </motion.div>
               </motion.div>
 
-              <motion.div
-                animate={reduceMotion ? undefined : { y: [-15, 15, -15], rotate: [0, 25, 0] }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-10 left-1/3 z-10 text-primary/30 hidden md:block pointer-events-none"
-              >
+              <div className="absolute -top-10 left-1/3 z-10 text-primary/30 hidden md:block pointer-events-none">
                 <Pill size={50} />
-              </motion.div>
+              </div>
 
-              <motion.div
-                animate={reduceMotion ? undefined : { y: [15, -15, 15], rotate: [45, 0, 45] }}
-                transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="absolute -bottom-2 right-1/4 z-10 text-emerald-400/40 hidden md:block pointer-events-none"
-              >
+              <div className="absolute -bottom-2 right-1/4 z-10 text-emerald-400/40 hidden md:block pointer-events-none rotate-45">
                 <Pill size={36} />
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2.2, duration: 0.8 }}
-                className="absolute -inset-4 md:-inset-6 -z-10 rounded-[3rem] bg-gradient-to-br from-primary/20 via-emerald-300/10 to-transparent blur-2xl"
-              ></motion.div>
+              <div className="absolute -inset-4 md:-inset-6 -z-10 rounded-[3rem] bg-gradient-to-br from-primary/20 via-emerald-300/10 to-transparent blur-2xl"></div>
             </motion.div>
           </div>
         </div>
