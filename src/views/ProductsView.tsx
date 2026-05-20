@@ -15,20 +15,19 @@ export default function ProductsView() {
     );
   }, [searchTerm]);
 
-  const sortedProducts = useMemo(() => {
-    return [...filteredProducts].sort((a, b) => {
-      const aStar = a.tag === 'estrella' ? 0 : 1;
-      const bStar = b.tag === 'estrella' ? 0 : 1;
-      if (aStar !== bStar) return aStar - bStar;
-      const aFeat = a.featured ? 0 : 1;
-      const bFeat = b.featured ? 0 : 1;
-      return aFeat - bFeat;
-    });
+  const newList = useMemo(
+    () => filteredProducts.filter(p => p.tag === 'estrella'),
+    [filteredProducts]
+  );
+
+  const restList = useMemo(() => {
+    return filteredProducts
+      .filter(p => p.tag !== 'estrella')
+      .sort((a, b) => (a.featured ? 0 : 1) - (b.featured ? 0 : 1));
   }, [filteredProducts]);
 
+  const sortedProducts = useMemo(() => [...newList, ...restList], [newList, restList]);
   const isSearching = searchTerm.length > 0;
-  const newList = sortedProducts.filter(p => p.tag === 'estrella');
-  const restList = sortedProducts.filter(p => p.tag !== 'estrella');
 
   return (
     <motion.div

@@ -36,18 +36,6 @@ export default function ContactView() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center mt-6 md:mt-0">
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-white shadow-sm border border-gray-100 mb-6 md:mb-8"
-          >
-            <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 mr-3 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            </span>
-            <span className="text-gray-500 font-bold text-xs uppercase tracking-[0.15em]">Equipo de ventas en línea</span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

@@ -46,7 +46,7 @@ export default function ProductDetailView() {
   const detailDescription = product.description;
 
   const { baseName, presentation } = getProductPresentation(product.name);
-  const isSuspension = product.id === 'hematocri-suspension';
+  const isSuspension = product.id === 'hematocri-suspension' || product.id.startsWith('taldro-fast');
   const metaDescription = `${product.name} - ${product.activeIngredient}. ${product.description} ${product.drugClass}. Distribuidora farmacéutica JBARREIRO en República Dominicana.`;
   const metaKeywords = [
     product.name,
