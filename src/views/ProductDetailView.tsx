@@ -28,10 +28,6 @@ export default function ProductDetailView() {
     );
   }
 
-  const formatActiveIngredient = (text: string) => {
-    return text.replace(/MG/gi, 'mg').trim();
-  };
-
   const getProductPresentation = (name: string) => {
     const match = name.match(/^(.*?)\s+(X\d+.*|OFERTA.*|\(?\d+X\d+\)?.*)$/i);
     if (match) {
@@ -46,16 +42,22 @@ export default function ProductDetailView() {
     };
   };
 
-  const isTaldroFast = product.id.startsWith('taldro-fast');
-  const descriptionParts = product.description.split('.');
-  const activeIngredientRaw = descriptionParts[0];
-  const activeIngredient = isTaldroFast ? formatActiveIngredient(activeIngredientRaw) : '';
-  const detailDescription = isTaldroFast
-    ? descriptionParts.slice(1).join('.').trim()
-    : product.description;
+  const activeIngredient = product.activeIngredient;
+  const detailDescription = product.description;
 
   const { baseName, presentation } = getProductPresentation(product.name);
   const isSuspension = product.id === 'hematocri-suspension';
+  const metaDescription = `${product.name} - ${product.activeIngredient}. ${product.description} ${product.drugClass}. Distribuidora farmacéutica JBARREIRO en República Dominicana.`;
+  const metaKeywords = [
+    product.name,
+    baseName,
+    product.activeIngredient,
+    product.drugClass,
+    'medicamentos',
+    'farmacia',
+    'República Dominicana',
+    'JBARREIRO',
+  ].join(', ');
 
   return (
     <motion.div
@@ -66,13 +68,13 @@ export default function ProductDetailView() {
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
     >
       <Helmet>
-        <title>{product.name} | Medicamentos JBARREIRO</title>
-        <meta name="description" content={`${product.name} - ${product.description}. Distribuidora farmacéutica en República Dominicana.`} />
-        <meta name="keywords" content={`${product.name}, ${baseName}, medicamentos, farmacia, República Dominicana`} />
+        <title>{`${baseName} (${product.activeIngredient}) | ${product.name} | JBARREIRO`}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="keywords" content={metaKeywords} />
         <link rel="canonical" href={`https://jbarreiro.com.do/productos/${product.id}`} />
 
-        <meta property="og:title" content={`${product.name} | Medicamentos JBARREIRO`} />
-        <meta property="og:description" content={product.description} />
+        <meta property="og:title" content={`${product.name} - ${product.activeIngredient} | JBARREIRO`} />
+        <meta property="og:description" content={metaDescription} />
         <meta property="og:image" content={getCloudinaryUrl(product.id)} />
         <meta property="og:url" content={`https://jbarreiro.com.do/productos/${product.id}`} />
         <meta property="og:type" content="product" />
@@ -80,14 +82,17 @@ export default function ProductDetailView() {
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Product",
+            "@type": "Drug",
             "name": product.name,
-            "description": product.description,
-            "image": getCloudinaryUrl(product.id),
-            "brand": {
-              "@type": "Brand",
-              "name": "JBARREIRO & CO"
+            "alternateName": baseName,
+            "activeIngredient": product.activeIngredient,
+            "nonProprietaryName": product.activeIngredient,
+            "drugClass": {
+              "@type": "DrugClass",
+              "name": product.drugClass
             },
+            "description": `${product.activeIngredient}. ${product.description}`,
+            "image": getCloudinaryUrl(product.id),
             "manufacturer": {
               "@type": "Organization",
               "name": "JBARREIRO & CO",
@@ -96,10 +101,14 @@ export default function ProductDetailView() {
             "url": `https://jbarreiro.com.do/productos/${product.id}`,
             "offers": {
               "@type": "Offer",
-              "price": product.price.replace(/[\$,]/g, ''),
+              "price": product.price.replace(/[$,]/g, ''),
               "priceCurrency": "DOP",
               "availability": "https://schema.org/InStock",
-              "url": `https://jbarreiro.com.do/productos/${product.id}`
+              "url": `https://jbarreiro.com.do/productos/${product.id}`,
+              "seller": {
+                "@type": "Organization",
+                "name": "JBARREIRO & CO"
+              }
             }
           })}
         </script>
@@ -147,13 +156,12 @@ export default function ProductDetailView() {
               )}
             </div>
 
-            {isTaldroFast && (
-              <div className="relative pl-6 py-2 mb-8">
-                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary rounded-full"></div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Principio Activo</p>
-                <p className="text-xl font-bold text-gray-800">{activeIngredient}</p>
-              </div>
-            )}
+            <div className="relative pl-6 py-2 mb-8">
+              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary rounded-full"></div>
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Principio Activo</p>
+              <p className="text-xl font-bold text-gray-800">{activeIngredient}</p>
+              <p className="text-sm text-gray-500 mt-1">{product.drugClass}</p>
+            </div>
 
             <p className="text-lg text-gray-600 mb-10 leading-relaxed font-light">
               {detailDescription || "Medicamento de alta calidad distribuido por JBARREIRO."}

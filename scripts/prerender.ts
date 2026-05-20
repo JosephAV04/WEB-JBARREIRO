@@ -14,6 +14,7 @@ interface RouteMeta {
   path: string;
   title: string;
   description: string;
+  keywords?: string;
   ogImage?: string;
   jsonLd?: Record<string, unknown>;
 }
@@ -23,12 +24,17 @@ const escapeHtml = (s: string) =>
 
 const cloudinaryFor = (id: string) => getCloudinaryUrl(id);
 
+const getBaseName = (name: string) => {
+  const match = name.match(/^(.*?)\s+(X\d+.*|OFERTA.*|\(?\d+X\d+\)?.*)$/i);
+  return match ? match[1].trim() : name;
+};
+
 const routes: RouteMeta[] = [
   {
     path: '/',
     title: `${siteName} | Distribuidora Farmacéutica en República Dominicana`,
     description:
-      'Distribuidora farmacéutica líder en República Dominicana. Abastecemos farmacias con medicamentos de alta calidad: analgésicos, antibióticos, suplementos y más.',
+      'Distribuidora farmacéutica en República Dominicana. Vendemos medicamentos a farmacias con envío a todo el país.',
   },
   {
     path: '/productos',
@@ -42,29 +48,53 @@ const routes: RouteMeta[] = [
     description:
       'Contacta a JBARREIRO & CO para cotización y distribución mayorista de medicamentos en República Dominicana.',
   },
-  ...productsData.map<RouteMeta>(p => ({
-    path: `/productos/${p.id}`,
-    title: `${p.name} | Medicamentos JBARREIRO`,
-    description: `${p.name} - ${p.description.trim()} Distribuidora farmacéutica en República Dominicana.`,
-    ogImage: cloudinaryFor(p.id),
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'Product',
-      name: p.name,
-      description: p.description.trim(),
-      image: cloudinaryFor(p.id),
-      brand: { '@type': 'Brand', name: siteName },
-      manufacturer: { '@type': 'Organization', name: siteName, url: baseUrl },
-      url: `${baseUrl}/productos/${p.id}`,
-      offers: {
-        '@type': 'Offer',
-        price: p.price.replace(/[\$,]/g, ''),
-        priceCurrency: 'DOP',
-        availability: 'https://schema.org/InStock',
-        url: `${baseUrl}/productos/${p.id}`,
+  ...productsData.map<RouteMeta>(p => {
+    const baseName = getBaseName(p.name);
+    const url = `${baseUrl}/productos/${p.id}`;
+    return {
+      path: `/productos/${p.id}`,
+      title: `${baseName} (${p.activeIngredient}) | ${p.name} | JBARREIRO`,
+      description: `${p.name} - ${p.activeIngredient}. ${p.description.trim()} ${p.drugClass}. Distribuidora farmacéutica JBARREIRO en República Dominicana.`,
+      keywords: [
+        p.name,
+        baseName,
+        p.activeIngredient,
+        p.drugClass,
+        'medicamentos',
+        'farmacia',
+        'República Dominicana',
+        'JBARREIRO',
+      ].join(', '),
+      ogImage: cloudinaryFor(p.id),
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'Drug',
+        name: p.name,
+        alternateName: baseName,
+        activeIngredient: p.activeIngredient,
+        nonProprietaryName: p.activeIngredient,
+        drugClass: {
+          '@type': 'DrugClass',
+          name: p.drugClass,
+        },
+        description: `${p.activeIngredient}. ${p.description.trim()}`,
+        image: cloudinaryFor(p.id),
+        manufacturer: { '@type': 'Organization', name: siteName, url: baseUrl },
+        url,
+        offers: {
+          '@type': 'Offer',
+          price: p.price.replace(/[$,]/g, ''),
+          priceCurrency: 'DOP',
+          availability: 'https://schema.org/InStock',
+          url,
+          seller: {
+            '@type': 'Organization',
+            name: siteName,
+          },
+        },
       },
-    },
-  })),
+    };
+  }),
 ];
 
 const buildHead = (r: RouteMeta) => {
@@ -75,9 +105,12 @@ const buildHead = (r: RouteMeta) => {
   const ldJson = r.jsonLd
     ? `\n    <script type="application/ld+json">${JSON.stringify(r.jsonLd)}</script>`
     : '';
+  const keywordsTag = r.keywords
+    ? `\n    <meta name="keywords" content="${escapeHtml(r.keywords)}" />`
+    : '';
   return `
     <title>${title}</title>
-    <meta name="description" content="${desc}" />
+    <meta name="description" content="${desc}" />${keywordsTag}
     <link rel="canonical" href="${url}" />
     <meta property="og:title" content="${title}" />
     <meta property="og:description" content="${desc}" />
@@ -88,6 +121,7 @@ const buildHead = (r: RouteMeta) => {
 
 const titleRegex = /<title>[\s\S]*?<\/title>/;
 const descRegex = /<meta\s+name="description"[^>]*>/;
+const keywordsRegex = /<meta\s+name="keywords"[^>]*>/;
 const canonicalRegex = /<link\s+rel="canonical"[^>]*>/;
 const ogTitleRegex = /<meta\s+property="og:title"[^>]*>/;
 const ogDescRegex = /<meta\s+property="og:description"[^>]*>/;
@@ -97,10 +131,10 @@ const ogTypeRegex = /<meta\s+property="og:type"[^>]*>/;
 
 const renderRoute = (r: RouteMeta) => {
   let html = indexHtml;
-  // Strip the existing default head tags we are replacing.
   html = html
     .replace(titleRegex, '')
     .replace(descRegex, '')
+    .replace(keywordsRegex, '')
     .replace(canonicalRegex, '')
     .replace(ogTitleRegex, '')
     .replace(ogDescRegex, '')

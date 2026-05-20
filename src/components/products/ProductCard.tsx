@@ -12,10 +12,6 @@ function getProductPresentation(name: string) {
   return { baseName: name, presentation: null };
 }
 
-function formatActiveIngredient(text: string) {
-  return text.replace(/MG/gi, 'mg').trim();
-}
-
 export default function ProductCard({
   product,
   index,
@@ -25,11 +21,8 @@ export default function ProductCard({
   index: number;
   variant?: 'default' | 'featured';
 }) {
-  const isTaldroFast = product.id.startsWith('taldro-fast');
-  const activeIngredient = formatActiveIngredient(product.description.split('.')[0]);
-  const cardDescription = isTaldroFast
-    ? product.description.split('.').slice(1).join('.').trim()
-    : product.description;
+  const activeIngredient = product.activeIngredient;
+  const cardDescription = product.description;
   const { baseName, presentation } = getProductPresentation(product.name);
 
   const isStar = product.tag === 'estrella';
@@ -94,11 +87,9 @@ export default function ProductCard({
           </div>
 
           <div className="px-1 flex-grow flex flex-col relative">
-            {isTaldroFast && (
-              <p className="text-[11px] font-bold text-primary/80 uppercase tracking-widest mb-1.5 line-clamp-1">
-                {activeIngredient}
-              </p>
-            )}
+            <p className="text-[11px] font-bold text-primary/80 uppercase tracking-widest mb-1.5 line-clamp-1">
+              {activeIngredient}
+            </p>
 
             <h3 className="text-2xl font-black leading-tight mb-3 text-gray-900 md:group-hover:text-primary transition-colors">
               {baseName}

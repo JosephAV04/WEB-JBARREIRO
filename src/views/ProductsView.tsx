@@ -1,13 +1,14 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Pill, Search, X, Sparkles } from 'lucide-react';
+import { Search, X, Sparkles } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { productsData } from '../data/products';
 import ProductCard from '../components/products/ProductCard';
 
+const QUICK_FILTERS = ['TALDRO', 'Antibiótico', 'Dolor', 'Hierro'];
+
 export default function ProductsView() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [displayCount, setDisplayCount] = useState(16);
 
   const filteredProducts = useMemo(() => {
     return productsData.filter(product =>
@@ -28,12 +29,8 @@ export default function ProductsView() {
   }, [filteredProducts]);
 
   const isSearching = searchTerm.length > 0;
-  const featuredList = sortedProducts.filter(p => p.featured);
-  const restList = sortedProducts.filter(p => !p.featured);
-  const visibleRest = restList.slice(0, Math.max(0, displayCount - featuredList.length));
-  const totalVisible = featuredList.length + visibleRest.length;
-
-  const visibleSearchProducts = sortedProducts.slice(0, displayCount);
+  const newList = sortedProducts.filter(p => p.tag === 'estrella');
+  const restList = sortedProducts.filter(p => p.tag !== 'estrella');
 
   return (
     <motion.div
@@ -48,63 +45,89 @@ export default function ProductsView() {
       <div className="absolute top-0 left-0 w-full h-[60vh] z-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-[60px] md:blur-[100px]"></div>
         <div className="absolute top-[20%] right-[-10%] w-[30vw] h-[30vw] bg-emerald-400/5 rounded-full blur-[60px] md:blur-[80px]"></div>
-
-        <motion.div animate={{ y: [0, -15, 0], rotate: [0, 90, 0] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} className="absolute top-[10%] md:top-[25%] left-[5%] md:left-[20%] text-primary/20 hidden md:block">
-          <svg width="30" height="30" className="md:w-[40px] md:h-[40px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-        </motion.div>
-
-        <motion.div animate={{ y: [0, 30, 0], x: [0, 15, 0], rotate: [0, 45, 0] }} transition={{ duration: 18, repeat: Infinity }} className="absolute top-[5%] md:top-[35%] right-[10%] md:left-[10%] text-primary/10 hidden md:block">
-          <Pill size={60} className="md:w-[100px] md:h-[100px]" />
-        </motion.div>
       </div>
 
-      <div className="relative pt-10 pb-12 md:pt-16 lg:pt-24 lg:pb-16 z-10">
+      <div className="relative pt-12 pb-12 md:pt-20 lg:pt-28 lg:pb-20 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-          <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}
-              className="inline-flex items-center px-4 py-2 rounded-full bg-white shadow-sm border border-gray-100 text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-4 md:mb-6"
-            >
-              <span className="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"></span>
-              Catálogo Completo
-            </motion.div>
-            <h1 className="text-5xl md:text-6xl lg:text-[5rem] font-black text-gray-900 tracking-tighter leading-[1.1]">
-              Nuestros <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400 pr-2">Productos</span>
-            </h1>
-          </div>
+          <div className="grid grid-cols-12 gap-y-12 lg:gap-x-10 items-end">
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="max-w-3xl mx-auto w-full relative z-20"
-          >
-            <div className="flex items-center bg-white p-3 rounded-full shadow-[0_15px_40px_-15px_rgba(0,0,0,0.1)] border border-gray-100 focus-within:shadow-[0_20px_50px_-15px_rgba(27,166,75,0.2)] focus-within:border-primary/30 transition-all duration-500 transform hover:-translate-y-1">
-              <div className="pl-4 md:pl-6 pr-2 md:pr-4 flex items-center justify-center">
-                <Search className="h-5 w-5 md:h-6 md:w-6 text-primary/60" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
+              className="col-span-12 lg:col-span-7"
+            >
+              <div className="flex items-center gap-4 mb-6 md:mb-8 text-[11px] font-mono uppercase tracking-[0.3em] text-gray-400">
+                <span className="text-gray-700 font-semibold">JB · Catálogo</span>
+                <span className="h-px w-12 bg-gray-300"></span>
+                <span>{productsData.length} referencias</span>
               </div>
-              <input
-                type="text"
-                className="block w-full py-2 md:py-4 bg-transparent border-0 focus:ring-0 text-lg md:text-xl text-gray-900 font-bold placeholder-gray-300 focus:outline-none"
-                placeholder="Buscar molécula, marca..."
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setDisplayCount(16);
-                }}
-              />
-              <AnimatePresence>
-                {searchTerm.length > 0 && (
-                  <motion.button
-                    initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }}
-                    onClick={() => setSearchTerm('')}
-                    className="p-2 md:p-3 mr-2 text-gray-400 hover:text-white bg-gray-100 hover:bg-primary rounded-full transition-colors focus:outline-none"
+
+              <h1 className="font-black text-gray-900 tracking-tight leading-[0.9]">
+                <span className="block text-[3.25rem] sm:text-6xl md:text-7xl lg:text-[6.5rem]">Nuestros</span>
+                <span className="block text-[3.25rem] sm:text-6xl md:text-7xl lg:text-[6.5rem] italic font-light text-primary -mt-1 md:-mt-2">
+                  productos<span className="text-gray-900">.</span>
+                </span>
+              </h1>
+
+              <p className="text-gray-500 max-w-md mt-6 md:mt-8 text-base md:text-lg leading-relaxed">
+                Línea farmacéutica con foco en accesibilidad y calidad. Buscá por molécula, marca o presentación.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}
+              className="col-span-12 lg:col-span-5 lg:pl-10 lg:border-l lg:border-gray-200"
+            >
+              <label htmlFor="catalog-search" className="block text-[10px] font-mono font-bold uppercase tracking-[0.35em] text-gray-400 mb-4">
+                <span className="text-gray-600">→</span> Buscar en el catálogo
+              </label>
+
+              <div className="relative group">
+                <Search
+                  className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 group-focus-within:text-primary transition-colors"
+                  strokeWidth={2.5}
+                />
+                <input
+                  id="catalog-search"
+                  type="text"
+                  className="w-full pl-9 pr-10 py-4 bg-transparent border-0 border-b-2 border-gray-200 focus:border-primary text-lg md:text-xl text-gray-900 font-semibold placeholder:text-gray-300 placeholder:font-normal focus:outline-none transition-colors duration-300"
+                  placeholder="Pregabalina, Tadalafilo, Celecoxib..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <AnimatePresence>
+                  {searchTerm.length > 0 && (
+                    <motion.button
+                      initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }}
+                      onClick={() => setSearchTerm('')}
+                      aria-label="Limpiar búsqueda"
+                      className="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-gray-900 transition-colors focus:outline-none"
+                    >
+                      <X size={18} />
+                    </motion.button>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 mt-5">
+                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-gray-400 mr-1">Sugerencias</span>
+                {QUICK_FILTERS.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => setSearchTerm(s)}
+                    className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
+                      searchTerm.toLowerCase() === s.toLowerCase()
+                        ? 'bg-primary text-white border border-primary'
+                        : 'bg-white text-gray-600 border border-gray-200 hover:border-gray-400 hover:text-gray-900'
+                    }`}
                   >
-                    <X size={18} />
-                  </motion.button>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </div>
 
@@ -137,24 +160,19 @@ export default function ProductsView() {
             </button>
           </div>
         ) : isSearching ? (
-          <>
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {visibleSearchProducts.map((product, index) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  index={index}
-                  variant={product.featured ? 'featured' : 'default'}
-                />
-              ))}
-            </div>
-            {displayCount < sortedProducts.length && (
-              <LoadMoreButton onClick={() => setDisplayCount(prev => prev + 16)} />
-            )}
-          </>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {sortedProducts.map((product, index) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                index={index}
+                variant={product.featured ? 'featured' : 'default'}
+              />
+            ))}
+          </div>
         ) : (
           <>
-            {featuredList.length > 0 && (
+            {newList.length > 0 && (
               <section className="mb-16 md:mb-20">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -171,18 +189,18 @@ export default function ProductsView() {
                       Lo nuevo en catálogo
                     </h2>
                     <p className="text-gray-500 mt-2 text-sm md:text-base">
-                      Familia <span className="font-black text-amber-600">TALDRO</span> y novedades destacadas de nuestra línea.
+                      Las últimas incorporaciones a nuestra línea farmacéutica.
                     </p>
                   </div>
                   <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">
-                    {featuredList.length} productos
+                    {newList.length} {newList.length === 1 ? 'producto' : 'productos'}
                   </span>
                 </motion.div>
 
                 <div className="relative">
                   <div className="absolute -inset-x-4 -inset-y-6 md:-inset-x-8 md:-inset-y-10 -z-10 rounded-[3rem] bg-gradient-to-br from-amber-50/40 via-white to-emerald-50/30 border border-amber-100/50 hidden md:block"></div>
                   <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {featuredList.map((product, index) => (
+                    {newList.map((product, index) => (
                       <ProductCard key={product.id} product={product} index={index} variant="featured" />
                     ))}
                   </div>
@@ -213,32 +231,20 @@ export default function ProductsView() {
                 </motion.div>
 
                 <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {visibleRest.map((product, index) => (
-                    <ProductCard key={product.id} product={product} index={index} />
+                  {restList.map((product, index) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      index={index}
+                      variant={product.featured ? 'featured' : 'default'}
+                    />
                   ))}
                 </div>
-
-                {totalVisible < sortedProducts.length && (
-                  <LoadMoreButton onClick={() => setDisplayCount(prev => prev + 16)} />
-                )}
               </section>
             )}
           </>
         )}
       </div>
     </motion.div>
-  );
-}
-
-function LoadMoreButton({ onClick }: { onClick: () => void }) {
-  return (
-    <div className="mt-16 md:mt-20 text-center">
-      <button onClick={onClick} className="inline-flex items-center px-10 py-4 bg-white text-gray-900 border border-gray-200 font-bold rounded-full hover:border-primary hover:text-primary shadow-sm hover:shadow-[0_10px_30px_-10px_rgba(27,166,75,0.3)] transition-all duration-300 transform md:hover:-translate-y-1 text-base group">
-        Mostrar más catálogo
-        <svg className="ml-3 w-5 h-5 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </button>
-    </div>
   );
 }
