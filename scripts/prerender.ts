@@ -54,7 +54,7 @@ const routes: RouteMeta[] = [
     return {
       path: `/productos/${p.id}`,
       title: `${baseName} (${p.activeIngredient}) | ${p.name} | JBARREIRO`,
-      description: `${p.name} - ${p.activeIngredient}. ${p.description.trim()} ${p.drugClass}. Distribuidora farmacéutica JBARREIRO en República Dominicana.`,
+      description: `${p.name} - ${p.activeIngredient}. ${p.description.trim()}${p.drugClass ? ` ${p.drugClass}.` : ''} Distribuidora farmacéutica JBARREIRO en República Dominicana.`,
       keywords: [
         p.name,
         baseName,
@@ -64,7 +64,7 @@ const routes: RouteMeta[] = [
         'farmacia',
         'República Dominicana',
         'JBARREIRO',
-      ].join(', '),
+      ].filter(Boolean).join(', '),
       ogImage: cloudinaryFor(p.id),
       jsonLd: {
         '@context': 'https://schema.org',
@@ -73,10 +73,12 @@ const routes: RouteMeta[] = [
         alternateName: baseName,
         activeIngredient: p.activeIngredient,
         nonProprietaryName: p.activeIngredient,
-        drugClass: {
-          '@type': 'DrugClass',
-          name: p.drugClass,
-        },
+        ...(p.drugClass ? {
+          drugClass: {
+            '@type': 'DrugClass',
+            name: p.drugClass,
+          },
+        } : {}),
         description: `${p.activeIngredient}. ${p.description.trim()}`,
         image: cloudinaryFor(p.id),
         manufacturer: { '@type': 'Organization', name: siteName, url: baseUrl },

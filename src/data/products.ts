@@ -5,7 +5,7 @@ export interface Product {
   name: string;
   description: string;
   activeIngredient: string;
-  drugClass: string;
+  drugClass?: string;
   price: string;
   featured?: boolean;
   tag?: ProductTag;
@@ -178,7 +178,6 @@ export const productsData: Product[] = [
     id: 'lumdocer-30',
     name: 'LUMDOCER X30',
     activeIngredient: 'Pregabalina 75 mg',
-    drugClass: 'Anticonvulsivante / análogo de GABA',
     description: 'Modulador del dolor neuropático y coadyuvante ansiolítico.',
     price: '$1,990.00',
   },

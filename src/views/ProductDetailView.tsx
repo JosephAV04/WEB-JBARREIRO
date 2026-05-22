@@ -47,7 +47,7 @@ export default function ProductDetailView() {
 
   const { baseName, presentation } = getProductPresentation(product.name);
   const isSuspension = product.id === 'hematocri-suspension' || product.id.startsWith('taldro-fast');
-  const metaDescription = `${product.name} - ${product.activeIngredient}. ${product.description} ${product.drugClass}. Distribuidora farmacéutica JBARREIRO en República Dominicana.`;
+  const metaDescription = `${product.name} - ${product.activeIngredient}. ${product.description}${product.drugClass ? ` ${product.drugClass}.` : ''} Distribuidora farmacéutica JBARREIRO en República Dominicana.`;
   const metaKeywords = [
     product.name,
     baseName,
@@ -57,7 +57,7 @@ export default function ProductDetailView() {
     'farmacia',
     'República Dominicana',
     'JBARREIRO',
-  ].join(', ');
+  ].filter(Boolean).join(', ');
 
   return (
     <motion.div
@@ -87,10 +87,12 @@ export default function ProductDetailView() {
             "alternateName": baseName,
             "activeIngredient": product.activeIngredient,
             "nonProprietaryName": product.activeIngredient,
-            "drugClass": {
-              "@type": "DrugClass",
-              "name": product.drugClass
-            },
+            ...(product.drugClass ? {
+              "drugClass": {
+                "@type": "DrugClass",
+                "name": product.drugClass
+              }
+            } : {}),
             "description": `${product.activeIngredient}. ${product.description}`,
             "image": getCloudinaryUrl(product.id),
             "manufacturer": {
@@ -160,7 +162,9 @@ export default function ProductDetailView() {
               <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary rounded-full"></div>
               <p className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Principio Activo</p>
               <p className="text-xl font-bold text-gray-800">{activeIngredient}</p>
-              <p className="text-sm text-gray-500 mt-1">{product.drugClass}</p>
+              {product.drugClass && (
+                <p className="text-sm text-gray-500 mt-1">{product.drugClass}</p>
+              )}
             </div>
 
             <p className="text-lg text-gray-600 mb-10 leading-relaxed font-light">
