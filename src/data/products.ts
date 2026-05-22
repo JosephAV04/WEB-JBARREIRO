@@ -32,6 +32,8 @@ export const IMAGE_MAP: Record<string, string> = {
   'taldro-5mg-30': 'TALDRO 5mg',
   'taldro-fast-x10-20ml': 'TALDRO_FAST_X10_xu13er',
   'taldro-fast-frasco-240ml': 'TALDRO_FAST_240_ML_ps8sms',
+  'barre-ross-20-30': 'BARRE_ROSS_20_mg_nwmi5v',
+  'barre-ross-40-30': 'BARRE_ROSS_40_mg_u4birx',
   'melocox2-100': 'MELOCOX2 X100',
   'xib-p-10': 'XIB P',
   'xib-p-50': 'XIB P',
@@ -39,12 +41,17 @@ export const IMAGE_MAP: Record<string, string> = {
   'xib-400mg-50': 'XIB 400mg x50',
 };
 
+const ROOT_LEVEL_IMAGE_IDS = new Set([
+  'taldro-fast-x10-20ml',
+  'taldro-fast-frasco-240ml',
+  'barre-ross-20-30',
+  'barre-ross-40-30',
+]);
+
 export const getCloudinaryUrl = (productId: string) => {
   const cloudName = 'didhygevw';
   const fileName = IMAGE_MAP[productId] || productId;
-  const isTaldroFast =
-    productId === 'taldro-fast-x10-20ml' || productId === 'taldro-fast-frasco-240ml';
-  const basePath = isTaldroFast ? '' : 'catalogo_productos/';
+  const basePath = ROOT_LEVEL_IMAGE_IDS.has(productId) ? '' : 'catalogo_productos/';
   return `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto,c_pad,w_600,h_600/${basePath}${encodeURIComponent(fileName)}`;
 };
 
@@ -227,6 +234,26 @@ export const productsData: Product[] = [
     price: '$2,000.00',
     featured: true,
     tag: 'estrella',
+  },
+  {
+    id: 'barre-ross-20-30',
+    name: 'BARRE ROSS 20mg X30 OFERTA (2X1)',
+    activeIngredient: 'Rosuvastatina 20 mg',
+    drugClass: 'Estatina (inhibidor de HMG-CoA reductasa)',
+    description: 'Indicada para reducir el colesterol LDL y triglicéridos en pacientes con dislipidemia.',
+    price: '$0.00',
+    featured: true,
+    tag: 'oferta',
+  },
+  {
+    id: 'barre-ross-40-30',
+    name: 'BARRE ROSS 40mg X30 OFERTA (2X1)',
+    activeIngredient: 'Rosuvastatina 40 mg',
+    drugClass: 'Estatina (inhibidor de HMG-CoA reductasa)',
+    description: 'Indicada para reducir el colesterol LDL y triglicéridos en pacientes con dislipidemia.',
+    price: '$0.00',
+    featured: true,
+    tag: 'oferta',
   },
   {
     id: 'xib-p-10',
