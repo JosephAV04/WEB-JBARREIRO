@@ -48,16 +48,24 @@ export default function Navbar() {
             <div className="relative z-10 px-6 sm:px-10 md:px-14 h-full flex items-center justify-center">
               <img
                 src={logoEmpresa}
-                alt="JBARREIRO Logo"
+                alt="JBARREIRO & CO - Distribuidora Farmacéutica en República Dominicana"
                 className="h-[60%] sm:h-[70%] w-auto object-contain transition-transform duration-500 group-hover:scale-105"
               />
             </div>
           </Link>
 
-          <nav className="hidden md:flex space-x-2 h-full items-center">
-            <Link to="/" className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}>Inicio</Link>
-            <Link to="/productos" className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/productos') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}>Productos</Link>
-            <Link to="/contacto" className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/contacto') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}>Contacto</Link>
+          <nav aria-label="Navegación principal" className="hidden md:flex h-full items-center">
+            <ul role="list" className="flex space-x-2 h-full items-center m-0 p-0 list-none">
+              <li className="h-full flex items-center">
+                <Link to="/" className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}>Inicio</Link>
+              </li>
+              <li className="h-full flex items-center">
+                <Link to="/productos" className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/productos') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}>Productos</Link>
+              </li>
+              <li className="h-full flex items-center">
+                <Link to="/contacto" className={`px-6 flex items-center h-full text-lg font-bold transition-all duration-300 border-b-[6px] ${isActive('/contacto') ? 'border-white bg-white/10 text-white' : 'border-transparent text-white/80 hover:border-white/50 hover:bg-white/5 hover:text-white'}`}>Contacto</Link>
+              </li>
+            </ul>
           </nav>
 
         </div>

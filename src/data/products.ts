@@ -61,7 +61,7 @@ export const productsData: Product[] = [
     name: 'BARRE-ITIS X5',
     activeIngredient: 'Azitromicina 500 mg',
     drugClass: 'Antibiótico macrólido',
-    description: 'Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.',
+    description: 'Antibiótico macrólido en presentación corta de 5 cápsulas. Ideal para tratamientos breves tipo Z-pack.',
     price: '$769.00',
   },
   {
@@ -69,7 +69,7 @@ export const productsData: Product[] = [
     name: 'BARRE-ITIS X20',
     activeIngredient: 'Azitromicina 500 mg',
     drugClass: 'Antibiótico macrólido',
-    description: 'Antibiótico de amplio espectro para el tratamiento de diversas infecciones bacterianas.',
+    description: 'Antibiótico macrólido en caja de 20 cápsulas. Apropiado para tratamientos prolongados o uso continuo en farmacias.',
     price: '$3,076.00',
   },
   {
@@ -103,7 +103,7 @@ export const productsData: Product[] = [
     name: 'DIC-B X10',
     activeIngredient: 'Diclofenaco + Complejo B (B1, B6, B12)',
     drugClass: 'AINE con complejo B neurotrópico',
-    description: 'Combinación analgésica, antiinflamatoria y neurotrópica.',
+    description: 'Combinación analgésica con complejo B en presentación de 10 comprimidos. Para alivio puntual de cuadros agudos.',
     price: '$500.00',
   },
   {
@@ -111,7 +111,7 @@ export const productsData: Product[] = [
     name: 'DIC-B X100',
     activeIngredient: 'Diclofenaco + Complejo B (B1, B6, B12)',
     drugClass: 'AINE con complejo B neurotrópico',
-    description: 'Combinación analgésica, antiinflamatoria y neurotrópica.',
+    description: 'Combinación analgésica con complejo B en caja familiar de 100 comprimidos. Para uso prolongado y dolor crónico.',
     price: '$4,000.00',
   },
   {
@@ -127,7 +127,7 @@ export const productsData: Product[] = [
     name: 'HEMATOCRI X30',
     activeIngredient: 'Fumarato Ferroso 400 mg + Ácido Fólico 1 mg',
     drugClass: 'Antianémico (hierro + ácido fólico)',
-    description: 'Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.',
+    description: 'Suplemento antianémico en caja de 30 comprimidos. Apropiado para tratamientos iniciales o mantenimiento corto.',
     price: '$990.00',
   },
   {
@@ -135,7 +135,7 @@ export const productsData: Product[] = [
     name: 'HEMATOCRI X100',
     activeIngredient: 'Fumarato Ferroso 400 mg + Ácido Fólico 1 mg',
     drugClass: 'Antianémico (hierro + ácido fólico)',
-    description: 'Suplemento antianémico para el tratamiento y prevención de deficiencias de hierro.',
+    description: 'Suplemento antianémico en presentación familiar de 100 comprimidos. Para terapias prolongadas de deficiencia de hierro.',
     price: '$2,990.00',
   },
   {
@@ -240,7 +240,7 @@ export const productsData: Product[] = [
     name: 'BARRE ROSS 20mg X30 OFERTA (2X1)',
     activeIngredient: 'Rosuvastatina 20 mg',
     drugClass: 'Estatina (inhibidor de HMG-CoA reductasa)',
-    description: 'Indicada para reducir el colesterol LDL y triglicéridos en pacientes con dislipidemia.',
+    description: 'Estatina en dosis intermedia de 20 mg, indicada para iniciar terapia hipolipemiante en pacientes con dislipidemia.',
     price: '$0.00',
     featured: true,
     tag: 'oferta',
@@ -250,7 +250,7 @@ export const productsData: Product[] = [
     name: 'BARRE ROSS 40mg X30 OFERTA (2X1)',
     activeIngredient: 'Rosuvastatina 40 mg',
     drugClass: 'Estatina (inhibidor de HMG-CoA reductasa)',
-    description: 'Indicada para reducir el colesterol LDL y triglicéridos en pacientes con dislipidemia.',
+    description: 'Estatina en dosis alta de 40 mg, para pacientes que requieren mayor reducción del colesterol LDL.',
     price: '$0.00',
     featured: true,
     tag: 'oferta',
@@ -268,7 +268,7 @@ export const productsData: Product[] = [
     name: 'XIB 200mg X10',
     activeIngredient: 'Celecoxib 200 mg',
     drugClass: 'AINE inhibidor selectivo de COX-2',
-    description: 'Indicado para el alivio del dolor y la inflamación.',
+    description: 'Antiinflamatorio selectivo COX-2 en dosis estándar de 200 mg. Para alivio del dolor agudo y artritis.',
     price: '$3,000.00',
   },
   {
@@ -276,7 +276,7 @@ export const productsData: Product[] = [
     name: 'XIB 400mg X50',
     activeIngredient: 'Celecoxib 400 mg',
     drugClass: 'AINE inhibidor selectivo de COX-2',
-    description: 'Indicado para el alivio del dolor y la inflamación.',
+    description: 'Antiinflamatorio selectivo COX-2 en dosis alta de 400 mg. Para inflamación intensa que requiere mayor potencia.',
     price: '$3,500.00',
   },
 ];
