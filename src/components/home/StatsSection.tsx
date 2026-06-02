@@ -7,7 +7,7 @@ import { useIsDesktop } from '../../hooks/useIsDesktop';
 const stats = [
   { value: 10, suffix: '+', label: 'Años de experiencia' },
   { value: 50, suffix: '+', label: 'Farmacias aliadas' },
-  { value: 100, suffix: '%', label: 'Calidad certificada' },
+  { value: 100, suffix: '%', label: 'Calidad farmacéutica' },
   { value: 24, suffix: 'h', label: 'Logística de precisión' },
 ];
 

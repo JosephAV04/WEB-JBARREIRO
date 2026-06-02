@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
-import { ArrowRight, ShieldCheck, MapPin, Pill, ChevronDown, Sparkles } from 'lucide-react';
+import { ArrowRight, MapPin, Pill, ChevronDown, Sparkles } from 'lucide-react';
 import frenteImg from '../../assets/Frente JBARREIRO.jpg';
 import { useIsDesktop } from '../../hooks/useIsDesktop';
 
@@ -153,27 +153,6 @@ export default function HeroSection() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, scale: 0.6, x: 30, y: -30 }}
-                animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-                transition={{ duration: 0.7, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -top-6 -right-3 md:-top-8 md:-right-8 z-30"
-              >
-                <motion.div
-                  animate={enableHeavyFx ? { y: [0, -10, 0], rotate: [-2, 2, -2] } : undefined}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                  className="bg-white px-4 py-3 md:px-5 md:py-4 rounded-2xl shadow-2xl border border-gray-100 flex items-center gap-3"
-                >
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary to-emerald-500 rounded-xl flex items-center justify-center text-white shadow-glow-primary">
-                    <ShieldCheck size={20} />
-                  </div>
-                  <div>
-                    <p className="text-[9px] md:text-[10px] font-bold text-gray-400 uppercase tracking-wider">Certificado</p>
-                    <p className="text-sm md:text-base font-black text-gray-900 leading-tight">100% Sanitario</p>
-                  </div>
-                </motion.div>
-              </motion.div>
-
-              <motion.div
                 initial={{ opacity: 0, scale: 0.6, x: -30, y: 30 }}
                 animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
                 transition={{ duration: 0.7, delay: 2.0, ease: [0.16, 1, 0.3, 1] }}
@@ -213,7 +192,6 @@ export default function HeroSection() {
           transition={{ delay: 1, duration: 0.8 }}
           className="mt-16 lg:mt-20 flex flex-wrap gap-x-8 gap-y-3 text-sm text-gray-500 justify-center lg:justify-start"
         >
-          <div className="flex items-center gap-2"><ShieldCheck size={16} className="text-primary" /> 100% certificado</div>
           <div className="flex items-center gap-2"><Sparkles size={16} className="text-primary" /> Calidad farmacéutica</div>
           <div className="flex items-center gap-2"><Pill size={16} className="text-primary" /> +25 medicamentos</div>
         </motion.div>
