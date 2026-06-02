@@ -151,7 +151,7 @@ export const productsData: Product[] = [
     name: 'IBONE OFERTA (2X1)',
     activeIngredient: 'Ibandronato 150 mg',
     drugClass: 'Bifosfonato para osteoporosis',
-    description: 'Indicado para el tratamiento de Osteoporosis u Osteopenia.',
+    description: 'Indicado para el tratamiento de la Osteoporosis u Osteopenia.',
     price: '$2,990.00',
     featured: true,
     tag: 'oferta',

@@ -153,14 +153,14 @@ export default function HeroSection() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, scale: 0.6, x: -30, y: 30 }}
+                initial={{ opacity: 0, scale: 0.6, x: 30, y: -30 }}
                 animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-                transition={{ duration: 0.7, delay: 2.0, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -bottom-5 -left-3 md:-bottom-8 md:-left-8 z-30"
+                transition={{ duration: 0.7, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute -top-6 -right-3 md:-top-8 md:-right-8 z-30"
               >
                 <motion.div
-                  animate={enableHeavyFx ? { y: [0, 10, 0], rotate: [2, -2, 2] } : undefined}
-                  transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                  animate={enableHeavyFx ? { y: [0, -10, 0], rotate: [-2, 2, -2] } : undefined}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
                   className="bg-white px-4 py-3 md:px-5 md:py-4 rounded-2xl shadow-2xl border border-gray-100 flex items-center gap-3"
                 >
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-emerald-400 to-primary rounded-xl flex items-center justify-center text-white">
